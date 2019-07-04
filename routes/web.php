@@ -22,11 +22,11 @@ Route::middleware('auth')->group(function (){
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function (){
 	Route::get('table-list', function () {
 		return view('pages.table_list');
 	})->name('table');
@@ -54,9 +54,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('upgrade', function () {
 		return view('pages.upgrade');
 	})->name('upgrade');
+
+	Route::get('webspace','WebspaceController@list')->name('webspace.list');
+	Route::get('department','DepartmentController@list')->name('department.list');
+	Route::get('designation','DesignationController@list')->name('designation.list');
+	Route::get('owner','OwnerController@list')->name('owner.list');
+	Route::get('platform','PlatformController@list')->name('platform.list');
+
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function (){
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);

@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="https://creative-tim.com/" class="simple-text logo-normal">
-      {{ __('Creative Tim') }}
+      {{ __('WRMS') }}
     </a>
   </div>
   <div class="sidebar-wrapper">
@@ -17,71 +17,125 @@
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-      <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
-          <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
-          <p>{{ __('Laravel Examples') }}
+      <li class="nav-item {{ ($activePage == 'webspace_list' || $activePage == 'webspace_new') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#webspace" aria-expanded="false">
+          <i class="material-icons">cloud</i>
+          <p>{{ __('Webspace') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse show" id="laravelExample">
+        <div class="collapse {{ ($activePage == 'webspace_list' || $activePage == 'webspace_new') ? ' show' : '' }}" id="webspace">
           <ul class="nav">
-            <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('profile.edit') }}">
-                <span class="sidebar-mini"> UP </span>
-                <span class="sidebar-normal">{{ __('User profile') }} </span>
+            <li class="nav-item{{ $activePage == 'webspace_list' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('webspace.list') }}">
+                <span class="sidebar-mini"> WL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
-            <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'webspace_new' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('user.index') }}">
-                <span class="sidebar-mini"> UM </span>
-                <span class="sidebar-normal"> {{ __('User Management') }} </span>
+                <span class="sidebar-mini"> WAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
           </ul>
         </div>
       </li>
-      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('table') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Table List') }}</p>
+      <li class="nav-item {{ ($activePage == 'owner_list' || $activePage == 'owner_new') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#owner" aria-expanded="false">
+          <i class="material-icons">face</i>
+          <p>{{ __('Owner') }}
+            <b class="caret"></b>
+          </p>
         </a>
+        <div class="collapse {{ ($activePage == 'owner_list' || $activePage == 'owner_new') ? ' show' : '' }}" id="owner">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'owner_list' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('owner.list') }}">
+                <span class="sidebar-mini"> OL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'owner_new' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="sidebar-mini"> OAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
-      <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('typography') }}">
-          <i class="material-icons">library_books</i>
-            <p>{{ __('Typography') }}</p>
+      <li class="nav-item {{ ($activePage == 'platform_list' || $activePage == 'platform_new') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#platform" aria-expanded="false">
+          <i class="material-icons">domain</i>
+          <p>{{ __('Platform') }}
+            <b class="caret"></b>
+          </p>
         </a>
+        <div class="collapse {{ ($activePage == 'platform_list' || $activePage == 'platform_new') ? ' show' : '' }}" id="platform">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'platform_list' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('platform.list') }}">
+                <span class="sidebar-mini"> PL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'platform_new' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="sidebar-mini"> PAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
-      <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('icons') }}">
-          <i class="material-icons">bubble_chart</i>
-          <p>{{ __('Icons') }}</p>
+      <li class="nav-item {{ ($activePage == 'department_list' || $activePage == 'department_new') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#department" aria-expanded="false">
+        <i class="material-icons">store</i>
+          <p>{{ __('Department') }}
+            <b class="caret"></b>
+          </p>
         </a>
+        <div class="collapse {{ ($activePage == 'department_list' || $activePage == 'department_new') ? ' show' : '' }}" id="department">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'department_list' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('department.list') }}">
+                <span class="sidebar-mini"> DL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'department_new' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="sidebar-mini"> DAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
-      <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('map') }}">
-          <i class="material-icons">location_ons</i>
-            <p>{{ __('Maps') }}</p>
+      <li class="nav-item {{ ($activePage == 'designation_list' || $activePage == 'designation_new') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#designation" aria-expanded="false">
+          <i class="material-icons">how_to_reg</i>
+          <p>{{ __('Designation') }}
+            <b class="caret"></b>
+          </p>
         </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('notifications') }}">
-          <i class="material-icons">notifications</i>
-          <p>{{ __('Notifications') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('language') }}">
-          <i class="material-icons">language</i>
-          <p>{{ __('RTL Support') }}</p>
-        </a>
-      </li>
-      <li class="nav-item active-pro{{ $activePage == 'upgrade' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('upgrade') }}">
-          <i class="material-icons">unarchive</i>
-          <p>{{ __('Upgrade to PRO') }}</p>
-        </a>
+        <div class="collapse {{ ($activePage == 'designation_list' || $activePage == 'designation_new') ? ' show' : '' }}" id="designation">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'designation_list' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('designation.list') }}">
+                <span class="sidebar-mini"> DeL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'designation_new' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="sidebar-mini"> DeAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>
