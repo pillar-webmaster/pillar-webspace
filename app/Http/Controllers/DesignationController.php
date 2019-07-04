@@ -14,4 +14,13 @@ class DesignationController extends Controller
             ->paginate(20);
         return view('designation.list', compact('designations'));
     }
+
+    public function add(){
+        return view('designation.add');
+    }
+
+    public function create(Request $request){
+        dd($request);
+        return false;
+    }
 }

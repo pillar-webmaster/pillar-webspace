@@ -3,23 +3,13 @@
     <nav class="float-left">
       <ul>
         <li>
-          <a href="https://www.creative-tim.com">
-              {{ __('Creative Tim') }}
+          <a href="https://people.sutd.edu.sg/support" target="_blank">
+              {{ __('Support') }}
           </a>
         </li>
         <li>
-          <a href="https://creative-tim.com/presentation">
-              {{ __('About Us') }}
-          </a>
-        </li>
-        <li>
-          <a href="http://blog.creative-tim.com">
-              {{ __('Blog') }}
-          </a>
-        </li>
-        <li>
-          <a href="https://www.creative-tim.com/license">
-              {{ __('Licenses') }}
+          <a href="https://people.sutd.edu.sg/wiki" target="_blank">
+              {{ __('Wiki') }}
           </a>
         </li>
       </ul>
@@ -28,8 +18,7 @@
       &copy;
       <script>
         document.write(new Date().getFullYear())
-      </script>, made with <i class="material-icons">favorite</i> by
-      <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+      </script>, Aaron Angelo Vicuna (Senior Specialist), Singapore University of Technology and Design
     </div>
   </div>
 </footer>

@@ -14,4 +14,13 @@ class WebspaceController extends Controller
             ->paginate(20);
         return view('webspace.list', compact('webspaces'));
     }
+
+    public function add(){
+        return view('webspace.add');
+    }
+
+    public function create(Request $request){
+        dd($request);
+        return false;
+    }
 }

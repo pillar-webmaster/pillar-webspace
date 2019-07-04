@@ -14,4 +14,13 @@ class DepartmentController extends Controller
             ->paginate(20);
         return view('department.list', compact('departments'));
     }
+
+    public function add(){
+        return view('department.add');
+    }
+
+    public function create(Request $request){
+        dd($request);
+        return false;
+    }
 }

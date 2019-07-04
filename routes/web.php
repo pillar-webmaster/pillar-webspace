@@ -61,6 +61,18 @@ Route::middleware('auth')->group(function (){
 	Route::get('owner','OwnerController@list')->name('owner.list');
 	Route::get('platform','PlatformController@list')->name('platform.list');
 
+	Route::get('webspace/add','WebspaceController@add')->name('webspace.add');
+	Route::get('department/add','DepartmentController@add')->name('department.add');
+	Route::get('designation/add','DesignationController@add')->name('designation.add');
+	Route::get('owner/add','OwnerController@add')->name('owner.add');
+	Route::get('platform/add','PlatformController@add')->name('platform.add');
+
+	Route::post('webspace/create','WebspaceController@create')->name('webspace.create');
+	Route::post('department/create','DepartmentController@create')->name('department.create');
+	Route::post('designation/create','DesignationController@create')->name('designation.create');
+	Route::post('owner/create','OwnerController@create')->name('owner.create');
+	Route::post('platform/create','PlatformController@create')->name('platform.create');
+
 });
 
 Route::middleware('auth')->group(function (){

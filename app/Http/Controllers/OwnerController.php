@@ -14,4 +14,13 @@ class OwnerController extends Controller
             ->paginate(20);
         return view('owner.list', compact('owners'));
     }
+
+    public function add(){
+        return view('owner.add');
+    }
+
+    public function create(Request $request){
+        dd($request);
+        return false;
+    }
 }

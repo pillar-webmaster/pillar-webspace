@@ -14,4 +14,13 @@ class PlatformController extends Controller
             ->paginate(20);
         return view('platform.list', compact('platforms'));
     }
+
+    public function add(){
+        return view('platform.add');
+    }
+
+    public function create(Request $request){
+        dd($request);
+        return false;
+    }
 }
