@@ -113,14 +113,14 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item {{ ($activePage == 'designation_list' || $activePage == 'designation_new') ? ' active' : '' }}">
+      <li class="nav-item {{ ($activePage == 'designation_list' || $activePage == 'designation_add') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#designation" aria-expanded="false">
           <i class="material-icons">how_to_reg</i>
           <p>{{ __('Designation') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ ($activePage == 'designation_list' || $activePage == 'designation_new') ? ' show' : '' }}" id="designation">
+        <div class="collapse {{ ($activePage == 'designation_list' || $activePage == 'designation_add') ? ' show' : '' }}" id="designation">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'designation_list' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('designation.list') }}">
@@ -128,7 +128,7 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
-            <li class="nav-item{{ $activePage == 'designation_new' ? ' active' : '' }}">
+            <li class="nav-item{{ $activePage == 'designation_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('designation.add') }}">
                 <span class="sidebar-mini"> DeAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
