@@ -13,7 +13,7 @@ class OwnerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,24 @@ class OwnerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'contact' => ['string', 'max:255'],
+            'email' => ['required', 'email'],
+            'department_id' => ['required', 'integer'],
+            'designation_id' => ['required', 'integer'],
         ];
+    }
+
+    public function sanitize(){
+        $input = $this->all();
+
+        // input fields here eg,
+        $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
+        $input['contact'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
+        $input['email'] = filter_var($input['name'], FILTER_SANITIZE_EMAIL);
+        $input['department_id'] = filter_var($input['name'], FILTER_SANITIZE_NUMBER_INT);
+        $input['designation_id'] = filter_var($input['name'], FILTER_SANITIZE_NUMBER_INT);
+
+        $this->replace($input);
     }
 }

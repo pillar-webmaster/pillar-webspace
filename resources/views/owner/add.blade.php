@@ -34,7 +34,7 @@
                   <option value="">Select</option>
                   @if ($designations->count())
                     @foreach ($designations as $designation)
-                      <option value="{{ $designtion->id }}">{{$designation->name}}</option>
+                      <option value="{{ $designation->id }}">{{$designation->name}}</option>
                     @endforeach
                   @endif
                 </select>
