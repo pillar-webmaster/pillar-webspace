@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Owner;
+use App\Designation;
+use App\Department;
 
 class OwnerController extends Controller
 {
@@ -16,7 +18,9 @@ class OwnerController extends Controller
     }
 
     public function add(){
-        return view('owner.add');
+        $departments = Department::active()->get();
+        $designations = Designation::active()->get();
+        return view('owner.add', compact('departments', 'designations'));
     }
 
     public function create(Request $request){

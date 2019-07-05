@@ -29,28 +29,28 @@
                 <small id="emailHelp" class="form-text text-muted">{{__('Input email address (preferably corporate email address)')}}</small>
               </div>
               <div class="form-group">
-                <label for="designation" class="text-primary">{{__('Designation')}}</label>
-                <select class="form-control" data-style="btn btn-link" id="designation" name="designation" aria-describedby="designationHelp">
+                <label for="mode" class="text-primary">{{__('Status')}}</label>
+                <select class="form-control" data-style="btn btn-link" id="mode" name="mode" aria-describedby="modeHelp">
                   <option value="">Select</option>
-                  @if ($designations->count())
-                    @foreach ($designations as $designation)
-                      <option value="{{ $designtion->id }}">{{$designation->name}}</option>
+                  @if (count($modes))
+                    @foreach ($modes as $key => $value )
+                      <option value="{{ $key }}">{{$value}}</option>
                     @endforeach
                   @endif
                 </select>
-                <small id="designationHelp" class="form-text text-muted">{{__('Select from the list of designations')}}</small>
+                <small id="modeHelp" class="form-text text-muted">{{__('Select from the list of statuses')}}</small>
               </div>
               <div class="form-group">
-                <label for="department" class="text-primary">{{__('Pillar / Department')}}</label>
-                <select class="form-control" data-style="btn btn-link" id="department" name="department" aria-describedby="departmentHelp">
+                <label for="support" class="text-primary">{{__('Support Level')}}</label>
+                <select class="form-control" data-style="btn btn-link" id="support" name="support" aria-describedby="supportHelp">
                   <option value="">Select</option>
-                  @if ($departments->count())
-                    @foreach ($departments as $department)
-                      <option value="{{ $department->id }}">{{$department->name}}</option>
+                  @if (count($levels))
+                    @foreach ($levels as $key => $value )
+                      <option value="{{ $key }}">{{$value}}</option>
                     @endforeach
                   @endif
                 </select>
-                <small id="departmentHelp" class="form-text text-muted">{{__('Select from the list pillars or departments')}}</small>
+                <small id="supportHelp" class="form-text text-muted">{{__('Select from the list of support level')}}</small>
               </div>
               <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
             </form>

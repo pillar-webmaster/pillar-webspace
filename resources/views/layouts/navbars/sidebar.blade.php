@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="/" class="simple-text logo-normal">
-      {{ __('WRMS') }}
+      <h2>{{ __('WRMS') }}</h2>
     </a>
   </div>
   <div class="sidebar-wrapper">
@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'webspace_add' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('user.index') }}">
+              <a class="nav-link" href="{{ route('webspace.add') }}">
                 <span class="sidebar-mini"> WAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
@@ -57,7 +57,7 @@
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'owner_add' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('user.index') }}">
+              <a class="nav-link" href="{{ route('owner.add') }}">
                 <span class="sidebar-mini"> OAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>

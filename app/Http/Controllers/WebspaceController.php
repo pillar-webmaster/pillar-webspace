@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Webspace;
+use App\Webspace as Webspace;
+use App\WebspaceMode as Mode;
+use App\Platform as Platform;
+use App\WebspaceSupportLevel as SupportLevel;
 
 class WebspaceController extends Controller
 {
@@ -15,8 +18,11 @@ class WebspaceController extends Controller
         return view('webspace.list', compact('webspaces'));
     }
 
-    public function add(){
-        return view('webspace.add');
+    public function add(Mode $mode, SupportLevel $level){
+        $platforms = Platform::active()->get();
+        $modes = $mode->all('mode');
+        $levels = $level->all('support_level');
+        return view('webspace.add', compact('platforms', 'modes', 'levels'));
     }
 
     public function create(Request $request){
