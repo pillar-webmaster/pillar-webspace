@@ -7,6 +7,7 @@ use App\Webspace as Webspace;
 use App\WebspaceMode as Mode;
 use App\Platform as Platform;
 use App\WebspaceSupportLevel as SupportLevel;
+use App\Owner;
 
 class WebspaceController extends Controller
 {
@@ -20,9 +21,10 @@ class WebspaceController extends Controller
 
     public function add(Mode $mode, SupportLevel $level){
         $platforms = Platform::active()->get();
+        $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $levels = $level->all('support_level');
-        return view('webspace.add', compact('platforms', 'modes', 'levels'));
+        return view('webspace.add', compact('platforms', 'modes', 'levels', 'owners'));
     }
 
     public function create(Request $request){

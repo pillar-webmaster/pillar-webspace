@@ -1,2 +1,4 @@
 .page-item.active .page-link {background-color: #9c27b0;border-color: #9c27b0;}
 .page-link {color: #9c27b0;}
+.hw-100{height:100px !important;}
+.btn.dropdown-toggle.select-with-transition{float:left;}
