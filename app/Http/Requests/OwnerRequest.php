@@ -23,9 +23,11 @@ class OwnerRequest extends FormRequest
      */
     public function rules()
     {
+        $this->sanitize();
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'contact' => ['string', 'max:255'],
+            'contact' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email'],
             'department_id' => ['required', 'integer'],
             'designation_id' => ['required', 'integer'],
@@ -37,10 +39,10 @@ class OwnerRequest extends FormRequest
 
         // input fields here eg,
         $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
-        $input['contact'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
-        $input['email'] = filter_var($input['name'], FILTER_SANITIZE_EMAIL);
-        $input['department_id'] = filter_var($input['name'], FILTER_SANITIZE_NUMBER_INT);
-        $input['designation_id'] = filter_var($input['name'], FILTER_SANITIZE_NUMBER_INT);
+        $input['contact'] = filter_var($input['contact'], FILTER_SANITIZE_STRING);
+        $input['email'] = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
+        $input['department_id'] = filter_var($input['department_id'], FILTER_SANITIZE_NUMBER_INT);
+        $input['designation_id'] = filter_var($input['designation_id'], FILTER_SANITIZE_NUMBER_INT);
 
         $this->replace($input);
     }

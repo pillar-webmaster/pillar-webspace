@@ -12,6 +12,7 @@ class OwnerController extends Controller
 {
     //
     public function list(){
+
         $owners = Owner::active()
             ->orderBy('created_at','ASC')
             ->paginate(20);
@@ -19,6 +20,7 @@ class OwnerController extends Controller
     }
 
     public function add(){
+
         $departments = Department::active()->get();
         $designations = Designation::active()->get();
         return view('owner.add', compact('departments', 'designations'));

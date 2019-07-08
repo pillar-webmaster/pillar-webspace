@@ -38,6 +38,7 @@
                     <thead class=" text-primary">
                       <th>ID</th>
                       <th>Name</th>
+                      <th>Email</th>
                       <th>Pillar/Department</th>
                       <th></th>
                     </thead>
@@ -47,7 +48,8 @@
                           <tr>
                             <td>{{$owner->id}}</td>
                             <td>{{$owner->name}}</td>
-                            <td>{{$owner->department}}</td>
+                            <td>{{$owner->email}}</td>
+                            <td>{{$owner->department->name}}</td>
                             <td>
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm">
                                 <i class="material-icons">edit</i>
