@@ -46,7 +46,7 @@
                       <option value="">Select</option>
                       @if (count($modes))
                         @foreach ($modes as $key => $value )
-                          <option value="{{ $key }}">{{$value}}</option>
+                          <option value="{{ $key }}" {{ (collect(old("mode"))->contains($key)) ? "selected":"" }}>{{$value}}</option>
                         @endforeach
                       @endif
                     </select>
