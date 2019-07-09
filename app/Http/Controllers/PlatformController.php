@@ -34,4 +34,8 @@ class PlatformController extends Controller
         else
             return redirect()->route('platform.list')->with("error", "There was a problem processing your request");
     }
+
+    public function edit( $id ){
+
+    }
 }

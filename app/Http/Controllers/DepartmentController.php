@@ -21,7 +21,7 @@ class DepartmentController extends Controller
     }
 
     public function create(DepartmentRequest $request){
-        
+
         $department = Department::create([
             'name' => $request->input('name'),
             'status' => 1,
@@ -31,5 +31,9 @@ class DepartmentController extends Controller
             return redirect()->route('department.list')->with("success", "Department '" . $department->name . "' successfully added");
         else
             return redirect()->route('department.list')->with("error", "There was a problem processing your request");
+    }
+
+    public function edit( $id ){
+
     }
 }

@@ -49,7 +49,11 @@
                             <td>{{$webspace->id}}</td>
                             <td>{{$webspace->name}}</td>
                             <td>{{$webspace->url}}</td>
-                            <td>{{$webspace->owner}}</td>
+                            <td>
+                              @foreach ($webspace->owners as $owner)
+                                {{$owner->name}}
+                              @endforeach
+                            </td>
                             <td>
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm">
                                 <i class="material-icons">edit</i>

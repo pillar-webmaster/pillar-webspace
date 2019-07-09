@@ -12,7 +12,7 @@ class DesignationController extends Controller
     public function list(){
         $designations = Designation::active()
             ->orderBy('created_at','ASC')
-            ->paginate(10);
+            ->paginate(20);
         return view('designation.list', compact('designations'));
     }
 
@@ -31,6 +31,10 @@ class DesignationController extends Controller
             return redirect()->route('designation.list')->with("success", "Designation '" . $designation->name . "' successfully added");
         else
             return redirect()->route('designation.list')->with("error", "There was a problem processing your request");
+
+    }
+
+    public function edit( $id ){
 
     }
 }
