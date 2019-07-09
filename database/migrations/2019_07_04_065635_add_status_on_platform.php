@@ -15,7 +15,9 @@ class AddStatusOnPlatform extends Migration
     {
         //
         Schema::table('platforms', function (Blueprint $table) {
+	  if (!Schema::hasColumn('platforms','status')){
             $table->boolean('status');
+	  }
         });
     }
 

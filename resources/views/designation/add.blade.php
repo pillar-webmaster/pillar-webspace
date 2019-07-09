@@ -15,7 +15,7 @@
               @csrf
               <div class="form-group">
                 <label for="name" class="text-primary">{{__('Name')}}</label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}">
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ old('name') }}" required autofocus>
                 <small id="nameHelp" class="form-text text-muted">{{__('Input complete name of designation (no acronym)')}}</small>
               </div>
               <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>

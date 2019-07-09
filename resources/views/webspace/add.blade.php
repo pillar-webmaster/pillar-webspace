@@ -82,7 +82,7 @@
                       <option value="">Select</option>
                       @if (count($platforms))
                         @foreach ($platforms as $platform)
-                          <option value="{{ $platform->id }}">{{$platform->name}}</option>
+                          <option value="{{ $platform->id }}">{{$platform->name." (".$platform->version.")"}}</option>
                         @endforeach
                       @endif
                     </select>
@@ -113,7 +113,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="description" class="text-primary">{{__('Description')}}</label>
-                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{ old('description') }}"</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                       <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
                     @endif
