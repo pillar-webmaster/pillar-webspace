@@ -73,6 +73,12 @@ Route::middleware('auth')->group(function (){
 	Route::post('owner/create','OwnerController@create')->name('owner.create');
 	Route::post('platform/create','PlatformController@create')->name('platform.create');
 
+	Route::get('webspace/edit/{id}','WebspaceController@edit')->name('webspace.edit');
+	Route::get('department/edit/{id}','DepartmentController@edit')->name('department.edit');
+	Route::get('designation/edit/{id}','DesignationController@edit')->name('designation.edit');
+	Route::get('owner/edit/{id}','OwnerController@edit')->name('owner.edit');
+	Route::get('platform/edit/{id}','PlatformController@edit')->name('platform.edit');
+
 });
 
 Route::middleware('auth')->group(function (){

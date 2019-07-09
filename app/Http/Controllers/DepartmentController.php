@@ -34,6 +34,7 @@ class DepartmentController extends Controller
     }
 
     public function edit( $id ){
-
+        dd($id);
+        return false;
     }
 }
