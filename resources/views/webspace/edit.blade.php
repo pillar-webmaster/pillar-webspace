@@ -99,7 +99,9 @@
                     <select multiple="multiple" class="form-control selectpicker hw-100" data-style="select-with-transition" data-live-search="true" id="owner" name="owner[]" data-size="7" required autofocus>
                       @if (count($owners))
                         @foreach ($owners as $owner )
-                          <option value="{{ $owner->id }}">{{$owner->name}}</option>
+                          <!--@foreach($owner->webspaces as $ow)-->
+                            <option value="{{ $owner->id }}" {{ (collect($ow->id)->contains($owner->id)) ? "selected":"" }}>{{$owner->name}}</option>
+                          <!--@endforeach-->
                         @endforeach
                       @endif
                     </select>

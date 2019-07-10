@@ -18,7 +18,6 @@ class WebspaceController extends Controller
             ->orderBy('created_at','DESC')
             ->paginate(20);
 
-        //dd(Webspace::find([11])->owners());
         return view('webspace.list', compact('webspaces'));
     }
 
@@ -58,7 +57,10 @@ class WebspaceController extends Controller
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
-
+        //foreach ($owners as $ow)
+        //    var_dump($ow->webspaces->id);
+        //dd();
+        dd($owners);
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace'));
     }
 
