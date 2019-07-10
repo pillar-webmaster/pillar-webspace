@@ -52,8 +52,17 @@ class WebspaceController extends Controller
             return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
     }
 
-    public function edit( $id ){
-        dd($id);
-        return false;
+    public function edit( $id, Mode $mode, SupportLevel $level ){
+        $webspace = Webspace::findOrFail($id);
+        $platforms = Platform::active()->get();
+        $owners = Owner::active()->get();
+        $modes = $mode->all('mode');
+        $services = $level->all('support_level');
+
+        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace'));
+    }
+
+    public function update(){
+        return __METHOD__;
     }
 }

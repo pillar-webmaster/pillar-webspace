@@ -55,7 +55,7 @@
                               @endforeach
                             </td>
                             <td>
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm">
+                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
                               <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">

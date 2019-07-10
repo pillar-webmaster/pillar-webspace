@@ -47,7 +47,7 @@
                             <td>{{$platform->id}}</td>
                             <td>{{$platform->name}}</td>
                             <td>
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm">
+                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
                               <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">

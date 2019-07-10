@@ -34,7 +34,11 @@ class DepartmentController extends Controller
     }
 
     public function edit( $id ){
-        dd($id);
-        return false;
+        $department = Department::findOrFail($id);
+        return view('department.edit', compact('department'));
+    }
+
+    public function update(){
+        return __METHOD__;
     }
 }

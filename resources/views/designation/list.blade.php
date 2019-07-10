@@ -47,7 +47,7 @@
                             <td>{{$designation->id}}</td>
                             <td>{{$designation->name}}</td>
                             <td>
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm">
+                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('designation.edit',['id' => $designation->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
                               <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">

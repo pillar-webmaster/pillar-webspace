@@ -36,7 +36,11 @@ class PlatformController extends Controller
     }
 
     public function edit( $id ){
-        dd($id);
-        return false;
+        $platform = Platform::findOrFail($id);
+        return view('platform.edit', compact('platform'));
+    }
+
+    public function update(){
+        return __METHOD__;
     }
 }

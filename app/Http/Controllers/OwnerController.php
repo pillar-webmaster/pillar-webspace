@@ -44,7 +44,13 @@ class OwnerController extends Controller
     }
 
     public function edit( $id ){
-        dd($id);
-        return false;
+        $owner = Owner::findOrFail($id);
+        $departments = Department::active()->get();
+        $designations = Designation::active()->get();
+        return view('owner.edit', compact('departments', 'designations', 'owner'));
+    }
+
+    public function update(){
+        return __METHOD__;
     }
 }

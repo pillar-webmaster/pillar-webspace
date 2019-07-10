@@ -35,7 +35,11 @@ class DesignationController extends Controller
     }
 
     public function edit( $id ){
-        dd($id);
-        return false;
+        $designation = Designation::findOrFail($id);
+        return view('designation.edit', compact('designation'));
+    }
+
+    public function update(){
+        return __METHOD__;
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'owner_add', 'titlePage' => __('Owner')])
+@extends('layouts.app', ['activePage' => 'owner_list', 'titlePage' => __('Owner')])
 
 @section('content')
 <div class="content">
@@ -7,15 +7,15 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">{{__('Create')}}</h4>
-            <p class="card-category">{{__('Add a new owner')}}</p>
+            <h4 class="card-title ">{{__('Edit')}}</h4>
+            <p class="card-category">{{__('Update an owner')}}</p>
           </div>
           <div class="card-body">
-            <form method="POST" action="{{ route('owner.create') }}">
+            <form method="POST" action="{{ route('owner.update') }}">
               @csrf
               <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                 <label for="name" class="text-primary">{{__('Name')}}</label>
-                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ old('name') }}" required autofocus>
+                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ $owner->name }}" required autofocus>
                 @if ($errors->has('name'))
                   <span id="name-error" class="error text-danger" for="name">{{ $errors->first('name') }}</span>
                 @endif
@@ -23,7 +23,7 @@
               </div>
               <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                 <label for="contact" class="text-primary">{{__('Contact Number.')}}</label>
-                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="contact" name="contact" aria-describedby="contactHelp" placeholder="Enter contact number" value="{{ old('contact') }}">
+                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="contact" name="contact" aria-describedby="contactHelp" placeholder="Enter contact number" value="{{ $owner->contact }}">
                 @if ($errors->has('name'))
                   <span id="contact-error" class="error text-danger" for="contact">{{ $errors->first('contact') }}</span>
                 @endif
@@ -31,7 +31,7 @@
               </div>
               <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                 <label for="email" class="text-primary">{{__('Email')}}</label>
-                <input type="email" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email address" value="{{ old('email') }}" required autofocus>
+                <input type="email" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email address" value="{{ $owner->email }}" required autofocus>
                 @if ($errors->has('name'))
                   <span id="email-error" class="error text-danger" for="email">{{ $errors->first('email') }}</span>
                 @endif
@@ -43,7 +43,7 @@
                   <option value="">Select</option>
                   @if ($designations->count())
                     @foreach ($designations as $designation)
-                      <option value="{{ $designation->id }}" {{ (collect(old("designation"))->contains($designation->id)) ? "selected":"" }}>{{$designation->name}}</option>
+                      <option value="{{ $designation->id }}" {{ (collect($owner->designation_id)->contains($designation->id)) ? "selected":"" }}>{{$designation->name}}</option>
                     @endforeach
                   @endif
                 </select>
@@ -58,7 +58,7 @@
                   <option value="">Select</option>
                   @if ($departments->count())
                     @foreach ($departments as $department)
-                      <option value="{{ $department->id }}" {{ (collect(old("department"))->contains($department->id)) ? "selected":"" }}>{{$department->name}}</option>
+                      <option value="{{ $department->id }}" {{ (collect($owner->department_id)->contains($department->id)) ? "selected":"" }}>{{$department->name}}</option>
                     @endforeach
                   @endif
                 </select>
