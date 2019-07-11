@@ -54,6 +54,15 @@ class PlatformController extends Controller
     }
 
     public function remove($id){
-        return __METHOD__;
+        $platform = Platform::findOrFail($id);
+        // check if platform is used by a webspace, if yes, do not proceed, else, remove
+        if ( !$platform->webspaces()->get()->count() ){
+            $platform->status = 0;
+            $platform->update();
+            return redirect()->route('platform.list')->with("success", "'" . $platform->name . "' successfully deleted");
+        }
+        else{
+            return redirect()->route('platform.list')->with("error", "'" . $platform->name ."' is still assigned to a webspace, unlink them first and delete again");
+        }
     }
 }
