@@ -80,3 +80,19 @@
   </div>
 </div>
 @endsection
+@section('footer_js')
+  <script type="text/javascript">
+    $(document).ready(function( $ ){
+      var id = "";
+      $('.btn.delete').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.modal-title').html('Delete Platform Notice');
+      });
+      $('button.confirm').click(function(event){
+        event.preventDefault();
+        $('#delete-form-' + id ).submit();
+      });
+    });
+  </script>
+@endsection

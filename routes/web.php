@@ -85,6 +85,12 @@ Route::middleware('auth')->group(function (){
 	Route::post('owner/update/{id}','OwnerController@update')->name('owner.update');
 	Route::post('platform/update/{id}','PlatformController@update')->name('platform.update');
 
+	Route::post('webspace/remove/{id}','WebspaceController@remove')->name('webspace.remove');
+	Route::post('department/remove/{id}','DepartmentController@remove')->name('department.remove');
+	Route::post('designation/remove/{id}','DesignationController@remove')->name('designation.remove');
+	Route::post('owner/remove/{id}','OwnerController@remove')->name('owner.remove');
+	Route::post('platform/remove/{id}','PlatformController@remove')->name('platform.remove');
+
 });
 
 Route::middleware('auth')->group(function (){

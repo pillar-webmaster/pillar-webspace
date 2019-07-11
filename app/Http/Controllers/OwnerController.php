@@ -64,4 +64,8 @@ class OwnerController extends Controller
         else
             return redirect()->route('owner.list')->with("error", "There was a problem processing your request");
     }
+
+    public function remove($id){
+        return __METHOD__;
+    }
 }

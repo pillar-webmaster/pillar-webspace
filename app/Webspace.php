@@ -14,7 +14,6 @@ class Webspace extends Model
     }
 
     public function owners(){
-        //return $this->belongsToMany('App\Owner');
-        return $this->belongsToMany(Owner::class);
+        return $this->belongsToMany('App\Owner');
     }
 }

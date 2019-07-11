@@ -28,7 +28,7 @@ class DesignationController extends Controller
         ]);
 
         if ( $designation->id )
-            return redirect()->route('designation.list')->with("success", "Designation '" . $designation->name . "' successfully added");
+            return redirect()->route('designation.list')->with("success", "'" .  $designation->name . "' successfully added");
         else
             return redirect()->route('designation.list')->with("error", "There was a problem processing your request");
 
@@ -45,8 +45,21 @@ class DesignationController extends Controller
         $designation->update();
 
         if ( $designation->id )
-            return redirect()->route('designation.list')->with("success", "Designation '" . $designation->name . "' successfully added");
+            return redirect()->route('designation.list')->with("success", "'" .  $designation->name . "' successfully updated");
         else
             return redirect()->route('designation.list')->with("error", "There was a problem processing your request");
+    }
+
+    public function remove($id){
+        $designation = Designation::findOrFail($id);
+        // check if designation is used by an owner, if yes, do not proceed, else, remove
+        if ( !$designation->owners()->get()->count() ){
+            $designation->status = 0;
+            $designation->update();
+            return redirect()->route('designation.list')->with("success", "'" . $designation->name . "' successfully deleted");
+        }
+        else{
+            return redirect()->route('designation.list')->with("error", "'" .  $designation->name ."' is still assigned to an owner, unlink them first and delete again");
+        }
     }
 }

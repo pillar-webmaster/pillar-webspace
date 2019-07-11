@@ -13,4 +13,8 @@ class Department extends Model
     public function scopeActive($query){
         return $query->where('status', 1);
     }
+
+    public function owners(){
+        return $this->hasMany('App\Owner');
+    }
 }

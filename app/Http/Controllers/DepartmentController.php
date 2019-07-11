@@ -28,7 +28,7 @@ class DepartmentController extends Controller
         ]);
 
         if ( $department->id )
-            return redirect()->route('department.list')->with("success", "Department '" . $department->name . "' successfully added");
+            return redirect()->route('department.list')->with("success", "'" . $department->name . "' successfully added");
         else
             return redirect()->route('department.list')->with("error", "There was a problem processing your request");
     }
@@ -44,8 +44,21 @@ class DepartmentController extends Controller
         $department->update();
 
         if ( $department->id )
-            return redirect()->route('department.list')->with("success", "Department '" . $department->name . "' successfully updated");
+            return redirect()->route('department.list')->with("success", "'" . $department->name . "' successfully updated");
         else
             return redirect()->route('department.list')->with("error", "There was a problem processing your request");
+    }
+
+    public function remove($id){
+        $department = Department::findOrFail($id);
+        // check if department is used by an owner, if yes, do not proceed, else, remove
+        if ( !$department->owners()->get()->count() ){
+            $department->status = 0;
+            $department->update();
+            return redirect()->route('department.list')->with("success", "'" . $department->name . "' successfully deleted");
+        }
+        else{
+            return redirect()->route('department.list')->with("error", "'" . $department->name ."' is still assigned to an owner, unlink them first and delete again");
+        }
     }
 }

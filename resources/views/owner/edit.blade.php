@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group{{ $errors->has('designation_id') ? ' has-danger' : '' }}">
                     <label for="designation_id" class="text-primary">{{__('Designation')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="designation_id" name="designation_id" aria-describedby="designation_idHelp">
@@ -67,9 +67,7 @@
                     <small id="designation_idHelp" class="form-text text-muted">{{__('Select from the list of designations')}}</small>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group{{ $errors->has('department_id') ? ' has-danger' : '' }}">
                     <label for="department_id" class="text-primary">{{__('Pillar / Department')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="department_id" name="department_id" aria-describedby="department_idHelp">

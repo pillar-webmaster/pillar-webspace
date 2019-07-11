@@ -82,4 +82,16 @@ class WebspaceController extends Controller
         else
             return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
     }
+
+    public function remove($id){
+        $webspace = Webspace::findOrFail($id);
+        // set status to deleted (soft delete)
+        $webspace->status = 0;
+        $webspace->update();
+        // detach old values
+        $owners = Owner::find($webspace->owners()->get()->pluck('id')->toArray());
+        $owner_webspace = $webspace->owners()->detach($owners);
+
+        return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully deleted");
+    }
 }

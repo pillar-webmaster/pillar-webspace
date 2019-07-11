@@ -50,9 +50,12 @@
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('designation.edit',['id' => $designation->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
-                              <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </a>
+                              <form method="POST" action="{{route('designation.remove', ['id' => $designation->id])}}" class="delete-form" id="delete-form-{{$designation->id}}">
+                                @csrf
+                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">
+                                  <i class="material-icons">close</i>
+                                </a>
+                              </form>
                             </td>
                           </tr>
                         @endforeach
@@ -77,4 +80,20 @@
     </div>
   </div>
 </div>
+@endsection
+@section('footer_js')
+  <script type="text/javascript">
+    $(document).ready(function( $ ){
+      var id = "";
+      $('.btn.delete').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.modal-title').html('Delete Designation Notice');
+      });
+      $('button.confirm').click(function(event){
+        event.preventDefault();
+        $('#delete-form-' + id ).submit();
+      });
+    });
+  </script>
 @endsection
