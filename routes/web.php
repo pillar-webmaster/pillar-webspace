@@ -79,11 +79,11 @@ Route::middleware('auth')->group(function (){
 	Route::get('owner/edit/{id}','OwnerController@edit')->name('owner.edit');
 	Route::get('platform/edit/{id}','PlatformController@edit')->name('platform.edit');
 
-	Route::post('webspace/update','WebspaceController@update')->name('webspace.update');
-	Route::post('department/update','DepartmentController@update')->name('department.update');
-	Route::post('designation/update','DesignationController@update')->name('designation.update');
-	Route::post('owner/update','OwnerController@update')->name('owner.update');
-	Route::post('platform/update','PlatformController@update')->name('platform.update');
+	Route::post('webspace/update/{id}','WebspaceController@update')->name('webspace.update');
+	Route::post('department/update/{id}','DepartmentController@update')->name('department.update');
+	Route::post('designation/update/{id}','DesignationController@update')->name('designation.update');
+	Route::post('owner/update/{id}','OwnerController@update')->name('owner.update');
+	Route::post('platform/update/{id}','PlatformController@update')->name('platform.update');
 
 });
 

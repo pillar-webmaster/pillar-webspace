@@ -38,7 +38,14 @@ class DepartmentController extends Controller
         return view('department.edit', compact('department'));
     }
 
-    public function update(){
-        return __METHOD__;
+    public function update(DepartmentRequest $request, $id){
+        $department = Department::findOrFail($id);
+        $department->name = $request->input('name');
+        $department->update();
+
+        if ( $department->id )
+            return redirect()->route('department.list')->with("success", "Department '" . $department->name . "' successfully updated");
+        else
+            return redirect()->route('department.list')->with("error", "There was a problem processing your request");
     }
 }

@@ -38,6 +38,7 @@
                     <thead class=" text-primary">
                       <th>ID</th>
                       <th>Name</th>
+                      <th>Version</th>
                       <th></th>
                     </thead>
                     <tbody>
@@ -46,6 +47,7 @@
                           <tr>
                             <td>{{$platform->id}}</td>
                             <td>{{$platform->name}}</td>
+                            <td>{{$platform->version}}</td>
                             <td>
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">
                                 <i class="material-icons">edit</i>

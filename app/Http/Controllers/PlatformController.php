@@ -40,7 +40,16 @@ class PlatformController extends Controller
         return view('platform.edit', compact('platform'));
     }
 
-    public function update(){
-        return __METHOD__;
+    public function update(PlatformRequest $request, $id){
+        $platform = Platform::findOrFail($id);
+        $platform->name = $request->input('name');
+        $platform->version = $request->input('version');
+        $platform->requirements= $request->input('requirements');
+        $platform->update();
+
+        if ( $platform->id )
+            return redirect()->route('platform.list')->with("success", "Platform '" . $platform->name . "' successfully updated");
+        else
+            return redirect()->route('platform.list')->with("error", "There was a problem processing your request");
     }
 }

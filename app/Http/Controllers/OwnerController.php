@@ -50,7 +50,18 @@ class OwnerController extends Controller
         return view('owner.edit', compact('departments', 'designations', 'owner'));
     }
 
-    public function update(){
-        return __METHOD__;
+    public function update(OwnerRequest $request, $id){
+        $owner = Owner::findOrFail($id);
+        $owner->name = $request->input('name');
+        $owner->contact = $request->input('contact');
+        $owner->email = $request->input('email');
+        $owner->designation_id = $request->input('designation_id');
+        $owner->department_id = $request->input('department_id');
+        $owner->update();
+
+        if ( $owner->id )
+            return redirect()->route('owner.list')->with("success", "Owner '" . $owner->name . "' successfully updated");
+        else
+            return redirect()->route('owner.list')->with("error", "There was a problem processing your request");
     }
 }

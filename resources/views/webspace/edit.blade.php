@@ -11,7 +11,7 @@
             <p class="card-category">{{__('Update a webspace')}}</p>
           </div>
           <div class="card-body">
-            <form method="POST" action="{{ route('webspace.update') }}">
+            <form method="POST" action="{{ route('webspace.update', ['id' => $webspace->id]) }}">
               @csrf
               <div class="row">
                 <div class="col-md-12">
@@ -99,9 +99,7 @@
                     <select multiple="multiple" class="form-control selectpicker hw-100" data-style="select-with-transition" data-live-search="true" id="owner" name="owner[]" data-size="7" required autofocus>
                       @if (count($owners))
                         @foreach ($owners as $owner )
-                          <!--@foreach($owner->webspaces as $ow)-->
-                            <option value="{{ $owner->id }}" {{ (collect($ow->id)->contains($owner->id)) ? "selected":"" }}>{{$owner->name}}</option>
-                          <!--@endforeach-->
+                          <option value="{{ $owner->id }}" {{ (in_array( $owner->id, $webspace->owners()->get()->pluck('id')->toArray() ) ? "selected" : "" ) }}>{{$owner->name}}</option>
                         @endforeach
                       @endif
                     </select>
@@ -115,13 +113,12 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="description" class="text-primary">{{__('Description')}}</label>
-                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{ old('description') }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{ $webspace->description }}</textarea>
                     @if ($errors->has('description'))
                       <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
                     @endif
                     <small id="descriptionHelp" class="form-text text-muted">{{__('Input the description of the webspace, eg. usage, purpose, etc.')}}</small>
                   </div>
-
               <div class="row">
                 <div class="col-md-12">
                   <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>

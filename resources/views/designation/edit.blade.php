@@ -11,14 +11,22 @@
             <p class="card-category">{{__('Update a designation')}}</p>
           </div>
           <div class="card-body">
-            <form method="POST" action="{{ route('designation.update') }}">
+            <form method="POST" action="{{ route('designation.update', ['id' => $designation->id]) }}">
               @csrf
-              <div class="form-group">
-                <label for="name" class="text-primary">{{__('Name')}}</label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ $designation->name }}" required autofocus>
-                <small id="nameHelp" class="form-text text-muted">{{__('Input complete name of designation (no acronym)')}}</small>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="name" class="text-primary">{{__('Name')}}</label>
+                    <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ $designation->name }}" required autofocus>
+                    <small id="nameHelp" class="form-text text-muted">{{__('Input complete name of designation (no acronym)')}}</small>
+                  </div>
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+              <div class="row">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+                </div>
+              </div>
             </form>
           </div>
         </div>

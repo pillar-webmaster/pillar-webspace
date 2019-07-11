@@ -39,7 +39,14 @@ class DesignationController extends Controller
         return view('designation.edit', compact('designation'));
     }
 
-    public function update(){
-        return __METHOD__;
+    public function update(DesignationRequest $request, $id){
+        $designation = Designation::findOrFail($id);
+        $designation->name = $request->input('name');
+        $designation->update();
+
+        if ( $designation->id )
+            return redirect()->route('designation.list')->with("success", "Designation '" . $designation->name . "' successfully added");
+        else
+            return redirect()->route('designation.list')->with("error", "There was a problem processing your request");
     }
 }

@@ -42,7 +42,7 @@ class WebspaceController extends Controller
             'status' => 1,
         ]);
 
-        $owners = Owner::find($request->owner);
+        $owners = Owner::find($request->input('owner'));
         $owner_webspace = $webspace->owners()->attach($owners);
 
         if ( $webspace->id )
@@ -57,14 +57,29 @@ class WebspaceController extends Controller
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
-        //foreach ($owners as $ow)
-        //    var_dump($ow->webspaces->id);
-        //dd();
-        dd($owners);
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace'));
     }
 
-    public function update(){
-        return __METHOD__;
+    public function update(WebspaceRequest $request, $id){
+        $webspace = Webspace::findOrFail($id);
+        $webspace->name = $request->input('name');
+        $webspace->url = $request->input('url');
+        $webspace->mode = $request->input('mode');
+        $webspace->service = $request->input('service');
+        $webspace->platform_id = $request->input('platform_id');
+        $webspace->description = $request->input('description');
+        $webspace->update();
+
+        // detach old values first
+        $owners = Owner::find($webspace->owners()->get()->pluck('id')->toArray());
+        $owner_webspace = $webspace->owners()->detach($owners);
+        // re-attach new changes
+        $owners = Owner::find($request->input('owner'));
+        $owner_webspace = $webspace->owners()->attach($owners);
+
+        if ( $webspace->id )
+            return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully updated");
+        else
+            return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
     }
 }
