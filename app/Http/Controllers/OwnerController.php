@@ -66,6 +66,15 @@ class OwnerController extends Controller
     }
 
     public function remove($id){
-        return __METHOD__;
+        $owner = Owner::findOrFail($id);
+        // check if owner is linked to a webspace, if yes, do not proceed, else, remove
+        if ( !$owner->webspaces()->get()->count() ){
+            $owner->status = 0;
+            $owner->update();
+            return redirect()->route('owner.list')->with("success", "'" . $owner->name . "' successfully deleted");
+        }
+        else{
+            return redirect()->route('owner.list')->with("error", "'" .  $owner->name ."' is still assigned to a webspace, unlink them first and delete again");
+        }
     }
 }

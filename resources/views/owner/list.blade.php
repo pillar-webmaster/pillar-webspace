@@ -54,9 +54,12 @@
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('owner.edit',['id' => $owner->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
-                              <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </a>
+                              <form method="POST" action="{{route('owner.remove', ['id' => $owner->id])}}" class="delete-form" id="delete-form-{{$owner->id}}">
+                                @csrf
+                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$owner->id}}">
+                                  <i class="material-icons">close</i>
+                                </a>
+                              </form>
                             </td>
                           </tr>
                         @endforeach
