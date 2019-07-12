@@ -21,7 +21,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __('Name') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary">{{ __('Name') }}</label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required="true" aria-required="true"/>
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary">{{ __('Email') }}</label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required />
@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-2 col-form-label" for="input-password">{{ __(' Password') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary" for="input-password">{{ __(' Password') }}</label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" input type="password" name="password" id="input-password" placeholder="{{ __('Password') }}" value="" required />
@@ -54,10 +54,29 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-2 col-form-label" for="input-password-confirmation">{{ __('Confirm Password') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary" for="input-password-confirmation">{{ __('Confirm Password') }}</label>
                   <div class="col-sm-7">
                     <div class="form-group">
                       <input class="form-control" name="password_confirmation" id="input-password-confirmation" type="password" placeholder="{{ __('Confirm Password') }}" value="" required />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label text-primary" for="role">{{ __('Role') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <select class="form-control" data-style="btn btn-link" id="roles" name="roles[]" aria-describedby="roleHelp" required autofocus>
+                        <option value="">Select</option>
+                        @if (count($roles))
+                          @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ucfirst($role->name)}}</option>
+                          @endforeach
+                        @endif
+                      </select>
+                      @if ($errors->has('role'))
+                        <span id="role-error" class="error text-danger" for="role">{{ $errors->first('role') }}</span>
+                      @endif
+                      <small id="roleHelp" class="form-text text-muted">{{__('Select from the list of roles')}}</small>
                     </div>
                   </div>
                 </div>

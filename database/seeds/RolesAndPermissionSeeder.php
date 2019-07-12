@@ -44,22 +44,28 @@ class RolesAndPermissionSeeder extends Seeder
 
         Permission::create(['name' => 'export webspace']);
         Permission::create(['name' => 'edit configuration']);
-        Permission::create(['name' => 'view objects']); 
+        Permission::create(['name' => 'view objects']);
 
         // create roles and assign created permissions
 
         // this can be done as separate statements
         $role = Role::create(['name' => 'editor'])
-            ->givePermissionTo(['edit webspace','edit owner','edit department',
-                            'edit designation','edit platform','edit user','export webspace'
+            ->givePermissionTo([
+                'edit webspace','edit owner','edit department','edit designation',
+                'edit platform','edit user','export webspace','view objects'
         ]);
 
         // or may be done by chaining
         $role = Role::create(['name' => 'subscriber'])
-            ->givePermissionTo(['export webspace']);
-        
-        $role = Role::create(['name' => 'subscriber'])
-            ->givePermissionTo(['export webspace']);
+            ->givePermissionTo(['export webspace', 'view objects']);
+
+        $role = Role::create(['name' => 'admin'])
+            ->givePermissionTo([
+                'edit webspace','delete webspace','add webspace','edit owner','delete owner',
+                'add owner','edit department','delete department','add department','edit designation',
+                'delete designation','add designation','edit platform','delete platform',
+                'add platform','edit user','delete user','add user','export webspace','view objects'
+            ]);
 
         $role = Role::create(['name' => 'super-admin'])
             ->givePermissionTo(Permission::all());
