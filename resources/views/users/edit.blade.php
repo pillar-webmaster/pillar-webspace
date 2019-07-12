@@ -61,6 +61,25 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label text-primary" for="role">{{ __('Role') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <select class="form-control" data-style="btn btn-link" id="roles" name="roles[]" aria-describedby="roleHelp" required autofocus>
+                        <option value="">Select</option>
+                        @if (count($roles))
+                          @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ucfirst($role->name)}}</option>
+                          @endforeach
+                        @endif
+                      </select>
+                      @if ($errors->has('role'))
+                        <span id="role-error" class="error text-danger" for="role">{{ $errors->first('role') }}</span>
+                      @endif
+                      <small id="roleHelp" class="form-text text-muted">{{__('Select from the list of roles')}}</small>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>

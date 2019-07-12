@@ -52,6 +52,7 @@ class UserController extends Controller
             foreach ($roles as $role)
             {
                 $role_r = Role::where('id', '=', $role)->firstOrFail();
+                // $role_r is the object, pass it as it is needed by polymorph table model_has_roles
                 $model->assignRole($role_r); //Assigning role to user
             }
         }
@@ -67,7 +68,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all(['id','name']);
+        return view('users.edit', compact('user','roles'));
     }
 
     /**
@@ -80,9 +82,21 @@ class UserController extends Controller
     public function update(UserRequest $request, User  $user)
     {
         $user->update(
-            $request->merge(['password' => Hash::make($request->get('password'))])
-                ->except([$request->get('password') ? '' : 'password']
+            $request->merge(['password' => bcrypt($request->get('password'))])
+                ->except([$request->get('password') ? '' : 'password','roles']
         ));
+
+        $roles = $request['roles']; //Retrieving the roles field
+
+        if (isset($roles))
+        {
+            foreach ($roles as $role)
+            {
+                $role_r = Role::where('id', '=', $role)->firstOrFail();
+                // $role_r is the object, pass it as it is needed by polymorph table model_has_roles
+                $user->assignRole($role_r); //Assigning role to user
+            }
+        }
 
         return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
     }
