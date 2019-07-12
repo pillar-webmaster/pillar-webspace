@@ -57,7 +57,7 @@
                             {{ $user->email }}
                           </td>
                           <td>
-                            {{$user->roles()->pluck('name')->implode(' ')}}
+                            {{ ucfirst($user->roles()->pluck('name')->implode(' ')) }}
                           </td>
                           <td>
                           {{ $user->created_at->format('Y-m-d') }}

@@ -6,7 +6,6 @@ use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -42,9 +41,9 @@ class UserController extends Controller
      * @param  \App\User  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, User $model)
+    public function store(UserRequest $request, User $user)
     {
-        $model  = User::create($request->only('email', 'name', 'password')); 
+        $user  = $user->create($request->only('email', 'name', 'password')); 
         $roles = $request['roles']; //Retrieving the roles field
 
         if (isset($roles))
@@ -53,7 +52,7 @@ class UserController extends Controller
             {
                 $role_r = Role::where('id', '=', $role)->firstOrFail();
                 // $role_r is the object, pass it as it is needed by polymorph table model_has_roles
-                $model->assignRole($role_r); //Assigning role to user
+                $user->assignRole($role_r); //Assigning role to user
             }
         }
 
@@ -86,14 +85,17 @@ class UserController extends Controller
                 ->except([$request->get('password') ? '' : 'password','roles']
         ));
 
+        foreach($user->getRoleNames() as $role){
+            $user->removeRole($role);
+        }
+       
         $roles = $request['roles']; //Retrieving the roles field
 
-        if (isset($roles))
-        {
-            foreach ($roles as $role)
-            {
+        if (isset($roles)){
+            foreach ($roles as $role){
                 $role_r = Role::where('id', '=', $role)->firstOrFail();
                 // $role_r is the object, pass it as it is needed by polymorph table model_has_roles
+                // better this way, but you can also use the name itself
                 $user->assignRole($role_r); //Assigning role to user
             }
         }
