@@ -43,7 +43,14 @@ class UserController extends Controller
      */
     public function store(UserRequest $request, User $user)
     {
-        $user  = $user->create($request->only('email', 'name', 'password')); 
+        //$user  = $user->create($request->only('email', 'name', 'password')); 
+
+        $user = $user->create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
         $roles = $request['roles']; //Retrieving the roles field
 
         if (isset($roles))
@@ -80,15 +87,27 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User  $user)
     {
-        $user->update(
-            $request->merge(['password' => bcrypt($request->get('password'))])
+        /*$user->update(
+            $request->merge(['password' => $request->get('password')])
                 ->except([$request->get('password') ? '' : 'password','roles']
-        ));
+        ));*/
+        $user = User::findOrFail($user->id);
+
+        $new_password = $request->input('password');
+        if(empty($new_password)) {
+            $user->update($request->except(['password','roles']));
+        }
+        else {
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->update();
+        }
 
         foreach($user->getRoleNames() as $role){
             $user->removeRole($role);
         }
-       
+
         $roles = $request['roles']; //Retrieving the roles field
 
         if (isset($roles)){
