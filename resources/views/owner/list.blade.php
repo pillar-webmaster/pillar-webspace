@@ -33,6 +33,11 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <a href="{{ route('owner.add') }}" class="btn btn-sm btn-primary">{{ __('Add owner') }}</a>
+                  </div>
+                </div>
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">

@@ -137,6 +137,30 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item {{ ($activePage == 'user-management' || $activePage == 'user_add') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false">
+          <i class="material-icons">how_to_reg</i>
+          <p>{{ __('Users') }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse {{ ($activePage == 'user-management' || $activePage == 'user_add') ? ' show' : '' }}" id="user">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="sidebar-mini"> UL </span>
+                <span class="sidebar-normal">{{ __('List') }} </span>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'user_add' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.create') }}">
+                <span class="sidebar-mini"> UAN </span>
+                <span class="sidebar-normal"> {{ __('Add New') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </div>
 </div>
