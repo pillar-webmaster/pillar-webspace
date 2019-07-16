@@ -11,6 +11,11 @@
             <p class="card-category">{{__('Update a designation')}}</p>
           </div>
           <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <a href="{{ route('designation.list') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+              </div>
+            </div>
             <form method="POST" action="{{ route('designation.update', ['id' => $designation->id]) }}">
               @csrf
               <div class="row">

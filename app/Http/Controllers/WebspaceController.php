@@ -17,8 +17,9 @@ class WebspaceController extends Controller
         $webspaces = Webspace::active()
             ->orderBy('created_at','DESC')
             ->paginate(20);
+        $i = 0;
 
-        return view('webspace.list', compact('webspaces'));
+        return view('webspace.list', compact('webspaces','i'));
     }
 
     public function add(Mode $mode, SupportLevel $level){

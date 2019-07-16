@@ -13,7 +13,9 @@ class DesignationController extends Controller
         $designations = Designation::active()
             ->orderBy('created_at','ASC')
             ->paginate(20);
-        return view('designation.list', compact('designations'));
+        $i = 0;
+
+        return view('designation.list', compact('designations', 'i'));
     }
 
     public function add(){

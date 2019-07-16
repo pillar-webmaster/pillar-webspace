@@ -51,7 +51,7 @@
                       @if ($owners->count())
                         @foreach($owners as $owner)
                           <tr>
-                            <td>{{$owner->id}}</td>
+                            <td>{{++$i}}</td>
                             <td>{{$owner->name}}</td>
                             <td>{{$owner->email}}</td>
                             <td>{{$owner->department->name}}</td>

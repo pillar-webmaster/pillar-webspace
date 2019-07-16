@@ -49,7 +49,7 @@
                       @if ($departments->count())
                         @foreach($departments as $department)
                           <tr>
-                            <td>{{$department->id}}</td>
+                            <td>{{++$i}}</td>
                             <td>{{$department->name}}</td>
                             <td>
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('department.edit',['id' => $department->id])}}">

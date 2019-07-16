@@ -13,7 +13,9 @@ class DepartmentController extends Controller
         $departments = Department::active()
             ->orderBy('created_at','ASC')
             ->paginate(20);
-        return view('department.list', compact('departments'));
+        $i = 0;
+
+        return view('department.list', compact('departments','i'));
     }
 
     public function add(){

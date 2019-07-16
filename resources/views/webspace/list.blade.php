@@ -51,7 +51,7 @@
                       @if ($webspaces->count())
                         @foreach($webspaces as $webspace)
                           <tr>
-                            <td>{{$webspace->id}}</td>
+                            <td>{{++$i}}</td>
                             <td>{{$webspace->name}}</td>
                             <td>{{$webspace->url}}</td>
                             <td>

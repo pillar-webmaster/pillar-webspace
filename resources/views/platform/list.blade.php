@@ -50,7 +50,7 @@
                       @if ($platforms->count())
                         @foreach($platforms as $platform)
                           <tr>
-                            <td>{{$platform->id}}</td>
+                            <td>{{++$i}}</td>
                             <td>{{$platform->name}}</td>
                             <td>{{$platform->version}}</td>
                             <td>

@@ -16,7 +16,9 @@ class OwnerController extends Controller
         $owners = Owner::active()
             ->orderBy('created_at','ASC')
             ->paginate(20);
-        return view('owner.list', compact('owners'));
+        $i = 0;
+
+        return view('owner.list', compact('owners','i'));
     }
 
     public function add(){
