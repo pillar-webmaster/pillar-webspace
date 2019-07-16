@@ -57,7 +57,7 @@
                         <option value="">Select</option>
                         @if (count($roles))
                           @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ucfirst($role->name)}}</option>
+                            <option value="{{ $role->id }}" {{ (collect(auth()->user()->roles()->pluck('id'))->contains($role->id)) ? "selected":"" }}>{{ucfirst($role->name)}}</option>
                           @endforeach
                         @endif
                       </select>
