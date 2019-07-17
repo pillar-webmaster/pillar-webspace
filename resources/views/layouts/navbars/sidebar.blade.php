@@ -149,6 +149,7 @@
           </ul>
         </div>
       </li>
+      @hasanyrole("super-admin|admin")
       <li class="nav-item {{ ($activePage == 'user-management' || $activePage == 'user_add') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false">
           <i class="material-icons">how_to_reg</i>
@@ -175,6 +176,7 @@
           </ul>
         </div>
       </li>
+      @endhasanyrole
       @endhasanyrole
     </ul>
     @endauth

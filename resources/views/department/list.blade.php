@@ -52,15 +52,19 @@
                             <td>{{++$i}}</td>
                             <td>{{$department->name}}</td>
                             <td>
+                              @hasanyrole("super-admin|admin|editor")
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('department.edit',['id' => $department->id])}}">
                                 <i class="material-icons">edit</i>
                               </a>
+                              @endhasanyrole
+                              @hasanyrole("super-admin|admin")
                               <form method="POST" action="{{route('department.remove', ['id' => $department->id])}}" class="delete-form" id="delete-form-{{$department->id}}">
                                 @csrf
                                 <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">
                                   <i class="material-icons">close</i>
                                 </a>
                               </form>
+                              @endhasanyrole
                             </td>
                           </tr>
                         @endforeach
