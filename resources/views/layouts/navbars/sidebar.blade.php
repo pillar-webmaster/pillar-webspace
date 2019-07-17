@@ -10,6 +10,7 @@
     </a>
   </div>
   <div class="sidebar-wrapper">
+    @auth
     <ul class="nav">
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
@@ -32,15 +33,18 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'webspace_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('webspace.add') }}">
                 <span class="sidebar-mini"> WAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
+      @hasanyrole("super-admin|admin|editor")
       <li class="nav-item {{ ($activePage == 'owner_list' || $activePage == 'owner_add') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#owner" aria-expanded="false">
           <i class="material-icons">face</i>
@@ -56,12 +60,14 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'owner_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('owner.add') }}">
                 <span class="sidebar-mini"> OAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
@@ -80,12 +86,14 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'platform_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('platform.add') }}">
                 <span class="sidebar-mini"> PAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
@@ -104,12 +112,14 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'department_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('department.add') }}">
                 <span class="sidebar-mini"> DAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
@@ -128,12 +138,14 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'designation_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('designation.add') }}">
                 <span class="sidebar-mini"> DeAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
@@ -152,15 +164,19 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin")
             <li class="nav-item{{ $activePage == 'user_add' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('user.create') }}">
                 <span class="sidebar-mini"> UAN </span>
                 <span class="sidebar-normal"> {{ __('Add New') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
+      @endhasanyrole
     </ul>
+    @endauth
   </div>
 </div>

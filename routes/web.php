@@ -54,12 +54,13 @@ Route::middleware('auth')->group(function (){
 	Route::get('upgrade', function () {
 		return view('pages.upgrade');
 	})->name('upgrade');
-
+	/*
 	Route::get('webspace','WebspaceController@list')->name('webspace.list');
 	Route::get('department','DepartmentController@list')->name('department.list');
 	Route::get('designation','DesignationController@list')->name('designation.list');
 	Route::get('owner','OwnerController@list')->name('owner.list');
 	Route::get('platform','PlatformController@list')->name('platform.list');
+	*/
 /*
 	Route::get('webspace/add','WebspaceController@add')->name('webspace.add');
 	Route::get('department/add','DepartmentController@add')->name('department.add');
@@ -125,6 +126,11 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('designation/update/{id}','DesignationController@update')->name('designation.update');
 	Route::post('owner/update/{id}','OwnerController@update')->name('owner.update');
 	Route::post('platform/update/{id}','PlatformController@update')->name('platform.update');
+
+	Route::get('department','DepartmentController@list')->name('department.list');
+	Route::get('designation','DesignationController@list')->name('designation.list');
+	Route::get('owner','OwnerController@list')->name('owner.list');
+	Route::get('platform','PlatformController@list')->name('platform.list');
 
 	Route::get('department','DepartmentController@list')->name('department.list');
 	Route::get('designation','DesignationController@list')->name('designation.list');
