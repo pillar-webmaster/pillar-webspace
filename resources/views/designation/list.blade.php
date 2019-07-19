@@ -33,11 +33,13 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
+                @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{ route('designation.add') }}" class="btn btn-sm btn-primary">{{ __('Add designation') }}</a>
                   </div>
                 </div>
+                @endhasanyrole
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
@@ -50,7 +52,7 @@
                         @foreach($designations as $designation)
                           <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$designation->name}}</td>
+                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">{{$designation->name}}</a></td>
                             <td>
                               @hasanyrole("super-admin|admin|editor")
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('designation.edit',['id' => $designation->id])}}">
@@ -90,19 +92,41 @@
   </div>
 </div>
 @endsection
-@section('footer_js')
+@push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       var id = "";
       $('.btn.delete').click(function(event){
         event.preventDefault();
         id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').show();
         $('.modal-title').html('Delete Designation Notice');
+        $('.modal-body').html('Are you sure you want to perform this action?');
       });
       $('button.confirm').click(function(event){
         event.preventDefault();
         $('#delete-form-' + id ).submit();
       });
+      $('.view-details').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').hide();
+        $('.modal-title').html('Details');
+        $('.modal-body').html('No details found');
+        $.ajax({
+          type:'POST',
+          url:'/designation-details',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
+      });
     });
   </script>
-@endsection
+@endpush

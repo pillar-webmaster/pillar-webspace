@@ -33,11 +33,13 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
+                @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{ route('owner.add') }}" class="btn btn-sm btn-primary">{{ __('Add owner') }}</a>
                   </div>
                 </div>
+                @endhasanyrole
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
@@ -52,7 +54,7 @@
                         @foreach($owners as $owner)
                           <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$owner->name}}</td>
+                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$owner->id}}">{{$owner->name}}</a></td>
                             <td>{{$owner->email}}</td>
                             <td>{{$owner->department->name}}</td>
                             <td>
@@ -94,19 +96,41 @@
   </div>
 </div>
 @endsection
-@section('footer_js')
+@push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       var id = "";
       $('.btn.delete').click(function(event){
         event.preventDefault();
         id = $(this).attr('id');
+        $('.btn.btn-primary.show').hide();
         $('.modal-title').html('Delete Owner Notice');
+        $('.modal-body').html('Are you sure you want to perform this action?');
       });
       $('button.confirm').click(function(event){
         event.preventDefault();
         $('#delete-form-' + id ).submit();
       });
+      $('.view-details').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').hide();
+        $('.modal-title').html('Details');
+        $('.modal-body').html('No details found');
+        $.ajax({
+          type:'POST',
+          url:'/owner-details',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
+      });
     });
   </script>
-@endsection
+@endpush

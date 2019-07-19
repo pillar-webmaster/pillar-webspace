@@ -33,11 +33,13 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
+                @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
                     <a href="{{ route('platform.add') }}" class="btn btn-sm btn-primary">{{ __('Add platform') }}</a>
                   </div>
                 </div>
+                @endhasanyrole
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
@@ -92,7 +94,7 @@
   </div>
 </div>
 @endsection
-@section('footer_js')
+@push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
       var id = "";
@@ -100,6 +102,7 @@
         event.preventDefault();
         id = $(this).attr('id');
         $('.modal-title').html('Delete Platform Notice');
+        $('.modal-body').html('Are you sure you want to perform this action?');
       });
       $('button.confirm').click(function(event){
         event.preventDefault();
@@ -107,4 +110,4 @@
       });
     });
   </script>
-@endsection
+@endpush

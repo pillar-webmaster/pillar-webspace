@@ -118,7 +118,6 @@
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
         @stack('js')
-        @yield('footer_js')
         <!-- Modal -->
         <div class="modal fade" id="wrms-modal" tabindex="-1" role="dialog" aria-labelledby="wrms-modal" aria-hidden="true">
           <div class="modal-dialog" role="document">

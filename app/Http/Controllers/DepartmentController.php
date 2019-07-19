@@ -63,4 +63,10 @@ class DepartmentController extends Controller
             return redirect()->route('department.list')->with("error", "'" . $department->name ."' is still assigned to an owner, unlink them first and delete again");
         }
     }
+
+    public function details( Request $request ){
+        $department = Department::findOrFail($request->input('id'));
+        $view = view('department.details', compact('department'))->render();
+        return response()->json(array('html' => $view),200);
+    }
 }

@@ -79,4 +79,9 @@ class OwnerController extends Controller
             return redirect()->route('owner.list')->with("error", "'" .  $owner->name ."' is still assigned to a webspace, unlink them first and delete again");
         }
     }
+    public function details( Request $request ){
+        $owner = Owner::findOrFail($request->input('id'));
+        $view = view('owner.details', compact('owner'))->render();
+        return response()->json(array('html' => $view),200);
+    }
 }

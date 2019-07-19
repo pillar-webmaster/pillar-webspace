@@ -64,4 +64,10 @@ class DesignationController extends Controller
             return redirect()->route('designation.list')->with("error", "'" .  $designation->name ."' is still assigned to an owner, unlink them first and delete again");
         }
     }
+
+    public function details( Request $request ){
+        $designation = Designation::findOrFail($request->input('id'));
+        $view = view('designation.details', compact('designation'))->render();
+        return response()->json(array('html' => $view),200);
+    }
 }

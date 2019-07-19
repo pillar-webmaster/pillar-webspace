@@ -50,7 +50,7 @@
                         @foreach($departments as $department)
                           <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$department->name}}</td>
+                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">{{$department->name}}</a></td>
                             <td>
                               @hasanyrole("super-admin|admin|editor")
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('department.edit',['id' => $department->id])}}">
@@ -90,19 +90,43 @@
   </div>
 </div>
 @endsection
-@section('footer_js')
+@push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       var id = "";
       $('.btn.delete').click(function(event){
         event.preventDefault();
         id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').show();
         $('.modal-title').html('Delete Department Notice');
+        $('.modal-body').html('Are you sure you want to perform this action?');
       });
       $('button.confirm').click(function(event){
         event.preventDefault();
         $('#delete-form-' + id ).submit();
       });
+
+      $('.view-details').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').hide();
+        $('.modal-title').html('Details');
+        $('.modal-body').html('No details found');
+
+        $.ajax({
+          type:'POST',
+          url:'/department-details',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
+      });
     });
   </script>
-@endsection
+@endpush

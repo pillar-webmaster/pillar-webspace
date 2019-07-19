@@ -94,6 +94,12 @@ Route::middleware('auth')->group(function (){
 	Route::post('owner/remove/{id}','OwnerController@remove')->name('owner.remove');
 	Route::post('platform/remove/{id}','PlatformController@remove')->name('platform.remove');
 */
+	Route::post('department-details','DepartmentController@details')->name('department.details');
+	Route::post('designation-details','DesignationController@details')->name('designation.details');
+	Route::post('platform-details','PlatformController@details')->name('platform.details');
+	Route::post('owner-details','OwnerController@details')->name('owner.details');
+	Route::post('webspace-details','WebspaceController@details')->name('webspace.details');
+	Route::post('user-details','UserController@details')->name('user.details');
 });
 
 Route::middleware('auth')->group(function (){
@@ -104,7 +110,7 @@ Route::middleware('auth')->group(function (){
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	Route::get('webspace','WebspaceController@list')->name('webspace.list');
-	
+
 });
 
 /* Role based routing */

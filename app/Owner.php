@@ -21,4 +21,8 @@ class Owner extends Model
     public function webspaces(){
         return $this->belongsToMany('App\Webspace');
     }
+
+    public function designation(){
+        return $this->belongsTo('App\Designation');
+    }
 }
