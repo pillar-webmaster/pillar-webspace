@@ -56,11 +56,7 @@
                             <td>{{++$i}}</td>
                             <td>{{$webspace->name}}</td>
                             <td>{{$webspace->url}}</td>
-                            <td>
-                              @foreach ($webspace->owners as $owner)
-                                {{$owner->name}}
-                              @endforeach
-                            </td>
+                            <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
                             <td>
                               @hasanyrole("super-admin|admin|editor")
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
