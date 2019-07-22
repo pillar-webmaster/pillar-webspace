@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Owner;
+use App\WebspaceMode as Mode;
+use App\Platform as Platform;
 
 class Webspace extends Model
 {
@@ -16,4 +18,9 @@ class Webspace extends Model
     public function owners(){
         return $this->belongsToMany('App\Owner');
     }
+
+    public function platform(){
+        return  $this->belongsTo('App\Platform');
+    }
+
 }

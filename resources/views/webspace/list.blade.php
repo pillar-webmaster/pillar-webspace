@@ -54,7 +54,7 @@
                         @foreach($webspaces as $webspace)
                           <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$webspace->name}}</td>
+                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">{{$webspace->name}}</a></td>
                             <td>{{$webspace->url}}</td>
                             <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
                             <td>
@@ -99,6 +99,11 @@
 @push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       var id = "";
       $('.btn.delete').click(function(event){
         event.preventDefault();
@@ -109,6 +114,21 @@
       $('button.confirm').click(function(event){
         event.preventDefault();
         $('#delete-form-' + id ).submit();
+      });
+      $('.view-details').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.btn.btn-primary.confirm').hide();
+        $('.modal-title').html('Details');
+        $('.modal-body').html('No details found');
+        $.ajax({
+          type:'POST',
+          url:'/webspace-details',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
       });
     });
   </script>

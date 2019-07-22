@@ -95,4 +95,12 @@ class WebspaceController extends Controller
 
         return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully deleted");
     }
+
+    public function details( Request $request, Mode $mode, SupportLevel $support ){
+        $webspace = Webspace::findOrFail($request->input('id'));
+        $mode = $mode->get_webspace_mode($webspace->mode);
+        $support_level = $support->get_webspace_support_level($webspace->service);
+        $view = view('webspace.details', compact('webspace','mode','support_level'))->render();
+        return response()->json(array('html' => $view),200);
+    }
 }

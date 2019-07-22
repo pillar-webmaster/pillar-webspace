@@ -67,4 +67,10 @@ class PlatformController extends Controller
             return redirect()->route('platform.list')->with("error", "'" . $platform->name ."' is still assigned to a webspace, unlink them first and delete again");
         }
     }
+
+    public function details( Request $request ){
+        $platform = Platform::findOrFail($request->input('id'));
+        $view = view('platform.details', compact('platform'))->render();
+        return response()->json(array('html' => $view),200);
+    }
 }
