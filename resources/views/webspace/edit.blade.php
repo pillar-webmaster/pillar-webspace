@@ -13,7 +13,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 text-right">
-                <a href="{{ route('department.list') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                <a href="{{ route('webspace.list') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
               </div>
             </div>
             <form method="POST" action="{{ route('webspace.update', ['id' => $webspace->id]) }}">
@@ -30,7 +30,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
