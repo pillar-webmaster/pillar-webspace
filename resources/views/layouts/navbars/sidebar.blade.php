@@ -177,6 +177,34 @@
         </div>
       </li>
       @endhasanyrole
+      @hasanyrole("super-admin|admin")
+      <li class="nav-item {{ ($activePage == 'webspace-export' || $activePage == 'site-settings') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false">
+          <i class="material-icons">settings</i>
+          <p>{{ __('Administration') }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings') ? ' show' : '' }}" id="admin">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'webspace-export' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('webspace.export') }}">
+                <span class="sidebar-mini"> EW </span>
+                <span class="sidebar-normal">{{ __('Export Webspace') }} </span>
+              </a>
+            </li>
+            @hasanyrole("super-admin")
+            <li class="nav-item{{ $activePage == 'site-settings' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('settings.edit') }}">
+                <span class="sidebar-mini"> SS </span>
+                <span class="sidebar-normal"> {{ __('Site Settings') }} </span>
+              </a>
+            </li>
+            @endhasanyrole
+          </ul>
+        </div>
+      </li>
+      @endhasanyrole
       @endhasanyrole
     </ul>
     @endauth

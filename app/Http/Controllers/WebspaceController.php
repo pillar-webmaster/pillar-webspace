@@ -9,6 +9,7 @@ use App\Platform as Platform;
 use App\WebspaceSupportLevel as SupportLevel;
 use App\Owner;
 use App\Http\Requests\WebspaceRequest;
+use Response;
 
 class WebspaceController extends Controller
 {
@@ -102,5 +103,53 @@ class WebspaceController extends Controller
         $support_level = $support->get_webspace_support_level($webspace->service);
         $view = view('webspace.details', compact('webspace','mode','support_level'))->render();
         return response()->json(array('html' => $view),200);
+    }
+
+    public function export(){
+        return view('webspace.export');
+    }
+
+    public function export_to_csv(Mode $mode, SupportLevel $support){
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=webspace-".time().".csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $webspaces = Webspace::active()
+            ->orderBy('created_at','DESC')
+            ->get();
+
+        $columns = [
+            'Name',
+            'Owner/s',
+            'URL',
+            'Platform',
+            'Status',
+            'Service',
+            'Created at'
+        ];
+
+        $callback = function() use ($webspaces, $columns, $mode, $support){
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($webspaces as $webspace) {
+                fputcsv($file,
+                [
+                    $webspace->name,
+                    $webspace->owners->pluck('name')->implode(', '),
+                    $webspace->url,
+                    $webspace->platform->name . '(' . $webspace->platform->version . ')',
+                    $mode->get_webspace_mode($webspace->mode),
+                    $support->get_webspace_support_level($webspace->service),
+                    $webspace->created_at
+                ]);
+            }
+            fclose($file);
+        };
+        return Response::stream($callback, 200, $headers);
     }
 }
