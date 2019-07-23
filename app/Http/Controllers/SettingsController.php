@@ -58,7 +58,7 @@ class SettingsController extends Controller
     public function edit(Settings $settings)
     {
         //
-        return __METHOD__;
+        return view('settings.edit');
     }
 
     /**

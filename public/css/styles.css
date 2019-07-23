@@ -2,7 +2,6 @@
 .page-link {color: #9c27b0;}
 .hw-100{height:100px !important;}
 .btn.dropdown-toggle.select-with-transition{float:left;}
-.delete-form{display:inline-block !important;}
-.sidebar .nav li:hover>a, .sidebar .nav li .dropdown-menu a:hover, .sidebar .nav li .dropdown-menu a:focus, .sidebar .nav li.active>[data-toggle="collapse"] {
-  background-color: rgba(200, 200, 200, 0.5);
-}
+.delete-form,.export-to-csv,.export-to-xlsx{display:inline-block !important;}
+.sidebar .nav li:hover>a, .sidebar .nav li .dropdown-menu a:hover, .sidebar .nav li .dropdown-menu a:focus, .sidebar .nav li.active>[data-toggle="collapse"] {background-color: rgba(200, 200, 200, 0.5);}
+.material-icons.md-100 {font-size:100px;}

@@ -55,9 +55,9 @@ Route::middleware('auth')->group(function (){
 		return view('pages.upgrade');
 	})->name('upgrade');
 
-	Route::get('export-webspace','WebspaceController@export')->name('webspace.export');
-	Route::post('export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
-	Route::get('site-settings','SettingsController@edit')->name('settings.edit');
+	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
+	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
+	Route::get('administration/site-settings','SettingsController@edit')->name('settings.edit');
 
 });
 
