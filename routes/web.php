@@ -57,7 +57,6 @@ Route::middleware('auth')->group(function (){
 
 	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
 	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
-	Route::get('administration/site-settings','SettingsController@edit')->name('settings.edit');
 
 });
 
@@ -107,6 +106,10 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('platform-details','PlatformController@details')->name('platform.details');
 	Route::post('owner-details','OwnerController@details')->name('owner.details');
 	Route::post('user-details','UserController@details')->name('user.details');
+
+	Route::post('/webspace/history','WebspaceController@history')->name('webspace.history');
+	Route::post('webspace/add-history','WebspaceController@addHistory')->name('webspace.add-history');
+
 });
 
 Route::group(['middleware' => ['role:super-admin|admin']], function () {
@@ -134,6 +137,10 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
 	Route::post('designation/remove/{id}','DesignationController@remove')->name('designation.remove');
 	Route::post('owner/remove/{id}','OwnerController@remove')->name('owner.remove');
 	Route::post('platform/remove/{id}','PlatformController@remove')->name('platform.remove');
+});
+
+Route::group(['middleware' => ['role:super-admin']], function () {
+	Route::get('administration/site-settings','SettingsController@edit')->name('settings.edit');
 });
 
 /* Permission based routing

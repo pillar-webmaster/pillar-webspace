@@ -8,6 +8,7 @@ use App\WebspaceMode as Mode;
 use App\Platform as Platform;
 use App\WebspaceSupportLevel as SupportLevel;
 use App\Owner;
+use App\ModelHasHistorie;
 use App\Http\Requests\WebspaceRequest;
 use Response;
 
@@ -47,6 +48,8 @@ class WebspaceController extends Controller
         $owners = Owner::find($request->input('owner'));
         $owner_webspace = $webspace->owners()->attach($owners);
 
+        $history = $webspace->histories()->create(['description' => "Profile created"]);
+
         if ( $webspace->id )
             return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully added");
         else
@@ -59,7 +62,11 @@ class WebspaceController extends Controller
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
-        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace'));
+        $histories = ModelHasHistorie::query()
+            ->where('model_id', $webspace->id)
+            ->paginate(10);
+
+        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
     }
 
     public function update(WebspaceRequest $request, $id){
@@ -151,5 +158,26 @@ class WebspaceController extends Controller
             fclose($file);
         };
         return Response::stream($callback, 200, $headers);
+    }
+
+    public function history ( Request $request ){
+        $id = $request->input('id');
+        $view = view('webspace.history', compact('id'))->render();
+        return response()->json(array('html' => $view),200);
+    }
+
+    public function addHistory ( Request $request, Mode $mode, SupportLevel $level ){
+        $webspace = Webspace::findOrFail($request->input('id'));
+        $history = $webspace->histories()->create(['description' => $request->input('description')]);
+
+        $platforms = Platform::active()->get();
+        $owners = Owner::active()->get();
+        $modes = $mode->all('mode');
+        $services = $level->all('support_level');
+        $histories = ModelHasHistorie::query()
+            ->where('model_id', $webspace->id)
+            ->paginate(10);
+
+        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
     }
 }

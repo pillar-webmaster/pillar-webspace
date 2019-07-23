@@ -23,4 +23,7 @@ class Webspace extends Model
         return  $this->belongsTo('App\Platform');
     }
 
+    public function histories(){
+        return $this->morphMany('App\ModelHasHistorie','model');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'webspace-export', 'titlePage' => __('Export Webspaces')])
+@extends('layouts.app', ['activePage' => 'site-settings', 'titlePage' => __('Site Settings')])
 
 @section('content')
 <div class="content">
@@ -7,8 +7,8 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Export</h4>
-            <p class="card-category">Here you can export webspace records to CSV file</p>
+            <h4 class="card-title ">Site Settings</h4>
+            <p class="card-category">Here you define all settings for the system</p>
           </div>
           <div class="card-body">
             <div class="row">

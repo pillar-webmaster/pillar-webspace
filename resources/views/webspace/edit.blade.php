@@ -123,9 +123,11 @@
                     @endif
                     <small id="descriptionHelp" class="form-text text-muted">{{__('Input the description of the webspace, eg. usage, purpose, etc.')}}</small>
                   </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -134,6 +136,67 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">{{__('History')}}</h4>
+            <p class="card-category">{{__('List all activities happened for this webspace')}}</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 text-right">
+                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
+              </div>
+            </div>
+            <div class="card p-3">
+              <div class="card-body">
+                @foreach ($histories as $history)
+                  <p class="card-text">{{$history->description}}</p>
+                  <p class="card-text"><em>{{$history->created_at}}</em></p>
+                @endforeach
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <nav aria-label="History pages">
+                  <div class="pull-right">
+                  {{ $histories->links() }}
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 @endsection
+@push('js')
+  <script type="text/javascript">
+    $(document).ready(function( $ ){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $('.add-history').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.modal-footer').hide();
+        $('.modal-title').html('Add history');
+        $('.modal-body').html('No details found');
+        $.ajax({
+          type:'POST',
+          url:'/webspace/history',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
+      });
+    });
+  </script>
+@endpush
