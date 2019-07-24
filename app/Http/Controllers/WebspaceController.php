@@ -178,6 +178,6 @@ class WebspaceController extends Controller
             ->where('model_id', $webspace->id)
             ->paginate(10);
 
-        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
+        return redirect()->route('webspace.edit',['id' => $webspace->id]);
     }
 }

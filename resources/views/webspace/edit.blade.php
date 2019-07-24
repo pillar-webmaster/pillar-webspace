@@ -171,6 +171,42 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">{{__('Media')}}</h4>
+            <p class="card-category">{{__('Include all forms related to this webspace, eg. request, dns, service forms')}}</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 text-right">
+                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
+              </div>
+            </div>
+            <div class="card p-3">
+              <div class="card-body">
+                @foreach ($histories as $history)
+                  <p class="card-text">{{$history->description}}</p>
+                  <p class="card-text"><em>{{$history->created_at}}</em></p>
+                @endforeach
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <nav aria-label="History pages">
+                  <div class="pull-right">
+                  {{ $histories->links() }}
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 @endsection
