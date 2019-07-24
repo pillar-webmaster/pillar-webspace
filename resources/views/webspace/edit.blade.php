@@ -60,7 +60,6 @@
                     <small id="modeHelp" class="form-text text-muted">{{__('Select from the list of statuses')}}</small>
                   </div>
                 </div>
-
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="service" class="text-primary">{{__('Support Level')}}</label>
@@ -117,7 +116,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="description" class="text-primary">{{__('Description')}}</label>
-                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{ $webspace->description }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{!! $webspace->description !!}</textarea>
                     @if ($errors->has('description'))
                       <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
                     @endif
@@ -136,7 +135,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -152,10 +150,13 @@
             </div>
             <div class="card p-3">
               <div class="card-body">
-                @foreach ($histories as $history)
-                  <p class="card-text">{{$history->description}}</p>
-                  <p class="card-text"><em>{{$history->created_at}}</em></p>
-                @endforeach
+                @if (count($histories))
+                  @foreach ($histories as $history)
+                    <p class="card-text">{{$history->description}}</p>
+                    <p class="card-text"><em><small>{{$history->created_at}}</small></em></p>
+                    <hr />
+                  @endforeach
+                @endif
               </div>
             </div>
             <div class="row">
@@ -171,7 +172,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -182,15 +182,16 @@
           <div class="card-body">
             <div class="row">
               <div class="col-12 text-right">
-                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
+                <a rel="tooltip" title="Click to upload new media" class="upload-media btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Upload') }}</a>
               </div>
             </div>
             <div class="card p-3">
               <div class="card-body">
-                @foreach ($histories as $history)
-                  <p class="card-text">{{$history->description}}</p>
-                  <p class="card-text"><em>{{$history->created_at}}</em></p>
-                @endforeach
+                @if (count($webspace->medias))
+                  @foreach ($webspace->medias as $media)
+                    <p class="card-text">{{$media.path}}</p>
+                  @endforeach
+                @endif
               </div>
             </div>
             <div class="row">
@@ -227,6 +228,22 @@
         $.ajax({
           type:'POST',
           url:'/webspace/history',
+          data:{id:id},
+            success:function(data){
+              $('.modal-body').html(data.html);
+            }
+        });
+      });
+
+      $('.upload-media').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        $('.modal-footer').hide();
+        $('.modal-title').html('Upload media');
+        $('.modal-body').html('No details found');
+        $.ajax({
+          type:'POST',
+          url:'/webspace/media',
           data:{id:id},
             success:function(data){
               $('.modal-body').html(data.html);

@@ -26,4 +26,8 @@ class Webspace extends Model
     public function histories(){
         return $this->morphMany('App\ModelHasHistorie','model');
     }
+
+    public function medias(){
+        return $this->hasMany('App\Media');
+    }
 }
