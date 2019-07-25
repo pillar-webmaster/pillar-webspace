@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Media;
 use Illuminate\Http\Request;
+use App\Http\Requests\UploadRequest;
+use Storage;
+use Validator;
+use Response;
+use File;
 
 class MediaController extends Controller
 {
@@ -22,9 +27,11 @@ class MediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(Request $request){
         //
+        $id = $request->input('id');
+        $view = view('media.upload', compact('id'))->render();
+        return response()->json(array('html' => $view),200);
     }
 
     /**
@@ -33,9 +40,25 @@ class MediaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(UploadRequest $request){
+
+        $media = Media::create([
+            'description' => $request->input('description'),
+            'webspace_id'   => $request->input('webspace_id'),
+            'path' => Storage::disk('local')->path('media'),
+            'status' => 1,
+        ]);
+
+        $file = $request->file('path');
+        $rand_filename = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
+        $filename = $rand_filename . "-" . $file->getClientOriginalName();
+        $the_path = $file->storeAs('media'. '/' . $request->input('webspace_id'), $filename);
+
+        $new_media = Media::findOrFail($media->id);
+        $new_media->path = $the_path;
+        $new_media->update();
+
+        return redirect()->route('webspace.edit',['id' => $request->input('webspace_id')]);
     }
 
     /**
@@ -82,4 +105,25 @@ class MediaController extends Controller
     {
         //
     }
+
+    /** Allow files to be downloaded
+     *
+     */
+    public function download( $media_id ){
+
+        $media = Media::findOrFail($media_id);
+        // Check if file exists in app/storage/media folder
+        if (Storage::disk('local')->exists($media->path)){
+            // Send Download
+            return Response::download(
+                Storage::disk('local')->path($media->path),
+                substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10) . "." . File::extension($media->path),
+                ['Content-Length: '. filesize(Storage::disk('local')->path($media->path))]
+            );
+        } else {
+            // Error
+            exit( 'Requested file does not exist on our server!' );
+        }
+    }
+
 }

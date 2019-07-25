@@ -15,6 +15,8 @@ class Media extends Model
      */
     protected $table = 'medias';
 
+    protected $fillable = ['description','path','status', 'webspace_id'];
+
     public function webspace(){
         return $this->belongsTo('App\Webspace');
     }

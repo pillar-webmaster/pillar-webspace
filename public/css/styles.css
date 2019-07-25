@@ -5,3 +5,4 @@
 .delete-form,.export-to-csv,.export-to-xlsx{display:inline-block !important;}
 .sidebar .nav li:hover>a, .sidebar .nav li .dropdown-menu a:hover, .sidebar .nav li .dropdown-menu a:focus, .sidebar .nav li.active>[data-toggle="collapse"] {background-color: rgba(200, 200, 200, 0.5);}
 .material-icons.md-100 {font-size:100px;}
+.form-group input[type=file]{opacity:1;position:initial;}

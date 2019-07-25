@@ -172,26 +172,7 @@ class WebspaceController extends Controller
             'description' => $request->input('description')
         ]);
 
-        //$platforms = Platform::active()->get();
-        //$owners = Owner::active()->get();
-        //$modes = $mode->all('mode');
-        //$services = $level->all('support_level');
-        //$histories = ModelHasHistorie::query()
-        //    ->where('model_id', $webspace->id)
-        //    ->paginate(10);
-
         return redirect()->route('webspace.edit',['id' => $webspace->id]);
     }
 
-    public function mediaFiles(Request $request){
-        $id = $request->input('id');
-        $view = view('webspace.media', compact('id'))->render();
-        return response()->json(array('html' => $view),200);
-    }
-    /**
-     * TODO: create media validator
-     */
-    public function uploadMedia (Request $request){
-
-    }
 }

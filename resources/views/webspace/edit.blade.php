@@ -189,7 +189,18 @@
               <div class="card-body">
                 @if (count($webspace->medias))
                   @foreach ($webspace->medias as $media)
-                    <p class="card-text">{{$media.path}}</p>
+                    <p class="card-text">
+                      <a href="{{route('media.download', ['media_id' => $media['id']])}}">
+                      <i class="material-icons">picture_as_pdf</i>
+                        @if ( $media['description'] !== '' )
+                          {{$media['description']}}
+                        @else
+                          {{basename($media['path'])}}
+                        @endif
+                      </a>
+                    </p>
+                    <p class="card-text"><em><small>{{$media['created_at']}}</small></em></p>
+                    <hr />
                   @endforeach
                 @endif
               </div>

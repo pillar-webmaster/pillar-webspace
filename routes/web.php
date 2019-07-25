@@ -110,8 +110,9 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('/webspace/history','WebspaceController@history')->name('webspace.history');
 	Route::post('webspace/add-history','WebspaceController@addHistory')->name('webspace.add-history');
 
-	Route::post('/webspace/media','WebspaceController@mediaFiles')->name('webspace.media');
-	Route::post('webspace/upload-media','WebspaceController@uploadMedia')->name('webspace.upload-media');
+	Route::post('/webspace/media','MediaController@create')->name('webspace.media');
+	Route::post('webspace/upload-media','MediaController@store')->name('webspace.upload-media');
+	Route::get('/webspace/media/download/{media_id}','MediaController@download')->name('media.download');
 
 });
 
