@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('webspace.add-history', ['id' => $id]) }}">
+<form method="POST" action="{{ route('webspace.add-history', ['id' => $id]) }}" id="add-history-form">
   @csrf
   <div class="row">
     <div class="col-md-12">

@@ -145,7 +145,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-12 text-right">
-                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
+                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-history" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
               </div>
             </div>
             <div class="card p-3">
@@ -218,10 +218,55 @@
         </div>
       </div>
     </div>
-
+  </div>
+</div>
+<div class="modal fade" id="wrms-modal-for-history" tabindex="-1" role="dialog" aria-labelledby="wrms-modal-for-history" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="wrms-modal-label"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger print-error-msg" style="display:none">
+          <ul></ul>
+        </div>
+        <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
+          @csrf
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description" class="text-primary">{{__('Description')}}</label>
+                <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus></textarea>
+                @if ($errors->has('description'))
+                  <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
+                @endif
+                <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
+              </div>
+              <div class="form-group">
+                <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-primary" id="submit-history">{{__('Submit')}}</button>
+                  <small id="descriptionHelp" class="form-text text-muted">{{__('Submitting this form will refresh the page')}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary confirm">Proceed</button>
+      </div>
+    </div>
   </div>
 </div>
 @endsection
+
 @push('js')
   <script type="text/javascript">
     $(document).ready(function( $ ){
@@ -230,6 +275,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
+      /*
       $('.add-history').click(function(event){
         event.preventDefault();
         id = $(this).attr('id');
@@ -242,6 +288,42 @@
           data:{id:id},
             success:function(data){
               $('.modal-body').html(data.html);
+            }
+        });
+      });*/
+      /*$('.add-history').click(function(event){
+        event.preventDefault();
+        id = $(this).attr('id');
+        //$('#wrms-modal-for-history').show();
+      });*/
+      $('#wrms-modal-for-history .modal-footer .btn-primary.confirm').click(function(event){
+        event.preventDefault();
+        
+        var id = $('#wrms-modal-for-history input[name=id').val();
+        var description = $('#wrms-modal-for-history textarea[name=description]').val();
+        var _token = $("input[name='_token']").val();
+
+        $.ajax({
+          type:'POST',
+          url:'/webspace/add-history',
+          data:{ _token:_token, id:id, description:description },
+            beforeSend: function(data){
+              if (description == null){
+                printErrorMsg("Description is required");
+                return false;
+              }
+              else
+                return true;
+              //alert(description);
+            },
+            success:function(data){
+              if($.isEmptyObject(data.error)){
+                //alert(data.success);
+                $('.modal-body').html(data.html);
+              }
+              else{
+                printErrorMsg(data.error);
+              }
             }
         });
       });
@@ -261,6 +343,14 @@
             }
         });
       });
+
+      function printErrorMsg (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            });
+        }
     });
   </script>
 @endpush
