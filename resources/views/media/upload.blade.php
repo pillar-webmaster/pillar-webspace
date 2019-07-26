@@ -27,7 +27,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="path" class="text-primary">{{__('Media/File')}}</label>
-            <input id="path" type="file" class="form-control" name="path" value="" autofocus>
+            <input id="path" type="file" class="form-control" name="path" value="" required autofocus>
             @if ($errors->has('path'))
               <span id="path-error" class="error text-danger" for="path">{{ $errors->first('path') }}</span>
             @endif
