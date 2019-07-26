@@ -172,7 +172,7 @@ class WebspaceController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return redirect()->route('webspace.edit',['id' => $webspace->id]);
+        //return redirect()->route('webspace.edit',['id' => $webspace->id]);
     }
 
 }

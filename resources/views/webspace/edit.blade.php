@@ -152,7 +152,7 @@
               <div class="card-body">
                 @if (count($histories))
                   @foreach ($histories as $history)
-                    <p class="card-text">{{$history->description}}</p>
+                    <p class="card-text">{!!$history->description!!}</p>
                     <p class="card-text"><em><small>{{$history->created_at}}</small></em></p>
                     <hr />
                   @endforeach
@@ -229,40 +229,29 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <div class="alert alert-danger print-error-msg" style="display:none">
-          <ul></ul>
-        </div>
-        <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
-          @csrf
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="description" class="text-primary">{{__('Description')}}</label>
-                <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus></textarea>
-                @if ($errors->has('description'))
-                  <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
-                @endif
-                <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
-              </div>
-              <div class="form-group">
-                <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary" id="submit-history">{{__('Submit')}}</button>
-                  <small id="descriptionHelp" class="form-text text-muted">{{__('Submitting this form will refresh the page')}}</small>
-                </div>
-              </div>
-            </div>
+      <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
+        @csrf
+        <div class="modal-body">
+          <div class="alert alert-danger print-error-msg" style="display:none">
+            <ul></ul>
           </div>
-        </form>
+          <div class="form-group">
+            <label for="description" class="text-primary">{{__('Description')}}</label>
+            <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus></textarea>
+            @if ($errors->has('description'))
+              <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
+            @endif
+            <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
+          </div>
+          <div class="form-group">
+            <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary confirm" id="submit-history">{{__('Submit')}}</button>
+          </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary confirm">Proceed</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 @endsection
@@ -275,28 +264,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-      /*
-      $('.add-history').click(function(event){
-        event.preventDefault();
-        id = $(this).attr('id');
-        $('.modal-footer').hide();
-        $('.modal-title').html('Add history');
-        $('.modal-body').html('No details found');
-        $.ajax({
-          type:'POST',
-          url:'/webspace/history',
-          data:{id:id},
-            success:function(data){
-              $('.modal-body').html(data.html);
-            }
-        });
-      });*/
-      /*$('.add-history').click(function(event){
-        event.preventDefault();
-        id = $(this).attr('id');
-        //$('#wrms-modal-for-history').show();
-      });*/
-      $('#wrms-modal-for-history .modal-footer .btn-primary.confirm').click(function(event){
+      $('#add-history-form').submit(function(event){
         event.preventDefault();
         
         var id = $('#wrms-modal-for-history input[name=id').val();
@@ -308,17 +276,10 @@
           url:'/webspace/add-history',
           data:{ _token:_token, id:id, description:description },
             beforeSend: function(data){
-              if (description == null){
-                printErrorMsg("Description is required");
-                return false;
-              }
-              else
-                return true;
-              //alert(description);
+              
             },
             success:function(data){
               if($.isEmptyObject(data.error)){
-                //alert(data.success);
                 $('.modal-body').html(data.html);
               }
               else{
