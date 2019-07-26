@@ -18,7 +18,7 @@
       &copy;
       <script>
         document.write(new Date().getFullYear())
-      </script>, Aaron Angelo Vicuna (Senior Specialist), Singapore University of Technology and Design
+      </script>, <a href="https://academics.sutd.edu.sg">Pillar Web Team </a>
     </div>
   </div>
 </footer>
