@@ -136,7 +136,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title ">{{__('History')}}</h4>
@@ -171,9 +171,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+   
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title ">{{__('Media')}}</h4>
@@ -205,53 +204,55 @@
                 @endif
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="History pages">
-                  <div class="pull-right">
-                  {{ $histories->links() }}
-                  </div>
-                </nav>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="modal fade" id="wrms-modal-for-history" tabindex="-1" role="dialog" aria-labelledby="wrms-modal-for-history" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="wrms-modal-label"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
-        @csrf
-        <div class="modal-body">
-          <div class="alert alert-danger print-error-msg" style="display:none">
-            <ul></ul>
-          </div>
-          <div class="form-group">
-            <label for="description" class="text-primary">{{__('Description')}}</label>
-            <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus></textarea>
-            @if ($errors->has('description'))
-              <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
-            @endif
-            <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
-          </div>
-          <div class="form-group">
-            <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary confirm" id="submit-history">{{__('Submit')}}</button>
-          </div>
-      </div>
-    </form>
+  <div class="modal fade" id="wrms-modal-for-history" tabindex="-1" role="dialog" aria-labelledby="wrms-modal-for-history" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="wrms-modal-label"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success" style="display:none">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="material-icons">close</i>
+          </button>
+          <span><b> Success - </b> </span>
+        </div>
+        <div class="alert alert-danger" style="display:none">
+          @foreach ($errors->all() as $error)
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            <span><b> Error - </b> {{ $error }}</span>
+          @endforeach
+        </div>
+        <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="description" class="text-primary">{{__('Description')}}</label>
+              <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" ></textarea>
+              @if ($errors->has('description'))
+                <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
+              @endif
+              <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary confirm" id="submit-history">{{__('Submit')}}</button>
+            </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 @endsection
@@ -266,27 +267,34 @@
       });
       $('#add-history-form').submit(function(event){
         event.preventDefault();
-        
-        var id = $('#wrms-modal-for-history input[name=id').val();
-        var description = $('#wrms-modal-for-history textarea[name=description]').val();
-        var _token = $("input[name='_token']").val();
-
+        $('.alert-success span').html('');
+        $('.alert-danger').html('');
         $.ajax({
           type:'POST',
-          url:'/webspace/add-history',
-          data:{ _token:_token, id:id, description:description },
-            beforeSend: function(data){
-              
-            },
-            success:function(data){
-              if($.isEmptyObject(data.error)){
-                $('.modal-body').html(data.html);
-              }
-              else{
-                printErrorMsg(data.error);
-              }
-            }
+          url:'{{route("webspace.add-history")}}',
+          data:{
+            id:$('#wrms-modal-for-history input[name=id').val(),
+            description:$('#wrms-modal-for-history textarea[name=description]').val()
+          },
+          success:function(data){
+            $('.alert-danger').hide();
+            $('.alert-success').show();
+            $('.alert-success span').append(data.success);
+            $('#add-history-form')[0].reset();
+            console.log(data.history);
+          },
+          error: function (request, status, error) {
+            json = $.parseJSON(request.responseText);
+            $.each(json.errors, function(key, value){
+              $('.alert-success').hide();
+              $('.alert-danger').show();
+              $('.alert-danger').append('<p>'+value+'</p>');
+            });
+          },
         });
+      });
+      $('#wrms-modal-for-history .modal-footer .btn.btn-secondary, #wrms-modal-for-history .close').click(function(){
+        location.reload(true);
       });
 
       $('.upload-media').click(function(event){
@@ -304,14 +312,6 @@
             }
         });
       });
-
-      function printErrorMsg (msg) {
-            $(".print-error-msg").find("ul").html('');
-            $(".print-error-msg").css('display','block');
-            $.each( msg, function( key, value ) {
-                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-            });
-        }
     });
   </script>
 @endpush
