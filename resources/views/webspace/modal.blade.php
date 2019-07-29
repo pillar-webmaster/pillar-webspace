@@ -64,9 +64,9 @@
             <div class="form-group">
               <input type="hidden" id="webspace_id" name="webspace_id" value="{{$webspace->id}}">
             </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-              <small id="descriptionHelp" class="form-text text-muted">{{__('Submitting this form will refresh the page')}}</small>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary confirm" id="submit-history">{{__('Submit')}}</button>
             </div>
           </form>
         </div>

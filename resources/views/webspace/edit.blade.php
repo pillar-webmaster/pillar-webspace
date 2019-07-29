@@ -188,6 +188,36 @@
           },
         });
       });
+
+      $('#add-history-form').submit(function(event){
+        event.preventDefault();
+        $('.alert-success span').html('');
+        $('.alert-danger').html('');
+        $.ajax({
+          type:'POST',
+          url:'{{route("webspace.add-history")}}',
+          data:{
+            id:$('#wrms-modal-for-webspace input[name=id').val(),
+            description:$('#wrms-modal-for-webspace textarea[name=description]').val()
+          },
+          success:function(data){
+            $('.alert-danger').hide();
+            $('.alert-success').show();
+            $('.alert-success span').append(data.success);
+            $('#add-history-form')[0].reset();
+            console.log(data.history);
+          },
+          error: function (request, status, error) {
+            json = $.parseJSON(request.responseText);
+            $.each(json.errors, function(key, value){
+              $('.alert-success').hide();
+              $('.alert-danger').show();
+              $('.alert-danger').append('<p>'+value+'</p>');
+            });
+          },
+        });
+      });
+      
       $('#wrms-modal-for-webspace .modal-footer .btn.btn-secondary, #wrms-modal-for-webspace .close').click(function(){
         location.reload(true);
       });

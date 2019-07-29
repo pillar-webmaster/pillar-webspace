@@ -6,7 +6,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-12 text-right">
-        <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-webspace">{{ __('Add history') }}</a>
+        <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-webspace" data-backdrop="static" data-keyboard="false">{{ __('Add history') }}</a>
       </div>
     </div>
     <div class="card p-3">
