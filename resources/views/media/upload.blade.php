@@ -1,57 +1,33 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="alert alert-info alert-with-icon" data-notify="container">
-      <i class="material-icons" data-notify="icon">add_alert</i>
-      <span data-notify="message">Upload only PDF version of the file.</span>
-    </div>
+<div class="card">
+  <div class="card-header card-header-primary">
+    <h4 class="card-title ">{{__('Media')}}</h4>
+    <p class="card-category">{{__('Include all forms related to this webspace, eg. request, dns, service forms')}}</p>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-  <!-- better to have the form submitted via AJAX -->
-    <form method="POST" action="{{ route('webspace.upload-media', ['id' => $id]) }}" enctype="multipart/form-data">
-      @csrf
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="description" class="text-primary">{{__('Description')}}</label>
-            <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp"></textarea>
-            @if ($errors->has('description'))
-              <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
-            @endif
-            <small id="descriptionHelp" class="form-text text-muted">{{__('Input description for the file')}}</small>
-          </div>
-        </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 text-right">
+        <a rel="tooltip" title="Click to upload new media" class="upload-media btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-webspace">{{ __('Upload') }}</a>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="path" class="text-primary">{{__('Media/File')}}</label>
-            <input id="path" type="file" class="form-control" name="path" value="" required autofocus>
-            @if ($errors->has('path'))
-              <span id="path-error" class="error text-danger" for="path">{{ $errors->first('path') }}</span>
-            @endif
-            <small id="pathHelp" class="form-text text-muted">{{__('Upload a file')}}</small>
-          </div>
-        </div>
+    </div>
+    <div class="card p-3">
+      <div class="card-body">
+        @if (count($webspace->medias))
+          @foreach ($webspace->medias as $media)
+            <p class="card-text">
+              <a href="{{route('media.download', ['media_id' => $media['id']])}}">
+              <i class="material-icons">picture_as_pdf</i>
+                @if ( $media['description'] !== '' )
+                  {{$media['description']}}
+                @else
+                  {{basename($media['path'])}}
+                @endif
+              </a>
+            </p>
+            <p class="card-text"><em><small>{{$media['created_at']}}</small></em></p>
+            <hr />
+          @endforeach
+        @endif
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <input type="hidden" id="webspace_id" name="webspace_id" value="{{$id}}">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-              <small id="descriptionHelp" class="form-text text-muted">{{__('Submitting this form will refresh the page')}}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </div>

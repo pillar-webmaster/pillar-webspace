@@ -136,129 +136,24 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title ">{{__('History')}}</h4>
-            <p class="card-category">{{__('List all activities happened for this webspace')}}</p>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 text-right">
-                <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-history" id="{{$webspace->id}}" >{{ __('Add history') }}</a>
-              </div>
-            </div>
-            <div class="card p-3">
-              <div class="card-body">
-                @if (count($histories))
-                  @foreach ($histories as $history)
-                    <p class="card-text">{!!$history->description!!}</p>
-                    <p class="card-text"><em><small>{{$history->created_at}}</small></em></p>
-                    <hr />
-                  @endforeach
-                @endif
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="History pages">
-                  <div class="pull-right">
-                  {{ $histories->links() }}
-                  </div>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-md-8">
+        @include('webspace.history')
       </div>
-   
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title ">{{__('Media')}}</h4>
-            <p class="card-category">{{__('Include all forms related to this webspace, eg. request, dns, service forms')}}</p>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 text-right">
-                <a rel="tooltip" title="Click to upload new media" class="upload-media btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}" >{{ __('Upload') }}</a>
-              </div>
-            </div>
-            <div class="card p-3">
-              <div class="card-body">
-                @if (count($webspace->medias))
-                  @foreach ($webspace->medias as $media)
-                    <p class="card-text">
-                      <a href="{{route('media.download', ['media_id' => $media['id']])}}">
-                      <i class="material-icons">picture_as_pdf</i>
-                        @if ( $media['description'] !== '' )
-                          {{$media['description']}}
-                        @else
-                          {{basename($media['path'])}}
-                        @endif
-                      </a>
-                    </p>
-                    <p class="card-text"><em><small>{{$media['created_at']}}</small></em></p>
-                    <hr />
-                  @endforeach
-                @endif
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-md-4">
+        @include('media.upload')
       </div>
     </div>
   </div>
-  <div class="modal fade" id="wrms-modal-for-history" tabindex="-1" role="dialog" aria-labelledby="wrms-modal-for-history" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="wrms-modal-label"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="alert alert-success" style="display:none">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="material-icons">close</i>
-          </button>
-          <span><b> Success - </b> </span>
-        </div>
-        <div class="alert alert-danger" style="display:none">
-          @foreach ($errors->all() as $error)
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <i class="material-icons">close</i>
-            </button>
-            <span><b> Error - </b> {{ $error }}</span>
-          @endforeach
-        </div>
-        <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
-          @csrf
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="description" class="text-primary">{{__('Description')}}</label>
-              <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" ></textarea>
-              @if ($errors->has('description'))
-                <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
-              @endif
-              <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
-            </div>
-            <div class="form-group">
-              <input type="hidden" id="id" name="id" class="id" value="{{$webspace->id}}">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary confirm" id="submit-history">{{__('Submit')}}</button>
-            </div>
-        </div>
-      </form>
-    </div>
-  </div>
+  @include('webspace.modal')
 </div>
 @endsection
-
 @push('js')
   <script type="text/javascript">
+    $.extend( true, $.fn.dataTable.defaults, {
+      'ordering': false,
+      'lengthChange': false,
+    } );
+
     $(document).ready(function( $ ){
       $.ajaxSetup({
         headers: {
@@ -273,8 +168,8 @@
           type:'POST',
           url:'{{route("webspace.add-history")}}',
           data:{
-            id:$('#wrms-modal-for-history input[name=id').val(),
-            description:$('#wrms-modal-for-history textarea[name=description]').val()
+            id:$('#wrms-modal-for-webspace input[name=id').val(),
+            description:$('#wrms-modal-for-webspace textarea[name=description]').val()
           },
           success:function(data){
             $('.alert-danger').hide();
@@ -293,25 +188,24 @@
           },
         });
       });
-      $('#wrms-modal-for-history .modal-footer .btn.btn-secondary, #wrms-modal-for-history .close').click(function(){
+      $('#wrms-modal-for-webspace .modal-footer .btn.btn-secondary, #wrms-modal-for-webspace .close').click(function(){
         location.reload(true);
+      });
+
+      $('.add-history').click(function(event){
+        event.preventDefault();
+        $('.form-media').hide();
+        $('.form-history').show();
       });
 
       $('.upload-media').click(function(event){
         event.preventDefault();
-        id = $(this).attr('id');
-        $('.modal-footer').hide();
-        $('.modal-title').html('Upload media');
-        $('.modal-body').html('No details found');
-        $.ajax({
-          type:'POST',
-          url:'/webspace/media',
-          data:{id:id},
-            success:function(data){
-              $('.modal-body').html(data.html);
-            }
-        });
+        $('.form.history').hide();
+        $('.form-media').show();
       });
+
+      $('.history').DataTable();
+
     });
   </script>
 @endpush

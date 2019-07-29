@@ -64,7 +64,7 @@ class WebspaceController extends Controller
         $services = $level->all('support_level');
         $histories = ModelHasHistorie::query()
             ->where('model_id', $webspace->id)
-            ->paginate(5);
+            ->get();
 
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
     }
@@ -172,10 +172,6 @@ class WebspaceController extends Controller
             'description' => $request->input('description')
         ]);
 
-        $histories = ModelHasHistorie::query()
-            ->where('model_id', $webspace->id)
-            ->paginate(10);
-        
-        return response()->json(['success' => 'History successfully added', 'history' => $histories]);
+        return response()->json(['success' => 'History successfully added, fill-up the form to add new entry']);
     }
 }

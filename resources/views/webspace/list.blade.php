@@ -19,7 +19,7 @@
                       <i class="material-icons">close</i>
                     </button>
                     <span><b> Success - </b> {{ session()->get('success') }}</span>
-                  </div>
+                </div>
                 @endif
                 @if(session()->get('error'))
                   <div class="alert alert-danger">
@@ -27,7 +27,7 @@
                       <i class="material-icons">close</i>
                     </button>
                     <span><b> Error - </b> {{ session()->get('error') }}</span>
-                  </div>
+                </div>
                 @endif
               </div>
             </div>

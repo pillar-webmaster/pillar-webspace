@@ -1,24 +1,37 @@
-<form method="POST" action="{{ route('webspace.add-history', ['id' => $id]) }}" id="add-history-form">
-  @csrf
-  <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="description" class="text-primary">{{__('Description')}}</label>
-        <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus></textarea>
-        @if ($errors->has('description'))
-          <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
-        @endif
-        <small id="descriptionHelp" class="form-text text-muted">{{__('Input history log')}}</small>
+<div class="card">
+  <div class="card-header card-header-primary">
+    <h4 class="card-title ">{{__('History')}}</h4>
+    <p class="card-category">{{__('List all activities happened for this webspace')}}</p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 text-right">
+        <a rel="tooltip" title="Click to add history" class="add-history btn btn-sm btn-primary" href="" data-toggle="modal" data-target="#wrms-modal-for-webspace">{{ __('Add history') }}</a>
       </div>
-      <div class="form-group">
-        <input type="hidden" id="id" name="id" value="{{$id}}">
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-primary" id="submit-history">{{__('Submit')}}</button>
-          <small id="descriptionHelp" class="form-text text-muted">{{__('Submitting this form will refresh the page')}}</small>
-        </div>
+    </div>
+    <div class="card p-3">
+      <div class="card-body">
+        <table class="table history column-2">
+          <thead class=" text-primary">
+            <th>Description</th>
+            <th>Created at</th>
+          </thead>
+          <tbody>
+            @if (count($histories))
+              @foreach ($histories as $history)
+                <tr>
+                  <td>{!!$history->description!!}</td>
+                  <td>{{$history->created_at}}</td>
+                </tr>
+              @endforeach
+            @endif
+          </tbody>
+          <tfoot>
+            <th></th>
+            <th></th>
+          </tfoot>
+        </table>
       </div>
     </div>
   </div>
-</form>
+</div>
