@@ -121,6 +121,23 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-danger">
+              <div class="ct-chart" id="webspacesPerPlatform"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Completed Tasks</h4>
+              <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-6 col-md-12">
           <div class="card">
@@ -422,5 +439,23 @@
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
     });
+
+    //alert('test');
+    /*var data = {
+      series: [5, 3, 4]
+    };*/
+    var url = "{{route('dashboard.platform')}}";
+    var series = new Array();
+    $.get(url, function(data){
+      var sum = function(a, b) { return a + b };
+
+      new Chartist.Pie('#webspacesPerPlatform', data, {
+        labelInterpolationFnc: function(value) {
+          return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+      });
+
+    });
+
   </script>
 @endpush

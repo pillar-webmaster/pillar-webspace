@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function (){
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 	Route::get('webspace','WebspaceController@list')->name('webspace.list');
 	Route::post('webspace-details','WebspaceController@details')->name('webspace.details');
-
+	Route::get('platform-webspace','HomeController@get_platform_webspace')->name('dashboard.platform');
 });
 
 /* Role based routing */
