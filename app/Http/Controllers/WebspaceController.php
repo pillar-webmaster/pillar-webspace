@@ -154,12 +154,6 @@ class WebspaceController extends Controller
         return Response::stream($callback, 200, $headers);
     }
 
-    public function history ( Request $request ){
-        $id = $request->input('id');
-        $view = view('webspace.history', compact('id'))->render();
-        return response()->json(array('html' => $view),200);
-    }
-
     public function addHistory ( Request $request ){
 
         $this->validate($request,
@@ -172,6 +166,6 @@ class WebspaceController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return response()->json(['success' => 'History successfully added, fill-up the form to add new entry']);
+        return response()->json(['success' => 'History successfully added, fill-up the form to add new entry or click Close to exit this dialog']);
     }
 }

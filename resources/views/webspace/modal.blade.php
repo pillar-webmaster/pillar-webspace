@@ -23,7 +23,7 @@
       </div>
       <div class="modal-body">
         <div class="form-history" style="display:none;">
-          <form method="POST" action="{{ route('webspace.add-history', ['id' => $webspace->id]) }}" id="add-history-form">
+          <form method="POST" id="add-history-form">
             @csrf
             <div class="form-group">
               <label for="description" class="text-primary">{{__('Description')}}</label>
@@ -43,7 +43,7 @@
           </form>
         </div>
         <div class="form-media" style="display:none;">
-          <form method="POST" action="{{ route('webspace.upload-media', ['id' => $webspace->id]) }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('webspace.upload-media') }}" enctype="multipart/form-data" id="upload-media-form"
             @csrf
             <div class="form-group">
               <label for="description" class="text-primary">{{__('Description')}}</label>

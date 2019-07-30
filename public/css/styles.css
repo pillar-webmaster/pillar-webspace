@@ -6,9 +6,5 @@
 .sidebar .nav li:hover>a, .sidebar .nav li .dropdown-menu a:hover, .sidebar .nav li .dropdown-menu a:focus, .sidebar .nav li.active>[data-toggle="collapse"] {background-color: rgba(200, 200, 200, 0.5);}
 .material-icons.md-100 {font-size:100px;}
 .form-group input[type=file]{opacity:1;position:initial;}
-.dataTables_filter, .dataTables_paginate.paging_simple_numbers {
-  width: 50%;
-  float: right;
-  text-align: right;
-}
 .table.column-2 td:nth-child(2){width:30% !important;}
+.dataTables_filter label {width: 100%;}

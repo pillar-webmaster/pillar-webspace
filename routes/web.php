@@ -107,7 +107,6 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('owner-details','OwnerController@details')->name('owner.details');
 	Route::post('user-details','UserController@details')->name('user.details');
 
-	Route::post('/webspace/history','WebspaceController@history')->name('webspace.history');
 	Route::post('webspace/add-history','WebspaceController@addHistory')->name('webspace.add-history');
 
 	Route::post('/webspace/media','MediaController@create')->name('webspace.media');

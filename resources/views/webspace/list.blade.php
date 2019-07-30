@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title ">List</h4>
-            <p class="card-category">Webspaces installed in Pillar Server</p>
+            <p class="card-category">Webspaces installed in the Server</p>
           </div>
           <div class="card-body">
             <div class="row">

@@ -58,7 +58,8 @@ class MediaController extends Controller
         $new_media->path = $the_path;
         $new_media->update();
 
-        return redirect()->route('webspace.edit',['id' => $request->input('webspace_id')]);
+        return response()->json(['success' => 'Media successfully added, upload new file to add new entry, or, click Close button to exit this dialog']);
+
     }
 
     /**

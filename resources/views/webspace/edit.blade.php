@@ -160,34 +160,6 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-      $('#add-history-form').submit(function(event){
-        event.preventDefault();
-        $('.alert-success span').html('');
-        $('.alert-danger').html('');
-        $.ajax({
-          type:'POST',
-          url:'{{route("webspace.add-history")}}',
-          data:{
-            id:$('#wrms-modal-for-webspace input[name=id').val(),
-            description:$('#wrms-modal-for-webspace textarea[name=description]').val()
-          },
-          success:function(data){
-            $('.alert-danger').hide();
-            $('.alert-success').show();
-            $('.alert-success span').append(data.success);
-            $('#add-history-form')[0].reset();
-            console.log(data.history);
-          },
-          error: function (request, status, error) {
-            json = $.parseJSON(request.responseText);
-            $.each(json.errors, function(key, value){
-              $('.alert-success').hide();
-              $('.alert-danger').show();
-              $('.alert-danger').append('<p>'+value+'</p>');
-            });
-          },
-        });
-      });
 
       $('#add-history-form').submit(function(event){
         event.preventDefault();
@@ -196,16 +168,15 @@
         $.ajax({
           type:'POST',
           url:'{{route("webspace.add-history")}}',
-          data:{
-            id:$('#wrms-modal-for-webspace input[name=id').val(),
-            description:$('#wrms-modal-for-webspace textarea[name=description]').val()
+          data: $('#add-history-form').serialize(),
+          beforeSend:function(){
+            $('#add-history-form .btn.confirm').html("Submitting");
           },
           success:function(data){
             $('.alert-danger').hide();
             $('.alert-success').show();
             $('.alert-success span').append(data.success);
             $('#add-history-form')[0].reset();
-            console.log(data.history);
           },
           error: function (request, status, error) {
             json = $.parseJSON(request.responseText);
@@ -215,9 +186,50 @@
               $('.alert-danger').append('<p>'+value+'</p>');
             });
           },
+          complete:function(){
+            $('#add-history-form .btn.confirm').html("Submit");
+          }
         });
       });
-      
+
+      $('#upload-media-form').submit(function(event){
+        event.preventDefault();
+        $('.alert-success span').html('');
+        $('.alert-danger').html('');
+        $.ajax({
+          type:'POST',
+          url:'{{route("webspace.upload-media")}}',
+          /*data:{
+            id:$('#wrms-modal-for-webspace input[name=id').val(),
+            description:$('#wrms-modal-for-webspace textarea[name=description]').val()
+          },*/
+          data: new FormData($('#upload-media-form')[0]),
+          cache: false,
+          contentType: false,
+          processData: false,
+          beforeSend:function(){
+            $('#upload-media-form .btn.confirm').html("Uploading");
+          },
+          success:function(data){
+            $('.alert-danger').hide();
+            $('.alert-success').show();
+            $('.alert-success span').append(data.success);
+            $('#upload-media-form')[0].reset();
+          },
+          error: function (request, status, error) {
+            json = $.parseJSON(request.responseText);
+            $.each(json.errors, function(key, value){
+              $('.alert-success').hide();
+              $('.alert-danger').show();
+              $('.alert-danger').append('<p>'+value+'</p>');
+            });
+          },
+          complete:function(){
+            $('#upload-media-form .btn.confirm').html("Submit");
+          }
+        });
+      });
+
       $('#wrms-modal-for-webspace .modal-footer .btn.btn-secondary, #wrms-modal-for-webspace .close').click(function(){
         location.reload(true);
       });
