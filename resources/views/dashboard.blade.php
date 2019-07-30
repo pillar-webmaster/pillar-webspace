@@ -27,12 +27,12 @@
               <div class="card-icon">
                 <i class="material-icons">store</i>
               </div>
-              <p class="card-category">Webspaces Created</p>
+              <p class="card-category">Created</p>
               <h3 class="card-title">{{count($last_30_days_webspace)}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">date_range</i> Last 30 days
+                <i class="material-icons">date_range</i> Created last 30 days
               </div>
             </div>
           </div>
@@ -43,12 +43,12 @@
               <div class="card-icon">
                 <i class="material-icons">info_outline</i>
               </div>
-              <p class="card-category">Active Webspace</p>
+              <p class="card-category">Active</p>
               <h3 class="card-title">{{count($active_webspaces)}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">local_offer</i> Published online
+                <i class="material-icons">local_offer</i> Online webspaces
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
               <div class="card-icon">
                 <i class="material-icons">priority_high</i>
               </div>
-              <p class="card-category">Disabled Webspace</p>
+              <p class="card-category">Disabled</p>
               <h3 class="card-title">{{count($disabled_webspaces)}}</h3>
             </div>
             <div class="card-footer">
