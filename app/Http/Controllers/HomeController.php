@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Webspace;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -19,8 +21,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        return view('dashboard');
+    public function index(Webspace $webspaces){
+
+        $the_webspaces = Webspace::active()->get();
+
+        $last_30_days_webspace = Webspace::active()
+            ->where('created_at', '>=', Carbon::now()->subDays(30))
+            ->get();
+
+        $active_webspaces = Webspace::active()
+            ->where('mode',0)
+            ->get();
+
+        $disabled_webspaces = Webspace::active()
+            ->where('mode',1)
+            ->get();
+
+
+        return view('dashboard', compact(
+            'the_webspaces','last_30_days_webspace', 'active_webspaces','disabled_webspaces'
+        ));
     }
 }

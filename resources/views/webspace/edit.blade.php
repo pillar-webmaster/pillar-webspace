@@ -116,7 +116,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="description" class="text-primary">{{__('Description')}}</label>
-                    <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{!! $webspace->description !!}</textarea>
+                    <textarea class="form-control format" id="description" name="description" rows="8" aria-describedby="descriptionHelp">{{clean($webspace->description)}}</textarea>
                     @if ($errors->has('description'))
                       <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
                     @endif

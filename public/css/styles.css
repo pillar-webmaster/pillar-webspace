@@ -8,3 +8,4 @@
 .form-group input[type=file]{opacity:1;position:initial;}
 .table.column-2 td:nth-child(2){width:30% !important;}
 .dataTables_filter label {width: 100%;}
+.mce-tinymce.mce-container.mce-panel{top:10px;}

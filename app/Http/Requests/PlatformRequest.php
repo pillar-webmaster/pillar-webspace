@@ -38,7 +38,8 @@ class PlatformRequest extends FormRequest
         // input fields here eg,
         $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
         $input['version'] = filter_var($input['version'], FILTER_SANITIZE_STRING);
-        $input['requirements'] = filter_var($input['requirements'], FILTER_SANITIZE_STRING);
+        //$input['requirements'] = filter_var($input['requirements'], FILTER_SANITIZE_STRING);
+        $input['requirements']  = clean($input['requirements']);
 
         $this->replace($input);
     }

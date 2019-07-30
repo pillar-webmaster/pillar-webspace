@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="requirements" class="text-primary">{{__('Requirements')}}</label>
-                    <textarea class="form-control" id="requirements" name="requirements" rows="8" aria-describedby="requirementsHelp" required autofocus>{{ $platform->requirements }}</textarea>
+                    <textarea class="form-control format" id="requirements" name="requirements" rows="8" aria-describedby="requirementsHelp" required autofocus>{{ clean($platform->requirements) }}</textarea>
                     <small id="requirementsHelp" class="form-text text-muted">{{__('Input requirements for the platform (eg. Linux, PHP version, MySQL, etc)')}}</small>
                   </div>
                 </div>

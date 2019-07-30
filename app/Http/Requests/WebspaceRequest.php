@@ -49,7 +49,8 @@ class WebspaceRequest extends FormRequest
         $input['platform_id'] = filter_var($input['platform_id'], FILTER_SANITIZE_NUMBER_INT);
         if (isset($input['owner']))
             $input['owner'] = filter_var_array($input['owner'], FILTER_SANITIZE_NUMBER_INT);
-        $input['description'] = filter_var($input['description'], FILTER_SANITIZE_STRING);
+        //$input['description'] = filter_var($input['description'], FILTER_SANITIZE_STRING);
+        $input['description'] = clean($input['description']);
 
         $this->replace($input);
     }

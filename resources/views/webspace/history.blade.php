@@ -20,7 +20,7 @@
             @if (count($histories))
               @foreach ($histories as $history)
                 <tr>
-                  <td>{!!$history->description!!}</td>
+                  <td>{{$history->description}}</td>
                   <td>{{$history->created_at}}</td>
                 </tr>
               @endforeach
