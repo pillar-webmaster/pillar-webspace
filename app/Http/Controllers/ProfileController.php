@@ -28,26 +28,9 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        //auth()->user()->update($request->all());
         auth()->user()->update(
             $request->except(['roles'])
         );
-
-        //dd(auth()->user()->getRoleNames());
-        foreach(auth()->user()->getRoleNames() as $role){
-            auth()->user()->removeRole($role);
-        }
-
-        $roles = $request['roles']; //Retrieving the roles field
-
-        if (isset($roles)){
-            foreach ($roles as $role){
-                $role_r = Role::where('id', '=', $role)->firstOrFail();
-                // $role_r is the object, pass it as it is needed by polymorph table model_has_roles
-                // better this way, but you can also use the name itself
-                auth()->user()->assignRole($role_r); //Assigning role to user
-            }
-        }
 
         return back()->withStatus(__('Profile successfully updated.'));
     }

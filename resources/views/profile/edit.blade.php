@@ -28,7 +28,7 @@
                   </div>
                 @endif
                 <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __('Name') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary">{{ __('Name') }}</label>
                   <div class="col-sm-7">
                     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required="true" aria-required="true"/>
@@ -39,33 +39,17 @@
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
+                  <label class="col-sm-2 col-form-label text-primary">{{ __('Email') }}</label>
                   <div class="col-sm-7">
-                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required />
-                      @if ($errors->has('email'))
-                        <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
-                      @endif
-                    </div>
+                    <p ariadescribedby="emailHelp">{{auth()->user()->email}}
+                      <small id="emailHelp" class="form-text text-muted">{{__('You cannot change your email, as this is your username')}}</small>
+                    </p>
                   </div>
                 </div>
                 <div class="row">
                   <label class="col-sm-2 col-form-label text-primary" for="role">{{ __('Role') }}</label>
                   <div class="col-sm-7">
-                    <div class="form-group">
-                      <select class="form-control" data-style="btn btn-link" id="roles" name="roles[]" aria-describedby="roleHelp" required autofocus>
-                        <option value="">Select</option>
-                        @if (count($roles))
-                          @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" {{ (collect(auth()->user()->roles()->pluck('id'))->contains($role->id)) ? "selected":"" }}>{{ucfirst($role->name)}}</option>
-                          @endforeach
-                        @endif
-                      </select>
-                      @if ($errors->has('role'))
-                        <span id="role-error" class="error text-danger" for="role">{{ $errors->first('role') }}</span>
-                      @endif
-                      <small id="roleHelp" class="form-text text-muted">{{__('Select from the list of roles')}}</small>
-                    </div>
+                    <p>{{ucfirst(auth()->user()->roles()->pluck('name')->implode(' '))}}</p>
                   </div>
                 </div>
               </div>
