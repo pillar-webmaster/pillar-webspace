@@ -35,7 +35,9 @@
               <div class="col-sm-12">
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{ route('department.add') }}" class="btn btn-sm btn-primary">{{ __('Add department') }}</a>
+                    <a href="{{ route('department.add') }}" class="btn btn-sm btn-primary">
+                      <i class="material-icons">control_point</i>&nbsp;{{ __('Add department') }}
+                    </a>
                   </div>
                 </div>
                 <div class="table-responsive">

@@ -36,7 +36,9 @@
                 @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{ route('webspace.add') }}" class="btn btn-sm btn-primary">{{ __('Add webspace') }}</a>
+                    <a href="{{ route('webspace.add') }}" class="btn btn-sm btn-primary">
+                      <i class="material-icons">control_point</i>&nbsp;{{ __('Add webspace') }}
+                    </a>
                   </div>
                 </div>
                 @endhasanyrole

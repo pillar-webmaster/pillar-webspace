@@ -36,7 +36,9 @@
                 @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{ route('platform.add') }}" class="btn btn-sm btn-primary">{{ __('Add platform') }}</a>
+                    <a href="{{ route('platform.add') }}" class="btn btn-sm btn-primary">
+                      <i class="material-icons">control_point</i>&nbsp;{{ __('Add platform') }}
+                    </a>
                   </div>
                 </div>
                 @endhasanyrole
