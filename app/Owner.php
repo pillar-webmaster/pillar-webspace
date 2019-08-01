@@ -15,14 +15,14 @@ class Owner extends Model
     }
 
     public function department(){
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Department')->active();
     }
 
     public function webspaces(){
-        return $this->belongsToMany('App\Webspace');
+        return $this->belongsToMany('App\Webspace')->active();
     }
 
     public function designation(){
-        return $this->belongsTo('App\Designation');
+        return $this->belongsTo('App\Designation')->active();
     }
 }

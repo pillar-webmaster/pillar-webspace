@@ -18,6 +18,6 @@ class Media extends Model
     protected $fillable = ['description','path','status', 'webspace_id'];
 
     public function webspace(){
-        return $this->belongsTo('App\Webspace');
+        return $this->belongsTo('App\Webspace')->active();
     }
 }

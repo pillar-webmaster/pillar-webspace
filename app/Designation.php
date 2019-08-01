@@ -15,6 +15,6 @@ class Designation extends Model
     }
 
     public function owners(){
-        return $this->hasMany('App\Owner');
+        return $this->hasMany('App\Owner')->active();
     }
 }

@@ -15,6 +15,6 @@ class Platform extends Model
     }
 
     public function webspaces(){
-        return $this->hasMany('App\Webspace');
+        return $this->hasMany('App\Webspace')->active();
     }
 }

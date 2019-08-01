@@ -9,3 +9,7 @@
 .table.column-2 td:nth-child(2){width:30% !important;}
 .dataTables_filter label {width: 100%;}
 .mce-tinymce.mce-container.mce-panel{top:10px;}
+#webspacesPerPlatform .ct-label, #webspacesSupport .ct-label{font-size:10px;stroke:#ffffff;}
+#webspacesPerPlatform.ct-chart{fill:#66bb6a !important;}
+.ct-series-a .ct-slice-donut {stroke: #ff9800 !important;}
+.ct-series-d .ct-slice-donut-solid {stroke: #0000FF !important;fill: #0000FF !important;}

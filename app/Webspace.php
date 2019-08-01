@@ -16,11 +16,11 @@ class Webspace extends Model
     }
 
     public function owners(){
-        return $this->belongsToMany('App\Owner');
+        return $this->belongsToMany('App\Owner')->active();
     }
 
     public function platform(){
-        return  $this->belongsTo('App\Platform');
+        return  $this->belongsTo('App\Platform')->active();
     }
 
     public function histories(){

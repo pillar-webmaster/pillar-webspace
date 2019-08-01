@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function (){
 	Route::get('webspace','WebspaceController@list')->name('webspace.list');
 	Route::post('webspace-details','WebspaceController@details')->name('webspace.details');
 	Route::get('platform-webspace','HomeController@get_platform_webspace')->name('dashboard.platform');
+	Route::get('created-webspace','HomeController@get_webspace_created')->name('dashboard.webspace-created');
+	Route::get('support-webspace','HomeController@get_webspace_support')->name('dashboard.support');
 });
 
 /* Role based routing */
