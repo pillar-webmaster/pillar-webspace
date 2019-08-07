@@ -24,13 +24,12 @@
                     <label for="name" class="text-primary">{{__('Name')}}</label>
                     <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ old('name') }}" required autofocus>
                     @if ($errors->has('name'))
-                      <span id="designation_id-error" class="error text-danger" for="designation_id">{{ $errors->first('name') }}</span>
+                      <span id="name-error" class="error text-danger" for="name">{{ $errors->first('name') }}</span>
                     @endif
                     <small id="nameHelp" class="form-text text-muted">{{__('Input complete name of the owner')}}</small>
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -69,7 +68,7 @@
                       <option value="">Select</option>
                       @if (count($services))
                         @foreach ($services as $key => $value )
-                          <option value="{{ $key }}">{{$value}}</option>
+                          <option value="{{ $key }}" {{ (collect(old("service"))->contains($key)) ? "selected":"" }}>{{$value}}</option>
                         @endforeach
                       @endif
                     </select>
@@ -87,7 +86,7 @@
                       <option value="">Select</option>
                       @if (count($platforms))
                         @foreach ($platforms as $platform)
-                          <option value="{{ $platform->id }}">{{$platform->name." (".$platform->version.")"}}</option>
+                          <option value="{{ $platform->id }}" {{ (collect(old("platform_id"))->contains($platform->id)) ? "selected":"" }}>{{$platform->name." (".$platform->version.")"}}</option>
                         @endforeach
                       @endif
                     </select>
@@ -104,7 +103,7 @@
                     <select multiple="multiple" class="form-control selectpicker hw-100" data-style="select-with-transition" data-live-search="true" id="owner" name="owner[]" data-size="7" required autofocus>
                       @if (count($owners))
                         @foreach ($owners as $owner )
-                          <option value="{{ $owner->id }}">{{$owner->name}}</option>
+                          <option value="{{ $owner->id }}" >{{$owner->name}}</option>
                         @endforeach
                       @endif
                     </select>

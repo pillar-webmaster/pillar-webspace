@@ -32,10 +32,10 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                  <div class="form-group{{ $errors->has('contact') ? ' has-danger' : '' }}">
                     <label for="contact" class="text-primary">{{__('Contact Number.')}}</label>
-                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="contact" name="contact" aria-describedby="contactHelp" placeholder="Enter contact number" value="{{ old('contact') }}">
-                    @if ($errors->has('name'))
+                    <input type="text" class="form-control{{ $errors->has('contact') ? ' is-invalid' : '' }}" id="contact" name="contact" aria-describedby="contactHelp" placeholder="Enter contact number" value="{{ old('contact') }}">
+                    @if ($errors->has('contact'))
                       <span id="contact-error" class="error text-danger" for="contact">{{ $errors->first('contact') }}</span>
                     @endif
                     <small id="contactHelp" class="form-text text-muted">{{__('Input contact number (preferably office phone)')}}</small>
@@ -44,10 +44,10 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                  <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                     <label for="email" class="text-primary">{{__('Email')}}</label>
-                    <input type="email" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email address" value="{{ old('email') }}" required autofocus>
-                    @if ($errors->has('name'))
+                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email address" value="{{ old('email') }}" required autofocus>
+                    @if ($errors->has('email'))
                       <span id="email-error" class="error text-danger" for="email">{{ $errors->first('email') }}</span>
                     @endif
                     <small id="emailHelp" class="form-text text-muted">{{__('Input email address (preferably corporate email address)')}}</small>
@@ -62,7 +62,7 @@
                       <option value="">Select</option>
                       @if ($designations->count())
                         @foreach ($designations as $designation)
-                          <option value="{{ $designation->id }}" {{ (collect(old("designation"))->contains($designation->id)) ? "selected":"" }}>{{$designation->name}}</option>
+                          <option value="{{ $designation->id }}" {{ (collect(old("designation_id"))->contains($designation->id)) ? "selected":"" }}>{{$designation->name}}</option>
                         @endforeach
                       @endif
                     </select>
@@ -80,7 +80,7 @@
                       <option value="">Select</option>
                       @if ($departments->count())
                         @foreach ($departments as $department)
-                          <option value="{{ $department->id }}" {{ (collect(old("department"))->contains($department->id)) ? "selected":"" }}>{{$department->name}}</option>
+                          <option value="{{ $department->id }}" {{ (collect(old("department_id"))->contains($department->id)) ? "selected":"" }}>{{$department->name}}</option>
                         @endforeach
                       @endif
                     </select>

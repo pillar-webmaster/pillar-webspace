@@ -46,4 +46,11 @@ class OwnerRequest extends FormRequest
 
         $this->replace($input);
     }
+
+    public function messages(){
+        return [
+            'department_id.required' => 'You should select a department',
+            'designation_id.required' => 'You should select a designation',
+        ];
+    }
 }
