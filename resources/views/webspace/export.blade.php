@@ -37,7 +37,7 @@
                 <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-csv" id="export-to-csv">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Export to CSV file" class="import-csv" href="#">
+                  <a rel="tooltip" title="Export to CSV file" class="export-csv" href="#">
                     <div class="card text-center" style="width: 18rem;">
                       <i class="material-icons md-100">save_alt</i>
                       <div class="card-body">
@@ -53,7 +53,7 @@
                 <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-xlsx" id="export-csv">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Export to Excel file" class="import-xlsx" href="#">
+                  <a rel="tooltip" title="Export to Excel file" class="export-xlsx" href="#">
                     <div class="card text-center" style="width: 18rem;">
                       <span class="text-center"><i class="material-icons md-100">save_alt</i></span>
                       <div class="card-body">
@@ -76,11 +76,11 @@
   <script type="text/javascript">
     $(document).ready(function( $ ){
       var id = "";
-      $('a.import-csv').click(function(event){
+      $('a.export-csv').click(function(event){
         event.preventDefault();
         $('#export-to-csv' ).submit();
       });
-      $('a.import-xlsx').click(function(event){
+      $('a.export-xlsx').click(function(event){
         event.preventDefault();
         alert('Sorry, not yet implemented.');
       });
