@@ -9,7 +9,7 @@
         <p class="card-text"><strong>Support Level: </strong>{{ $support_level }}</p>
         <p class="card-text"><strong>Platform: </strong>{{ $webspace->platform->name }} ({{ $webspace->platform->version }})</p>
         <p class="card-text"><strong>Owner/s: </strong>{{ $webspace->owners->pluck('name')->implode(', ') }}</p>
-        <p class="card-text"><strong>Description: </strong>{{ $webspace->description }}</p>
+        <p class="card-text"><strong>Description: </strong>{!! $webspace->description !!}</p>
       </div>
     </div>
   </div>

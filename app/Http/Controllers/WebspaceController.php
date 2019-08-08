@@ -154,7 +154,7 @@ class WebspaceController extends Controller
         return Response::stream($callback, 200, $headers);
     }
 
-    public function addHistory ( Request $request ){
+    public function add_history ( Request $request ){
 
         $this->validate($request,
                 ['id' => ['required', 'integer'],
@@ -167,5 +167,13 @@ class WebspaceController extends Controller
         ]);
 
         return response()->json(['success' => 'History successfully added, fill-up the form to add new entry or click Close to exit this dialog']);
+    }
+
+    public function import(){
+        return view('webspace.import');
+    }
+
+    public function import_to_csv(){
+        return __METHOD__;
     }
 }

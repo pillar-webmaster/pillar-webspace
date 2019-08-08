@@ -55,9 +55,6 @@ Route::middleware('auth')->group(function (){
 		return view('pages.upgrade');
 	})->name('upgrade');
 
-	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
-	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
-
 });
 
 Route::middleware('auth')->group(function (){
@@ -71,6 +68,8 @@ Route::middleware('auth')->group(function (){
 	Route::get('platform-webspace','HomeController@get_platform_webspace')->name('dashboard.platform');
 	Route::get('created-webspace','HomeController@get_webspace_created')->name('dashboard.webspace-created');
 	Route::get('support-webspace','HomeController@get_webspace_support')->name('dashboard.support');
+	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
+	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
 });
 
 /* Role based routing */
@@ -109,7 +108,7 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('owner-details','OwnerController@details')->name('owner.details');
 	Route::post('user-details','UserController@details')->name('user.details');
 
-	Route::post('webspace/add-history','WebspaceController@addHistory')->name('webspace.add-history');
+	Route::post('webspace/add-history','WebspaceController@add_history')->name('webspace.add-history');
 
 	Route::post('/webspace/media','MediaController@create')->name('webspace.media');
 	Route::post('webspace/upload-media','MediaController@store')->name('webspace.upload-media');
@@ -146,6 +145,8 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
 
 Route::group(['middleware' => ['role:super-admin']], function () {
 	Route::get('administration/site-settings','SettingsController@edit')->name('settings.edit');
+	Route::get('administration/import-webspace','WebspaceController@import')->name('webspace.import');
+	Route::post('administration/import-to-csv','WebspaceController@eimport_to_csv')->name('webspace.import_to_csv');
 });
 
 /* Permission based routing

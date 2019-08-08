@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="/" class="simple-text logo-normal">
-      <h2>{{ __('WRMS') }}</h2>
+      <h2>{{ __('WARMS') }}</h2>
     </a>
   </div>
   <div class="sidebar-wrapper">
@@ -65,7 +65,7 @@
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings') ? ' show' : '' }}" id="admin">
+        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings' || $activePage == 'webspace-import') ? ' show' : '' }}" id="admin">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'webspace-export' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('webspace.export') }}">
@@ -74,6 +74,12 @@
               </a>
             </li>
             @hasanyrole("super-admin")
+            <li class="nav-item{{ $activePage == 'webspace-import' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('webspace.import') }}">
+                <span class="sidebar-mini"> EW </span>
+                <span class="sidebar-normal">{{ __('Import Webspace') }} </span>
+              </a>
+            </li>
             <li class="nav-item{{ $activePage == 'site-settings' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('settings.edit') }}">
                 <span class="sidebar-mini"> SS </span>

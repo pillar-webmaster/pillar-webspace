@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'webspace-export', 'titlePage' => __('Export Webspaces')])
+@extends('layouts.app', ['activePage' => 'webspace-import', 'titlePage' => __('Import Webspaces')])
 
 @section('content')
 <div class="content">
@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title ">Export</h4>
-            <p class="card-category">Here you can export webspace records to CSV file</p>
+            <p class="card-category">Here you can import webspace records from a CSV file</p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -37,12 +37,12 @@
                 <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-csv" id="export-to-csv">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Export to CSV file" class="import-csv" href="#">
+                  <a rel="tooltip" title="Import from CSV file" class="import-csv" href="#">
                     <div class="card text-center" style="width: 18rem;">
-                      <i class="material-icons md-100">save_alt</i>
+                      <i class="material-icons md-100">cloud_upload</i>
                       <div class="card-body">
-                        <h4 class="card-title">Export webspaces to CSV</h4>
-                        <p class="card-text">Clicking will allow you to download a CSV file with data from webspaces</p>
+                        <h4 class="card-title">Import webspace from a CSV file</h4>
+                        <p class="card-text">Clicking will allow you to upload a CSV file containing webspace data which will create new entry in the system</p>
                       </div>
                     </div>
                   </a>
@@ -53,12 +53,12 @@
                 <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-xlsx" id="export-csv">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Export to Excel file" class="import-xlsx" href="#">
+                  <a rel="tooltip" title="Import from Excel file" class="import-xlsx" href="#">
                     <div class="card text-center" style="width: 18rem;">
-                      <span class="text-center"><i class="material-icons md-100">save_alt</i></span>
+                      <span class="text-center"><i class="material-icons md-100">cloud_upload</i></span>
                       <div class="card-body">
-                        <h4 class="card-title">Export webspaces to XLSX</h4>
-                        <p class="card-text">Clicking will allow you to download an MS Excel file with data from webspaces</p>
+                        <h4 class="card-title">Import webspace from a XLSX file</h4>
+                        <p class="card-text">Clicking will allow you to upload a Excel file containing webspace data which will create new entry in the system</p>
                       </div>
                     </div>
                   </a>
