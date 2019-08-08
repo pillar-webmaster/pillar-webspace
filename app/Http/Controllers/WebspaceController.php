@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
 use App\Webspace as Webspace;
 use App\WebspaceMode as Mode;
 use App\Platform as Platform;
@@ -10,7 +11,8 @@ use App\WebspaceSupportLevel as SupportLevel;
 use App\Owner;
 use App\ModelHasHistorie;
 use App\Http\Requests\WebspaceRequest;
-use Response;
+use App\Imports\WebspaceImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WebspaceController extends Controller
 {
@@ -175,7 +177,8 @@ class WebspaceController extends Controller
         return view('webspace.import');
     }
 
-    public function import_to_csv(){
-        return __METHOD__;
+    public function import_to_csv(Request $request){
+        Excel::import(new WebspaceImport, request()->file('csv_file'));
+        return redirect('/')->with('success', 'All good!');
     }
 }
