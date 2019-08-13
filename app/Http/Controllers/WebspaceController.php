@@ -177,8 +177,14 @@ class WebspaceController extends Controller
         return view('webspace.import');
     }
 
-    public function import_to_csv(Request $request){
-        Excel::import(new WebspaceImport, request()->file('csv_file'));
-        return redirect('/')->with('success', 'All good!');
+    public function import_from_csv(Request $request){
+        try{
+            Excel::import(new WebspaceImport, $request->file('import-csv-path'));
+        }
+        catch(\Exception $e){
+            return back()->withError($e->validator->errors()->first());
+        }
+
+        return redirect()->route('webspace.import')->with('success', 'Webspaces successfully imported');
     }
 }

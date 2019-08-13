@@ -146,7 +146,7 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
 Route::group(['middleware' => ['role:super-admin']], function () {
 	Route::get('administration/site-settings','SettingsController@edit')->name('settings.edit');
 	Route::get('administration/import-webspace','WebspaceController@import')->name('webspace.import');
-	Route::post('administration/import-to-csv','WebspaceController@eimport_to_csv')->name('webspace.import_to_csv');
+	Route::post('administration/import-from-csv','WebspaceController@import_from_csv')->name('webspace.import_from_csv');
 });
 
 /* Permission based routing

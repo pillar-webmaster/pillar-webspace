@@ -7,10 +7,15 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Export</h4>
-            <p class="card-category">Here you can import webspace records from a CSV file</p>
+            <h4 class="card-title ">{{__('Import')}}</h4>
+            <p class="card-category">{{__('Create webspaces in batches using CSV file')}}</p>
           </div>
           <div class="card-body">
+            <!--<div class="row">
+              <div class="col-md-12 text-right">
+                <a href="{{ route('department.list') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+              </div>
+            </div>-->
             <div class="row">
               <div class="col-sm-12">
                 @if(session()->get('success'))
@@ -31,40 +36,26 @@
                 @endif
               </div>
             </div>
-            <div class="row justify-content-center" style="text-align:center;">
-              <div class="col-sm-6">
-                <!-- add form here -->
-                <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-csv" id="export-to-csv">
-                  @csrf
-                  <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Import from CSV file" class="import-csv" href="#">
-                    <div class="card text-center" style="width: 18rem;">
-                      <i class="material-icons md-100">cloud_upload</i>
-                      <div class="card-body">
-                        <h4 class="card-title">Import webspace from a CSV file</h4>
-                        <p class="card-text">Clicking will allow you to upload a CSV file containing webspace data which will create new entry in the system</p>
-                      </div>
-                    </div>
-                  </a>
-                </form>
+            <form method="POST" action="{{ route('webspace.import_from_csv') }}" enctype="multipart/form-data">
+              @csrf
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="import-csv-path" class="text-primary">{{__('File')}}</label>
+                    <input id="import-csv-path" type="file" class="form-control" name="import-csv-path" value="" required autofocus>
+                    @if ($errors->has('import-csv-path'))
+                      <span id="import-csv-path-error" class="error text-danger" for="import-csv-path">{{ $errors->first('import-csv-path') }}</span>
+                    @endif
+                    <small id="import-csv-pathHelp" class="form-text text-muted">{{__('Upload a CSV file for import')}}</small>
+                  </div>
+                </div>
               </div>
-              <div class="col-sm-6">
-                <!-- add form here -->
-                <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-xlsx" id="export-csv">
-                  @csrf
-                  <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Import from Excel file" class="import-xlsx" href="#">
-                    <div class="card text-center" style="width: 18rem;">
-                      <span class="text-center"><i class="material-icons md-100">cloud_upload</i></span>
-                      <div class="card-body">
-                        <h4 class="card-title">Import webspace from a XLSX file</h4>
-                        <p class="card-text">Clicking will allow you to upload a Excel file containing webspace data which will create new entry in the system</p>
-                      </div>
-                    </div>
-                  </a>
-                </form>
+              <div class="row">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
