@@ -33,12 +33,14 @@
                 <span class="sidebar-normal">{{ __('List') }} </span>
               </a>
             </li>
+            @hasanyrole("super-admin|admin|editor")
             <li class="nav-item{{ $activePage == 'platform_list' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('platform.list') }}">
               <span class="sidebar-mini"> PL </span>
                 <span class="sidebar-normal">{{ __('Platform') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>
@@ -74,30 +76,23 @@
         </div>
       </li>
       @endhasanyrole
-      @hasanyrole("super-admin|admin")
-      <li class="nav-item {{ ($activePage == 'webspace-export' || $activePage == 'site-settings'|| $activePage == 'user-management' || $activePage == 'webspace-import') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false">
+      @hasanyrole("super-admin")
+      <li class="nav-item{{ $activePage == 'server_list' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('server.list') }}">
+          <i class="material-icons">developer_board</i>
+            <p>{{ __('Server') }}</p>
+        </a>
+      </li>
+      @endhasanyrole
+      <li class="nav-item {{ ($activePage == 'webspace-export' || $activePage == 'webspace-import') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#tools" aria-expanded="false">
           <i class="material-icons">settings</i>
-          <p>{{ __('Administration') }}
+          <p>{{ __('Tools') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings' || $activePage == 'user-management' || $activePage == 'webspace-import') ? ' show' : '' }}" id="admin">
+        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings' || $activePage == 'user-management' || $activePage == 'webspace-import') ? ' show' : '' }}" id="tools">
           <ul class="nav">
-            <li class="nav-item {{ ($activePage == 'user-management' || $activePage == 'user_add') ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('user.index') }}">
-              <span class="sidebar-mini"> U </span>
-                <p>{{ __('Users') }}</p>
-              </a>
-            </li>
-            @hasanyrole("super-admin")
-            <li class="nav-item{{ $activePage == 'site-settings' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('settings.edit') }}">
-                <span class="sidebar-mini"> SS </span>
-                <span class="sidebar-normal"> {{ __('Site Settings') }} </span>
-              </a>
-            </li>
-            @endhasanyrole
             <li class="nav-item{{ $activePage == 'webspace-export' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('webspace.export') }}">
                 <span class="sidebar-mini"> EW </span>
@@ -115,13 +110,32 @@
           </ul>
         </div>
       </li>
-      @endhasanyrole
-      <li class="nav-item{{ $activePage == 'server_list' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('server.list') }}">
-          <i class="material-icons">developer_board</i>
-            <p>{{ __('Server') }}</p>
+      @hasanyrole("super-admin")
+      <li class="nav-item {{ ( $activePage == 'site-settings'|| $activePage == 'user-management' ) ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false">
+          <i class="material-icons">settings</i>
+          <p>{{ __('Administration') }}
+            <b class="caret"></b>
+          </p>
         </a>
+        <div class="collapse {{ ($activePage == 'site-settings' || $activePage == 'user-management') ? ' show' : '' }}" id="admin">
+          <ul class="nav">
+            <li class="nav-item {{ ($activePage == 'user-management') ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('user.index') }}">
+              <span class="sidebar-mini"> U </span>
+                <p>{{ __('Users') }}</p>
+              </a>
+            </li>
+            <li class="nav-item{{ $activePage == 'site-settings' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('settings.edit') }}">
+                <span class="sidebar-mini"> SS </span>
+                <span class="sidebar-normal"> {{ __('Site Settings') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
+      @endhasanyrole
     </ul>
     @endauth
   </div>

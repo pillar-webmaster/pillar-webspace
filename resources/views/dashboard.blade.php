@@ -159,14 +159,6 @@
                             <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
                               <i class="material-icons">edit</i>
                             </a>
-                            @endhasanyrole
-                            @hasanyrole("super-admin|admin")
-                            <form method="POST" action="{{route('webspace.remove', ['id' => $webspace->id])}}" class="delete-form" id="delete-form-{{$webspace->id}}">
-                              @csrf
-                              <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">
-                                <i class="material-icons">close</i>
-                              </a>
-                            </form>
                           @endhasanyrole
                         </td>
                       </tr>
@@ -190,12 +182,11 @@
                           <td>{{$platform->name . " " . $platform->version }}</td>
                           <td>{{$platform->webspaces->count()}}</td>
                           <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                              <i class="material-icons">close</i>
-                            </button>
+                            @hasanyrole("super-admin|admin|editor")
+                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">
+                                <i class="material-icons">edit</i>
+                              </a>
+                            @endhasanyrole
                           </td>
                         </tr>
                       @endforeach

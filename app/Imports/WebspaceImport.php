@@ -102,6 +102,9 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
             foreach ($ownerObj as $obj){
                 $owner_webspace = $webspace->owners()->syncWithoutDetaching($obj);
             }
+
+            // create entry to history
+            $history = $webspace->histories()->create(['description' => "Profile created from imported CSV file"]);
         }
     }
 }
