@@ -58,6 +58,25 @@
             </form>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title ">{{__('Important Instructions')}}</h4>
+          </div>
+          <div class="card-body">
+            <div class="card-text">
+              <ol>
+                <li>You can only import a <strong>CSV</strong> file</li>
+                <li>Each item should be separated by pipe symbol "|" (applicable only to department, designation, owner and owner email columns )</li>
+                <li>The number of owner must correspond with the number of department, designation, owner and owner email</li>
+                <li>The data for department, designation and owner email should correspond in to the position of owner in the column</li>
+                <li>Status column only accepts values ['Active','Disabled','Inactive','Deleted']</li>
+                <li>Support column only accepts values ['Full','Co-Managed','Technical','Hosting']</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
