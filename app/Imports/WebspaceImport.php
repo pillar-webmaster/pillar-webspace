@@ -9,44 +9,42 @@ use App\Owner;
 use App\Platform;
 use App\WebspaceMode as Mode;
 use App\WebspaceSupportLevel as SupportLevel;
-use Session;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\HeadingRowImport;
 use Illuminate\Support\Facades\Validator;
 
-
-
 class WebspaceImport implements OnEachRow, WithHeadingRow
 {
     public function onRow (Row $row){
-
-        //dd($row->toArray());
-        $multiple_email_regex = '/(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*;\s*|\s*$))*/';
-        $validator = Validator::make($row->toArray(), 
+        //$multiple_email_regex = '/(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*;\s*|\s*$))*/';
+        $url_regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
+        $validator = Validator::make($row->toArray(),
         [
-            'owneremail' => ['required','regex:'.$multiple_email_regex],
+            'name' => ['required','string', 'max:255'],
+            'url' => ['required','string', 'max:255'],
+            'status' => ['required','string', 'max:15'],
+            'support' => ['required','string', 'max:15'],
+            'platform' => ['required','string', 'max:255'],
+            'platform_version' => ['required','string', 'max:15'],
+            'owner' => ['required','string'],
+            'department' => ['required','string'],
+            'designation' => ['required','string'],
+            'owner_email' => ['required','string'],
+            'description' => ['required','string', 'max:1000'],
         ]
         )->validate();
-
-        
-        /*$this->errors = new \Illuminate\Support\MessageBag;
-        if ($validator->fails()) {
-            //dd($validator);
-            Session::flash('error', 'have error');
-            return redirect('webspace.import')->withErrors($validator);
-        }*/
 
         $the_data = $row->toArray();
         // make sure that each row  has correct index
         if ( count($the_data) == 11 ){
             // create designation
             $designationObj = $departmentObj = $ownerObj = $ownerEmailObj = [];
-            $designations = explode(";", $the_data['designation']);
-            $departments = explode(";", $the_data['department']);
-            $owners = explode(";", $the_data['owner']);
-            $ownerEmail = explode(";", $the_data['owneremail']);
+            $designations = explode("|", $the_data['designation']);
+            $departments = explode("|", $the_data['department']);
+            $owners = explode("|", $the_data['owner']);
+            $ownerEmail = explode("|", $the_data['owner_email']);
             // check if designation, department and owner have equal quantity
             if ( ( count($designations) == count($departments) ) &&
                 (count($departments) == count($owners) )  &&

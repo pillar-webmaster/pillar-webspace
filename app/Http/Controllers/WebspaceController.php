@@ -181,10 +181,13 @@ class WebspaceController extends Controller
         try{
             Excel::import(new WebspaceImport, $request->file('import-csv-path'));
         }
+        catch(\PhpOffice\PhpSpreadsheet\Reader\Exception $e){
+            return back()->withError("Invalid spreadsheet file, check the contents of the file");
+        }
         catch(\Exception $e){
             return back()->withError($e->validator->errors()->first());
         }
-
+        
         return redirect()->route('webspace.import')->with('success', 'Webspaces successfully imported');
     }
 }
