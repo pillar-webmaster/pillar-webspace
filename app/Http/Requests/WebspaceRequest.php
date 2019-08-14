@@ -28,7 +28,7 @@ class WebspaceRequest extends FormRequest
         $regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
 
         return [
-            'name' => ['required', 'max:255', 'alpha_num'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9\s]+$/'],
             'url' => ['required', 'regex:'.$regex, 'max:255'],
             'mode' => ['required', 'integer'],
             'service' => ['required', 'integer'],

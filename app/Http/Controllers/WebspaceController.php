@@ -131,8 +131,6 @@ class WebspaceController extends Controller
             ->orderBy('created_at','DESC')
             ->get();
 
-        dd($webspaces);
-
         $columns = [
             'Name', 'Owner/s', 'URL', 'Platform', 'Status', 'Service', 'Created at'
         ];
