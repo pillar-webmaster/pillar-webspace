@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             RolesAndPermissionSeeder::class,
-            WebspaceWithHistorySeeder::class,
+            //WebspaceWithHistorySeeder::class,
         ]);
     }
 }
