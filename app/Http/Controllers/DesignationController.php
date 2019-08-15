@@ -11,7 +11,7 @@ class DesignationController extends Controller
     //
     public function list(){
         $designations = Designation::active()
-            ->orderBy('created_at','ASC')
+            ->orderBy('created_at','DESC')
             ->paginate(20);
         $i = 0;
 

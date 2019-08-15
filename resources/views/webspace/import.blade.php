@@ -11,11 +11,6 @@
             <p class="card-category">{{__('Create webspaces in batches using CSV file')}}</p>
           </div>
           <div class="card-body">
-            <!--<div class="row">
-              <div class="col-md-12 text-right">
-                <a href="{{ route('department.list') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
-              </div>
-            </div>-->
             <div class="row">
               <div class="col-sm-12">
                 @if(session()->get('success'))
@@ -69,8 +64,10 @@
                 <li>Each item should be separated by pipe symbol "|" (applicable only to department, designation, owner and owner email columns )</li>
                 <li>The number of owner must correspond with the number of department, designation, owner and owner email</li>
                 <li>The data for department, designation and owner email should correspond in to the position of owner in the column</li>
-                <li>Status column only accepts values ['Active','Disabled','Inactive','Deleted']</li>
-                <li>Support column only accepts values ['Full','Co-Managed','Technical','Hosting']</li>
+                <li>Status column only accepts values <strong>['Active','Disabled','Inactive','Deleted']</strong></li>
+                <li>Support column only accepts values <strong>['Full','Co-Managed','Technical','Hosting']</strong></li>
+                <li>Be careful with <strong>naming conventions</strong>, for example in a department, EPD and Engineering Product Development, although semantically the same, will be treated as two different entity</li>
+                <li>It is advisable that you download the sample CSV template file from <a href="{{route('media.download_misc', ['filename' => 'test.csv'])}}">here</a></li>
               </ol>
             </div>
           </div>
@@ -80,18 +77,3 @@
   </div>
 </div>
 @endsection
-@push('js')
-  <script type="text/javascript">
-    $(document).ready(function( $ ){
-      var id = "";
-      $('a.import-csv').click(function(event){
-        event.preventDefault();
-        $('#export-to-csv' ).submit();
-      });
-      $('a.import-xlsx').click(function(event){
-        event.preventDefault();
-        alert('Sorry, not yet implemented.');
-      });
-    });
-  </script>
-@endpush

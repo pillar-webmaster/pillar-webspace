@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function (){
 	Route::get('support-webspace','HomeController@get_webspace_support')->name('dashboard.support');
 	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
 	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
+	Route::get('changelog','HomeController@changelog')->name('changelog');
 });
 
 /* Role based routing */
@@ -103,6 +104,7 @@ Route::group(['middleware' => ['role:super-admin']], function () {
 	Route::get('administration/import-webspace','WebspaceController@import')->name('webspace.import');
 	Route::post('administration/import-from-csv','WebspaceController@import_from_csv')->name('webspace.import_from_csv');
 	Route::get('administration/server','ServerController@index')->name('server.list');
+	Route::get('/webspace/media/download-misc/{filename}','MediaController@download_misc')->name('media.download_misc');
 });
 
 /* Permission based routing

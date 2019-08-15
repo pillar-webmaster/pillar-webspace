@@ -11,7 +11,7 @@ class PlatformController extends Controller
     //
     public function list(){
         $platforms = Platform::active()
-            ->orderBy('created_at','ASC')
+            ->orderBy('created_at','DESC')
             ->paginate(20);
         $i = 0;
 

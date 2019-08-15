@@ -4,6 +4,17 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            Read the details, changelog and future development for this system &nbsp;
+            <a href="{{route('changelog')}}" class="btn btn-info">More details here<div class="ripple-container"></div></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-header card-header-warning card-header-icon">

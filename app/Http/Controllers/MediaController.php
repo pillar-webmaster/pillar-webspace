@@ -108,7 +108,7 @@ class MediaController extends Controller
     }
 
     /** Allow files to be downloaded
-     *
+     *  For webspace media
      */
     public function download( $media_id ){
 
@@ -120,6 +120,25 @@ class MediaController extends Controller
                 Storage::disk('local')->path($media->path),
                 substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10) . "." . File::extension($media->path),
                 ['Content-Length: '. filesize(Storage::disk('local')->path($media->path))]
+            );
+        } else {
+            // Error
+            exit( 'Requested file does not exist on our server!' );
+        }
+    }
+
+    /** Allow files to be downloaded
+     *  For common media
+     */
+    public function download_misc( $filename ){
+
+        // Check if file exists in app/storage/misc folder
+        if (Storage::disk('local')->exists("misc/".$filename)){
+            // Send Download
+            return Response::download(
+                Storage::disk('local')->path("misc/".$filename),
+                substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10) . "." . File::extension("misc/".$filename),
+                ['Content-Length: '. filesize(Storage::disk('local')->path("misc/".$filename))]
             );
         } else {
             // Error

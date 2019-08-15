@@ -108,4 +108,8 @@ class HomeController extends Controller
         }
         return response()->json($data);
     }
+
+    public function changelog(){
+        return view('pages.changelog');
+    }
 }

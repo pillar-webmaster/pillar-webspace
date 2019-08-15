@@ -66,6 +66,7 @@ class WebspaceController extends Controller
         $services = $level->all('support_level');
         $histories = ModelHasHistorie::query()
             ->where('model_id', $webspace->id)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
