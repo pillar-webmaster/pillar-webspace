@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        DB::table('mode_has_roles')->insert([
+        DB::table('model_has_roles')->insert([
             'role_id' => 4,
             'model_type' => 'App\User',
             'model_id' => 1
