@@ -91,7 +91,7 @@
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'site-settings' || $activePage == 'user-management' || $activePage == 'webspace-import') ? ' show' : '' }}" id="tools">
+        <div class="collapse {{ ($activePage == 'webspace-export' || $activePage == 'webspace-import') ? ' show' : '' }}" id="tools">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'webspace-export' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('webspace.export') }}">
@@ -110,7 +110,7 @@
           </ul>
         </div>
       </li>
-      @hasanyrole("super-admin")
+      @hasanyrole("admin|super-admin")
       <li class="nav-item {{ ( $activePage == 'site-settings'|| $activePage == 'user-management' ) ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false">
           <i class="material-icons">settings</i>
@@ -126,12 +126,14 @@
                 <p>{{ __('Users') }}</p>
               </a>
             </li>
+            @hasanyrole("super-admin")
             <li class="nav-item{{ $activePage == 'site-settings' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('settings.edit') }}">
                 <span class="sidebar-mini"> SS </span>
                 <span class="sidebar-normal"> {{ __('Site Settings') }} </span>
               </a>
             </li>
+            @endhasanyrole
           </ul>
         </div>
       </li>

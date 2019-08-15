@@ -23,6 +23,26 @@
                     </div>
                   </div>
                 @endif
+                <div class="row">
+                  <div class="col-sm-12">
+                    @if(session()->get('success'))
+                      <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="material-icons">close</i>
+                        </button>
+                        <span><b> Success - </b> {{ session()->get('success') }}</span>
+                    </div>
+                    @endif
+                    @if(session()->get('error'))
+                      <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="material-icons">close</i>
+                        </button>
+                        <span><b> Error - </b> {{ session()->get('error') }}</span>
+                    </div>
+                    @endif
+                  </div>
+                </div>
                 @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
@@ -68,6 +88,14 @@
                           </td>
                           <td class="td-actions text-right">
                             @if ($user->id != auth()->id())
+                              @if ( $user->hasRole('super-admin') && !auth()->user()->hasRole('super-admin') )
+                                @php ($allowed = 0)
+                              @elseif ($user->hasRole('super-admin') && auth()->user()->hasRole('super-admin'))
+                                @php ($allowed = 1)
+                              @else
+                                @php ($allowed = 1)
+                              @endif
+                              @if ($allowed)
                               <form action="{{ route('user.destroy', $user) }}" method="post">
                                   @csrf
                                   @method('delete')
@@ -80,6 +108,7 @@
                                       <div class="ripple-container"></div>
                                   </button>
                               </form>
+                              @endif
                             @else
                               <a rel="tooltip" class="btn btn-success btn-link" href="{{ route('profile.edit') }}" data-original-title="" title="">
                                 <i class="material-icons">edit</i>

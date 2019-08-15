@@ -72,10 +72,21 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\View\View
      */
-    public function edit(User $user)
-    {
+    public function edit(User $user) {
+
         $roles = Role::all(['id','name']);
-        return view('users.edit', compact('user','roles'));
+
+        if ( $user->hasRole('super-admin') ){
+            if ( auth()->user()->hasRole('super-admin') ){
+                return view('users.edit', compact('user','roles'));
+            }
+            else {
+                return redirect()->route('user.index')->with('error', 'You are not allowed to do that');
+            }
+        }
+        else {
+            return view('users.edit', compact('user','roles'));
+        }
     }
 
     /**
@@ -130,7 +141,17 @@ class UserController extends Controller
      */
     public function destroy(User  $user)
     {
-        $user->delete();
+        if ( $user->hasRole('super-admin') ){
+            if (auth()->user()->hasRole('super-admin')) {
+                $user->delete();
+            }
+            else {
+                return redirect()->route('user.index')->with('error', 'You are not allowed to do that');
+            }
+        }
+        else {
+            $user->delete();
+        }
 
         return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
     }
