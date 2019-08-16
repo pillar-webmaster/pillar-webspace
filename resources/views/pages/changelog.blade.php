@@ -75,9 +75,10 @@
                           <li>Ability to export webspaces to Excel file</li>
                           <li>Ability for super-administrator to change settings of the site, eg, main login photo, system color, labels, etc</li>
                           <li>Ability for admin and super administrator to publish announcement, and blogs</li>
-                          <li>Ability for super administrator to define user roles and groups</li>
-                          <li>Search functionality, system and objects</li>
+                          <li>Ability for super administrator to define and manage user roles and groups</li>
                           <li>Revisions to add automatically in webspace history</li>
+                          <li>Search, filtering and reordering of list per object</li>
+                          <li>Create, management of categorization and linking with webspaces [Pillar, Centers, People, Group, Department, Lab]</li>
                         </ul>
                       </div>
                     </div>
