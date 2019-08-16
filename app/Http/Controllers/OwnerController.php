@@ -14,7 +14,7 @@ class OwnerController extends Controller
     public function list(){
 
         $owners = Owner::active()
-            ->orderBy('created_at','DESC')
+            ->orderBy('name','ASC')
             ->paginate(20);
         $i = 0;
 
