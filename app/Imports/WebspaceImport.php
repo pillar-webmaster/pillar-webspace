@@ -76,14 +76,14 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
                     ]);
                     $i++;
                 }
-                // create platform
-                $platform = Platform::firstOrCreate([
-                    'name' => $the_data['platform'],
-                    'version' => $the_data['platform_version'],
-                    'requirements' => '',
-                    'status' => 1,
-                ]);
-                }
+            }
+            // create platform
+            $platform = Platform::firstOrCreate([
+                'name' => $the_data['platform'],
+                'version' => $the_data['platform_version'],
+                'requirements' => '',
+                'status' => 1,
+            ]);
             // create webspace
             $mode = new Mode();
             $support = new SupportLevel();
