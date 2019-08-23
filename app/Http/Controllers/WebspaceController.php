@@ -21,7 +21,7 @@ class WebspaceController extends Controller
         $webspaces = Webspace::active()
             ->orderBy('name','ASC')
             ->paginate(20);
-        $i = 0;
+        $i = 1 + ($webspaces->currentPage() -1 ) * 20;
 
         return view('webspace.list', compact('webspaces','i'));
     }

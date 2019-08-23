@@ -13,7 +13,7 @@ class PlatformController extends Controller
         $platforms = Platform::active()
             ->orderBy('name','ASC')
             ->paginate(20);
-        $i = 0;
+        $i = 1 + ($platforms->currentPage() -1 ) * 20;
 
         return view('platform.list', compact('platforms','i'));
     }

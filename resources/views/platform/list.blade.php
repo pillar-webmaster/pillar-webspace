@@ -54,7 +54,7 @@
                       @if ($platforms->count())
                         @foreach($platforms as $platform)
                           <tr>
-                            <td>{{++$i}}</td>
+                            <td>{{$i++}}</td>
                             <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$platform->id}}">{{$platform->name}}</a></td>
                             <td>{{$platform->version}}</td>
                             <td>

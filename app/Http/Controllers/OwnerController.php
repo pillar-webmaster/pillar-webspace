@@ -16,7 +16,7 @@ class OwnerController extends Controller
         $owners = Owner::active()
             ->orderBy('name','ASC')
             ->paginate(20);
-        $i = 0;
+        $i = 1 + ($owners->currentPage() -1 ) * 20;
 
         return view('owner.list', compact('owners','i'));
     }

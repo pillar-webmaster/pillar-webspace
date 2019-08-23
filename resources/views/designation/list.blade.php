@@ -53,7 +53,7 @@
                       @if ($designations->count())
                         @foreach($designations as $designation)
                           <tr>
-                            <td>{{++$i}}</td>
+                            <td>{{$i++}}</td>
                             <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">{{$designation->name}}</a></td>
                             <td>
                               @hasanyrole("super-admin|admin|editor")

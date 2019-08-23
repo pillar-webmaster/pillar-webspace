@@ -13,7 +13,7 @@ class DepartmentController extends Controller
         $departments = Department::active()
             ->orderBy('name','ASC')
             ->paginate(20);
-        $i = 0;
+        $i = 1 + ($departments->currentPage() -1 ) * 20;
 
         return view('department.list', compact('departments','i'));
     }

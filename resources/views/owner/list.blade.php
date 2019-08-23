@@ -55,7 +55,7 @@
                       @if ($owners->count())
                         @foreach($owners as $owner)
                           <tr>
-                            <td>{{++$i}}</td>
+                            <td>{{$i++}}</td>
                             <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$owner->id}}">{{$owner->name}}</a></td>
                             <td>{{$owner->email}}</td>
                             <td>{{$owner->department->name}}</td>
