@@ -22,7 +22,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <!--<link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />-->
     </head>
-    <body class="{{ $class ?? '' }}">
+    <body class="{{ $activePage }}">
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

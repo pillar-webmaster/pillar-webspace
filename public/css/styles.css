@@ -26,3 +26,11 @@
 .ct-series-m .ct-slice-donut {stroke: #873600!important;}
 .ct-series-n .ct-slice-donut {stroke: #D1F2EB!important;}
 .ct-series-d .ct-slice-donut-solid {stroke: #0000FF !important;fill: #0000FF !important;}
+/* table list */
+.webspace_list table th:nth-child(5),
+.platform_list table th:nth-child(4),
+.owner_list table th:nth-child(5),
+.department_list table th:nth-child(3),
+.designation_list table th:nth-child(3) {
+  width:140px;
+}
