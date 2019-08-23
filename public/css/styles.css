@@ -25,7 +25,12 @@
 .ct-series-l .ct-slice-donut {stroke: #F2D7D5!important;}
 .ct-series-m .ct-slice-donut {stroke: #873600!important;}
 .ct-series-n .ct-slice-donut {stroke: #D1F2EB!important;}
-.ct-series-d .ct-slice-donut-solid {stroke: #0000FF !important;fill: #0000FF !important;}
+.ct-series-o .ct-slice-donut {stroke: #ff9800 !important;}
+.ct-series-p .ct-slice-donut {stroke: #f44336 !important;}
+.ct-series-q .ct-slice-donut {stroke: #0000FF !important;}
+.ct-series-r .ct-slice-donut {stroke: #00bcd4!important;}
+.ct-series-s .ct-slice-donut {stroke: #8e24aa!important;}
+.ct-series-t .ct-slice-donut-solid {stroke: #0000FF !important;fill: #0000FF !important;}
 /* table list */
 .webspace_list table th:nth-child(5),
 .platform_list table th:nth-child(4),
