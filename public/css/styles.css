@@ -9,7 +9,7 @@
 .table.column-2 td:nth-child(2){width:30% !important;}
 .dataTables_filter label {width: 100%;}
 .mce-tinymce.mce-container.mce-panel{top:10px;}
-#webspacesPerPlatform .ct-label, #webspacesSupport .ct-label{font-size:10px;stroke:#ffffff;}
+#webspacesPerPlatform .ct-label, #webspacesSupport .ct-label{font-size:9px;stroke:#ffffff;font-weight:normal;letter-spacing:0.3rem}
 #webspacesPerPlatform.ct-chart{fill:#66bb6a !important;}
 .ct-series-a .ct-slice-donut {stroke: #ff9800 !important;}
 .ct-series-b .ct-slice-donut {stroke: #f44336 !important;}
@@ -31,6 +31,7 @@
 .ct-series-r .ct-slice-donut {stroke: #00bcd4!important;}
 .ct-series-s .ct-slice-donut {stroke: #8e24aa!important;}
 .ct-series-t .ct-slice-donut-solid {stroke: #0000FF !important;fill: #0000FF !important;}
+#webspacesSupport .ct-series-d path{fill: #0000FF !important;}
 /* table list */
 .webspace_list table th:nth-child(5),
 .platform_list table th:nth-child(4),
