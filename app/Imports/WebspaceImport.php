@@ -20,23 +20,31 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
     public function onRow (Row $row){
         //$multiple_email_regex = '/(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*;\s*|\s*$))*/';
         $url_regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
-        $validator = Validator::make($row->toArray(),
+
+        $the_data = $row->toArray();
+        $the_data = $this->sanitize($the_data);
+
+        $validator = Validator::make($the_data,
         [
             'name' => ['required','string', 'max:255'],
-            'url' => ['required','string', 'max:255'],
+            'url' => ['required','regex:'.$url_regex, 'max:255'],
             'status' => ['required','string', 'max:15'],
             'support' => ['required','string', 'max:15'],
             'platform' => ['required','string', 'max:255'],
-            'platform_version' => ['required','string', 'max:15'],
+            'platform_version' => ['required', 'string', 'max:255'],
             'owner' => ['required','string'],
             'department' => ['required','string'],
             'designation' => ['required','string'],
             'owner_email' => ['required','string'],
             'description' => ['required','string', 'max:1000'],
+        ],
+        // :attribute is a placeholder for the input
+        [
+            'string' => 'The :attribute must be a string, error in line ' . $row->getIndex(),
+            'required' => 'The :attribute is required, error in line ' . $row->getIndex(),
         ]
         )->validate();
 
-        $the_data = $row->toArray();
         // make sure that each row  has correct index
         if ( count($the_data) == 11 ){
             // create designation
@@ -106,5 +114,22 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
             // create entry to history
             $history = $webspace->histories()->create(['description' => "Profile created from imported CSV file"]);
         }
+    }
+
+    private function sanitize($input){
+        // input fields here eg,
+        $input['name'] = filter_var($input['name'], FILTER_SANITIZE_STRING);
+        $input['url'] = filter_var($input['url'], FILTER_SANITIZE_URL);
+        $input['status'] = filter_var($input['status'], FILTER_SANITIZE_STRING);
+        $input['support'] = filter_var($input['support'], FILTER_SANITIZE_STRING);
+        $input['platform'] = filter_var($input['platform'], FILTER_SANITIZE_STRING);
+        $input['platform_version'] = filter_var($input['platform_version'], FILTER_SANITIZE_STRING);
+        $input['owner'] = filter_var($input['owner'], FILTER_SANITIZE_STRING);
+        $input['department'] = filter_var($input['department'], FILTER_SANITIZE_STRING);
+        $input['designation'] = filter_var($input['designation'], FILTER_SANITIZE_STRING);
+        $input['owner_email'] = filter_var($input['owner_email'], FILTER_SANITIZE_STRING);
+        $input['description'] = filter_var($input['description'], FILTER_SANITIZE_STRING);
+
+        return $input;
     }
 }
