@@ -65,13 +65,29 @@ class HomeController extends Controller
 
     public function get_platform_webspace(){
         $platforms = Platform::active()
+            ->orderBy('name','DESC')
             ->get();
 
-        $platform_obj = [];
+        $platform_obj = $stat_obj = [];
 
-        foreach($platforms as $platform){
-            $platform_obj['name'][] = $platform->name . " " . $platform->version;
-            $platform_obj['count'][] = $platform->webspaces->count();
+        // return only unique platform, and its count
+        foreach ($platforms as $plat){
+            if (empty($stat_obj)){
+                $stat_obj[$plat->name] = $plat->webspaces->count();
+            }
+            else{
+                if (array_key_exists($plat->name, $stat_obj)){
+                    $stat_obj[$plat->name] = $stat_obj[$plat->name] + $plat->webspaces->count();
+                }
+                else{
+                    $stat_obj[$plat->name] = $plat->webspaces->count();
+                }
+            }
+        }
+        // prepare data for chart
+        foreach ($stat_obj as $key => $value){
+            $platform_obj['name'][]= $key;
+            $platform_obj['count'][] = $value;
         }
 
         return response()->json($platform_obj);

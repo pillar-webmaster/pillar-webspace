@@ -9,7 +9,7 @@
 .table.column-2 td:nth-child(2){width:30% !important;}
 .dataTables_filter label {width: 100%;}
 .mce-tinymce.mce-container.mce-panel{top:10px;}
-#webspacesPerPlatform .ct-label, #webspacesSupport .ct-label{font-size:9px;stroke:#ffffff;font-weight:normal;letter-spacing:0.3rem}
+#webspacesPerPlatform .ct-label, #webspacesSupport .ct-label{font-size:9px;stroke:#ffffff;font-weight:normal;letter-spacing:0.1rem}
 #webspacesPerPlatform.ct-chart{fill:#66bb6a !important;}
 .ct-series-a .ct-slice-donut {stroke: #ff9800 !important;}
 .ct-series-b .ct-slice-donut {stroke: #f44336 !important;}

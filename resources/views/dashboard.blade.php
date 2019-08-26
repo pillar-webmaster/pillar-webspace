@@ -147,7 +147,7 @@
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#settings" data-toggle="tab">
-                        <i class="material-icons">cloud</i> Platform
+                        <i class="material-icons">cloud</i> Platform and Version
                         <div class="ripple-container"></div>
                       </a>
                     </li>
