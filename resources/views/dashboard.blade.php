@@ -285,8 +285,8 @@
       // adding percentage in label
       for( var i = 0; i < response.name.length; i++){
         var percent = Math.round(response.count[i] / response.count.reduce(sum) * 100) + '%';
-        //response.name[i] = response.name[i] + "("+percent+")"
-        response.name[i] = response.name[i];
+        response.name[i] = response.name[i] + "("+percent+")"
+        //response.name[i] = response.name[i];
       }
       var data = {
         series: response.count,
