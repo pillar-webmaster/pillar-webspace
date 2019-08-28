@@ -286,39 +286,23 @@
       for( var i = 0; i < response.name.length; i++){
         var percent = Math.round(response.count[i] / response.count.reduce(sum) * 100) + '%';
         response.name[i] = response.name[i] + "("+percent+")"
-        //response.name[i] = response.name[i];
       }
-      var data = {
-        series: response.count,
+
+      var data  = {
         labels: response.name,
+        series: [
+          response.count
+        ]
       }
-
       var options = {
-        labelInterpolationFnc: function(value) {
-          return value[0];
-        },
-        donut: true,
-        donutWidth: 40,
+        seriesBarDistance: 10,
+        reverseData: true,
+        horizontalBars: true,
+        axisY: {
+          offset: 120
+        }
       };
-
-      var responsiveOptions = [
-        ['screen and (min-width: 640px)', {
-          chartPadding: 30,
-          labelOffset: 100,
-          labelDirection: 'explode',
-          labelInterpolationFnc: function(value) {
-            return value;
-          }
-        }],
-        ['screen and (min-width: 1024px)', {
-          labelOffset: 30,
-          chartPadding: 20
-        }]
-      ];
-
-      var platform_chart = new Chartist.Pie('#webspacesPerPlatform', data, options, responsiveOptions);
-
-      wrms.startAnimationForPieChart(platform_chart);
+      var platform_chart = new Chartist.Bar('#webspacesPerPlatform', data,options);
 
     });
 
@@ -333,7 +317,7 @@
           tension: 0
         }),
         low: 0,
-        high: 40, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        high: 80, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
         chartPadding: {
           top: 0,
           right: 0,
@@ -341,7 +325,7 @@
           left: 0
         }
       }
-
+      
       var webspacePerMonthChart = new Chartist.Line('#webspacesPerMonth', dataWebspacesPerMonth, optionsWebspacePerMonthChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
