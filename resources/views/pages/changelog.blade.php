@@ -57,6 +57,11 @@
                       </p>
                       <div class="content">
                         <h4>Changelog</h4>
+                        <strong>v-1.1.0 Minor updates</strong>
+                        <ul>
+                          <li>Fixed error in creation and import of webspaces having tilde(~) in URI</li>
+                          <li>Updates the dashboard Platforms chart to display platform only without versions</li>
+                        </ul>
                         <strong>v-1.0.0</strong>
                         <ul>
                           <li>Initial release</li>
@@ -79,6 +84,7 @@
                           <li>Revisions to add automatically in webspace history</li>
                           <li>Search, filtering and reordering of list per object</li>
                           <li>Create, management of categorization and linking with webspaces [Pillar, Centers, People, Group, Department, Lab]</li>
+                          <li>Create a separate entity for websites that is linked to webspaces. A webspace can contain multiple websites.</li>
                         </ul>
                       </div>
                     </div>
