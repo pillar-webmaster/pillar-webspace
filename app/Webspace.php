@@ -30,4 +30,8 @@ class Webspace extends Model
     public function medias(){
         return $this->hasMany('App\Media');
     }
+
+    public function description_status(){
+        return $this->morphOne('App\ModelHasDescriptionStatus','model');
+    }
 }

@@ -68,6 +68,7 @@ class WebspaceController extends Controller
             ->where('model_id', $webspace->id)
             ->orderBy('created_at', 'DESC')
             ->get();
+        //dd($webspace->description_status->mode);
 
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
     }

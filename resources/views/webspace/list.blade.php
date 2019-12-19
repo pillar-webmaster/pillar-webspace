@@ -48,7 +48,7 @@
                       <th>ID</th>
                       <th>Name</th>
                       <th>URL</th>
-                      <th>Owner</th>
+                      <th>Owner/s</th>
                       <th></th>
                     </thead>
                     <tbody>
