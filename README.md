@@ -1,9 +1,9 @@
 # pillar-webspace
 Lists of webspaces hosted in pillar website, that contains its details and contacts
 
-Version 1.1.0
+<h4>Version 1.1.0</h4>
 
-Features
+<strong>Features</strong>
 
 1. Allowed webspaces to include multiple websites
 2. Allowed selection of the main owner of the webspace
@@ -16,6 +16,6 @@ php artisan db:refactor --class=ClassNameOfRefactorClass
 
 4. Converted all table list to use DataTables, allowed sorting of columns and search
 
-Bug Fix
+<strong>Bug Fix</strong>
 
 1. When an edit page loads, the page is focused in center
