@@ -13,6 +13,7 @@ php artisan db:refactor --class=ClassNameOfRefactorClass
 </pre>
 
 &emsp;ClassNameOfRefactorClass is a refactor class in database/refactors
+
 &emsp;Add data refactoring migration script inside database/refactors
 
 4. Converted all table list to use DataTables, allowed sorting of columns and search
