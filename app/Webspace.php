@@ -19,10 +19,6 @@ class Webspace extends Model
         return $this->belongsToMany('App\Owner')->active();
     }
 
-    public function platform(){
-        return  $this->belongsTo('App\Platform')->active();
-    }
-
     public function histories(){
         return $this->morphMany('App\ModelHasHistorie','model');
     }
@@ -33,5 +29,9 @@ class Webspace extends Model
 
     public function description_status(){
         return $this->morphOne('App\ModelHasDescriptionStatus','model');
+    }
+ 
+    public function platform(){
+        return  $this->belongsTo('App\Platform')->active();
     }
 }

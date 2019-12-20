@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title ">{{__('Create')}}</h4>
-            <p class="card-category">{{__('Add a new owner')}}</p>
+            <p class="card-category">{{__('Add a new webspace')}}</p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -31,19 +31,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="url" class="text-primary">{{__('URL')}}</label>
-                    <input type="text" class="form-control" id="url" name="url" aria-describedby="urlHelp" placeholder="Enter URL of the webspace" value="{{ old('url') }}" required autofocus>
-                    @if ($errors->has('url'))
-                      <span id="url-error" class="error text-danger" for="url">{{ $errors->first('url') }}</span>
-                    @endif
-                    <small id="urlHelp" class="form-text text-muted">{{__('URL used for the webspace')}}</small>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="mode" class="text-primary">{{__('Status')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="mode" name="mode" aria-describedby="modeHelp" required autofocus>
@@ -61,7 +49,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="service" class="text-primary">{{__('Support Level')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="service" name="service" aria-describedby="serviceHelp" required autofocus>
@@ -78,26 +66,7 @@
                     <small id="serviceHelp" class="form-text text-muted">{{__('Select from the list of support level')}}</small>
                   </div>
                 </div>
-
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="platform_id" class="text-primary">{{__('Platform')}}</label>
-                    <select class="form-control" data-style="btn btn-link" id="platform_id" name="platform_id" aria-describedby="platform_idHelp" required autofocus>
-                      <option value="">Select</option>
-                      @if (count($platforms))
-                        @foreach ($platforms as $platform)
-                          <option value="{{ $platform->id }}" {{ (collect(old("platform_id"))->contains($platform->id)) ? "selected":"" }}>{{$platform->name." (".$platform->version.")"}}</option>
-                        @endforeach
-                      @endif
-                    </select>
-                    @if ($errors->has('platform_id'))
-                      <span id="platform_id-error" class="error text-danger" for="platform_id">{{ $errors->first('platform_id') }}</span>
-                    @endif
-                    <small id="platform_idmHelp" class="form-text text-muted">{{__('Select from the list of platforms')}}</small>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="owner" class="text-primary">{{__('Owner')}}</label>
                     <select multiple="multiple" class="form-control selectpicker hw-100" data-style="select-with-transition" data-live-search="true" id="owner" name="owner[]" data-size="7" required autofocus>

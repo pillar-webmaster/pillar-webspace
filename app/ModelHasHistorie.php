@@ -10,7 +10,11 @@ class ModelHasHistorie extends Model
         'description',
     ];
 
-    public function historable(){
+    /*public function historable(){
+        return $this->morphTo();
+    }*/
+
+    public function model(){
         return $this->morphTo();
     }
 }

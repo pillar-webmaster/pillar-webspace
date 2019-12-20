@@ -22,7 +22,7 @@ class WebspaceTableRefactor {
          *  it may appear that webspace and website will be duplicated, however, after this,
          *  both will have their own status and description
          * */
-        $webspace->description_status()->create([
+        $webspace_migrate = $webspace->description_status()->create([
           "description" => $webspace->description,
           "mode" => $webspace->mode
         ]);
@@ -30,7 +30,8 @@ class WebspaceTableRefactor {
         $website = Website::firstOrCreate([
           'url' => $webspace->url,
           'platform_id' => $webspace->platform->id,
-          'webspace_id' => $webspace->id
+          'webspace_id' => $webspace->id,
+          'status' => $webspace->status
         ]);
         // create description statusable for website
         if ($website->id){

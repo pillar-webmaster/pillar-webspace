@@ -40,3 +40,24 @@
 .designation_list table th:nth-child(3) {
   width:140px;
 }
+/* Datatables sorting */
+table.dataTable thead .sorting:after {
+  opacity: 0.4;
+  content: "\f0dc";
+}
+table.dataTable thead .sorting_asc:after {
+  content: "\f0de";
+  top: 3px;
+}
+table.dataTable thead .sorting_desc:after {
+  content: "\f0dd";
+  top: -3px;
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+  position: relative;
+  display: inline-block;
+  bottom: 0px;
+  right: -7px;
+  font-family: 'FontAwesome';
+  opacity: 0.8;
+}

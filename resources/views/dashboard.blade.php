@@ -191,7 +191,7 @@
                         <tr>
                           <td>{{++$i}}</td>
                           <td>{{$platform->name . " " . $platform->version }}</td>
-                          <td>{{$platform->webspaces->count()}}</td>
+                          <td>{{$platform->websites->count()}}</td>
                           <td class="td-actions text-right">
                             @hasanyrole("super-admin|admin|editor")
                               <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">

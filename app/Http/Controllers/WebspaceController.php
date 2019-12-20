@@ -19,37 +19,39 @@ class WebspaceController extends Controller
     //
     public function list(){
         $webspaces = Webspace::active()
-            ->orderBy('name','ASC')
-            ->paginate(20);
-        $i = 1 + ($webspaces->currentPage() -1 ) * 20;
+            ->orderBy('name','ASC')->get();
+        $i = 1;
 
         return view('webspace.list', compact('webspaces','i'));
     }
 
     public function add(Mode $mode, SupportLevel $level){
-        $platforms = Platform::active()->get();
+        //$platforms = Platform::active()->get();
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
 
-        return view('webspace.add', compact('platforms', 'modes', 'services', 'owners'));
+        return view('webspace.add', compact( 'modes', 'services', 'owners' ) );
     }
 
     public function create(WebspaceRequest $request){
 
         $webspace = Webspace::create([
             'name' => $request->input('name'),
-            'url' => $request->input('url'),
-            'mode' => $request->input('mode'),
             'service' => $request->input('service'),
-            'platform_id' => $request->input('platform_id'),
-            'description' => $request->input('description'),
             'status' => 1,
         ]);
+
+        // the description_statusable
+        $description_statusable = $webspace->description_status()->create([
+            "description" => $request->input('description'),
+            "mode" => $request->input('mode')
+          ]);
 
         $owners = Owner::find($request->input('owner'));
         $owner_webspace = $webspace->owners()->attach($owners);
 
+        // the historable
         $history = $webspace->histories()->create(['description' => "Profile created"]);
 
         if ( $webspace->id )
@@ -60,7 +62,6 @@ class WebspaceController extends Controller
 
     public function edit( $id, Mode $mode, SupportLevel $level ){
         $webspace = Webspace::findOrFail($id);
-        $platforms = Platform::active()->get();
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
@@ -68,7 +69,6 @@ class WebspaceController extends Controller
             ->where('model_id', $webspace->id)
             ->orderBy('created_at', 'DESC')
             ->get();
-        //dd($webspace->description_status->mode);
 
         return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
     }
@@ -76,11 +76,9 @@ class WebspaceController extends Controller
     public function update(WebspaceRequest $request, $id){
         $webspace = Webspace::findOrFail($id);
         $webspace->name = $request->input('name');
-        $webspace->url = $request->input('url');
-        $webspace->mode = $request->input('mode');
+        $mode = $request->input('mode');
         $webspace->service = $request->input('service');
-        $webspace->platform_id = $request->input('platform_id');
-        $webspace->description = $request->input('description');
+        $description = $request->input('description');
         $webspace->update();
 
         // detach old values first
@@ -89,6 +87,12 @@ class WebspaceController extends Controller
         // re-attach new changes
         $owners = Owner::find($request->input('owner'));
         $owner_webspace = $webspace->owners()->attach($owners);
+
+        // add the description_statusable
+        $description_statusable = $webspace->description_status()->update([
+            "description" => $description,
+            "mode" => $mode
+          ]);
 
         if ( $webspace->id )
             return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully updated");

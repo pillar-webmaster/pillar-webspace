@@ -27,7 +27,7 @@
             @csrf
             <div class="form-group">
               <label for="description" class="text-primary">{{__('Description')}}</label>
-              <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required autofocus ></textarea>
+              <textarea class="form-control" id="description" name="description" rows="8" aria-describedby="descriptionHelp" required></textarea>
               @if ($errors->has('description'))
                 <span id="description-error" class="error text-danger" for="description">{{ $errors->first('description') }}</span>
               @endif
@@ -55,7 +55,7 @@
             </div>
             <div class="form-group">
               <label for="path" class="text-primary">{{__('Media/File')}}</label>
-              <input id="path" type="file" class="form-control" name="path" value="" required autofocus>
+              <input id="path" type="file" class="form-control" name="path" value="" required>
               @if ($errors->has('path'))
                 <span id="path-error" class="error text-danger" for="path">{{ $errors->first('path') }}</span>
               @endif

@@ -9,7 +9,11 @@ class ModelHasDescriptionStatus extends Model
     //
     protected $fillable = ['description', 'mode'];
 
-    public function description_statusable(){
+    /*public function description_statusable(){
+        return $this->morphTo();
+    }*/
+
+    public function model(){
         return $this->morphTo();
     }
 }

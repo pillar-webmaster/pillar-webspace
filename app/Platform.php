@@ -13,8 +13,12 @@ class Platform extends Model
     public function scopeActive($query){
         return $query->where('status', 1);
     }
-
+    // remove later
     public function webspaces(){
         return $this->hasMany('App\Webspace')->active();
+    }
+
+    public function websites(){
+        return $this->hasMany('App\Website')->active();
     }
 }

@@ -18,6 +18,7 @@ class CreateWebsitesModel extends Migration
             $table->string('url');
             $table->bigInteger('platform_id')->unsigned();
             $table->bigInteger('webspace_id')->unsigned();
+            $table->boolean('status');
             $table->foreign('platform_id')->references('id')->on('platforms');
             $table->foreign('webspace_id')->references('id')->on('webspaces');
             $table->timestamps();

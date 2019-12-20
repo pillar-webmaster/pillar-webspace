@@ -42,53 +42,50 @@
                   </div>
                 </div>
                 @endhasanyrole
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>URL</th>
-                      <th>Owner/s</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      @if ($webspaces->count())
-                        @foreach($webspaces as $webspace)
-                          <tr>
-                            <td>{{$i++}}</td>
-                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">{{$webspace->name}}</a></td>
-                            <td>{{$webspace->url}}</td>
-                            <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
-                            <td>
-                              @hasanyrole("super-admin|admin|editor")
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
-                                <i class="material-icons">edit</i>
-                              </a>
-                              @endhasanyrole
-                              @hasanyrole("super-admin|admin")
-                              <form method="POST" action="{{route('webspace.remove', ['id' => $webspace->id])}}" class="delete-form" id="delete-form-{{$webspace->id}}">
-                                @csrf
-                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">
-                                  <i class="material-icons">close</i>
-                                </a>
-                              </form>
-                              @endhasanyrole
-                            </td>
-                          </tr>
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="Designation pages">
-                  <div class="pull-right">
-                  {{ $webspaces->links() }}
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table history column-2">
+                      <thead class=" text-primary">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Owner/s</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        @if ($webspaces->count())
+                            @foreach($webspaces as $webspace)
+                              <tr>
+                                <td>{{$i++}}</td>
+                                <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">{{$webspace->name}}</a></td>
+                                <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
+                                <td>
+                                  @hasanyrole("super-admin|admin|editor")
+                                  <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
+                                    <i class="material-icons">edit</i>
+                                  </a>
+                                  @endhasanyrole
+                                  @hasanyrole("super-admin|admin")
+                                  <form method="POST" action="{{route('webspace.remove', ['id' => $webspace->id])}}" class="delete-form" id="delete-form-{{$webspace->id}}">
+                                    @csrf
+                                    <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">
+                                      <i class="material-icons">close</i>
+                                    </a>
+                                  </form>
+                                  @endhasanyrole
+                                </td>
+                              </tr>
+                            @endforeach
+                          @endif
+                      </tbody>
+                      <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tfoot>
+                    </table>
                   </div>
-                </nav>
+                </div>
               </div>
             </div>
           </div>
@@ -131,6 +128,16 @@
               $('.modal-body').html(data.html);
             }
         });
+      });
+
+      $.extend( true, $.fn.dataTable.defaults, {
+        'lengthChange': false,
+        "pageLength": 20,
+      } );
+      $('.history').DataTable({
+        "columnDefs": [
+          { "orderable": false, "targets": [3] }
+        ]
       });
     });
   </script>

@@ -8,6 +8,8 @@ use App\Department;
 use App\User;
 use Carbon\Carbon;
 use App\WebspaceSupportLevel as SupportLevel;
+use App\ModelHasDescriptionStatus;
+use App\Website;
 
 class HomeController extends Controller
 {
@@ -36,15 +38,13 @@ class HomeController extends Controller
             ->where('created_at', '>=', Carbon::now()->subDays(30))
             ->get();
 
-        $active_webspaces = Webspace::active()
-            ->where('mode',0)
-            ->get();
+        $active_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
+            $query->active()->where('mode', 0);
+        })->get();
 
-        $disabled_webspaces = Webspace::active()
-            ->where('mode',1)
-            ->get();
-
-        //$latest_webspaces = $the_webspaces->chunk(5)->first();
+        $disabled_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
+            $query->active()->where('mode', 1);
+        })->get();
 
         $platforms = Platform::active()
             ->get();
@@ -73,14 +73,14 @@ class HomeController extends Controller
         // return only unique platform, and its count
         foreach ($platforms as $plat){
             if (empty($stat_obj)){
-                $stat_obj[$plat->name] = $plat->webspaces->count();
+                $stat_obj[$plat->name] = $plat->websites->count();
             }
             else{
                 if (array_key_exists($plat->name, $stat_obj)){
-                    $stat_obj[$plat->name] = $stat_obj[$plat->name] + $plat->webspaces->count();
+                    $stat_obj[$plat->name] = $stat_obj[$plat->name] + $plat->websites->count();
                 }
                 else{
-                    $stat_obj[$plat->name] = $plat->webspaces->count();
+                    $stat_obj[$plat->name] = $plat->websites->count();
                 }
             }
         }
