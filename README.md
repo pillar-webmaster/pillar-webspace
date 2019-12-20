@@ -11,7 +11,8 @@ Features
 <pre>
 php artisan db:refactor --class=ClassNameOfRefactorClass
 </pre>
-ClassNameOfRefactorClass is a refactor class in database/refactors
+
+&emsp;ClassNameOfRefactorClass is a refactor class in database/refactors
 
 4. Converted all table list to use DataTables, allowed sorting of columns and search
 
