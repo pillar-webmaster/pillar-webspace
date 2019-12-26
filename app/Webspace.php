@@ -31,7 +31,12 @@ class Webspace extends Model
         return $this->morphOne('App\ModelHasDescriptionStatus','model');
     }
  
+    // this has to be removed later
     public function platform(){
         return  $this->belongsTo('App\Platform')->active();
+    }
+ 
+    public function websites(){
+        return $this->hasMany('App\Website')->active();
     }
 }

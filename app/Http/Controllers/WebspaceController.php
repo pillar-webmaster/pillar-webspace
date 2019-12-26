@@ -52,7 +52,7 @@ class WebspaceController extends Controller
         $owner_webspace = $webspace->owners()->attach($owners);
 
         // the historable
-        $history = $webspace->histories()->create(['description' => "Profile created"]);
+        $history = $webspace->histories()->create(['description' => "Profile created by " . auth()->user()->name(), ]);
 
         if ( $webspace->id )
             return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully added");
@@ -65,6 +65,16 @@ class WebspaceController extends Controller
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
+        // process platform data to json
+        $platforms = Platform::active()->get(['id','name', 'version']);
+
+        foreach ( $platforms as $platform ){
+            $platform_array[$platform->id] = $platform->name . " " . $platform->version;
+        }
+        asort($platform_array);
+
+        $platforms= json_encode($platform_array);
+
         $histories = ModelHasHistorie::query()
             ->where('model_id', $webspace->id)
             ->orderBy('created_at', 'DESC')

@@ -136,7 +136,8 @@
       } );
       $('.history').DataTable({
         "columnDefs": [
-          { "orderable": false, "targets": [3] }
+          { "orderable": false, "targets": [3] },
+          { "searchable": false, "targets": [0,3] }
         ]
       });
     });

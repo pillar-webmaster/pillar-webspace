@@ -104,6 +104,46 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">{{__('Websites')}}</h4>
+            <p class="card-category">{{__('List of website/s hosted under this webspace')}}</p>
+          </div>
+          <div class="card-body">
+            <table class="table website column-2">
+              <thead class=" text-primary">
+                <th>ID</th>
+                <th>URL</th>
+                <th>Platform</th>
+              </thead>
+              <tbody>
+                @if ($webspace->websites->count())
+                    @foreach($webspace->websites as $website)
+                      <tr>
+                        <td>{{$website->id}}</td>
+                        <td>
+                          {{$website->url}}
+                        </td>
+                        <td>
+                          {{$website->platform->name}}&nbsp;{{$website->platform->version}}
+                          <input type="hidden" value="{{$website->platform->id}}" name="platform_id" />
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
+              </tbody>
+              <tfoot>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-8">
         @include('webspace.history')
       </div>
@@ -216,6 +256,98 @@
 
       $('.history').DataTable();
 
-    });
+      /* datatable editor */
+      var websiteTable = $('.website').DataTable({
+        columnDefs: [
+          {
+            targets: 0,
+            type: "text",
+            title : "ID",
+            name: "website_id",
+            readonly: true,
+            id : "website_id",
+            data: "website_id",
+            seachable: false,
+          },
+          {
+            targets: 1,
+            type: "text",
+            title : "URL",
+            name: "url",
+            required: true,
+            id : "url",
+            data: "url",
+          },
+          {
+            targets: 2,
+            type: "select",
+            options: {!!$platforms!!},
+            title : "Platform",
+            required : true,
+            id : "platform",
+            data : "platform",
+            /*
+            render: function(){
+              $select = "<select>";
+              $.each({!!$platforms!!}, function (index, value){
+                $select += "<option>"+value+"</option>";
+              });
+              $select += "</select>"
+              return $select;
+            },*/
+          }
+        ],
+        dom: 'Bfrtip',
+        select: 'single',
+        responsive: true,
+        altEditor: true,
+        buttons: [
+              { text: 'Add',name: 'add'},
+              { extend: 'selected', text: 'Edit', name: 'edit'},
+              { extend: 'selected', text: 'Delete', name: 'delete'}
+            ],
+        onAddRow: function(datatable, rowdata, success, error) {
+          $.ajax({
+              url: "{{route('website.create', ['id' => $webspace->id])}}",
+              type: 'POST',
+              data: rowdata,
+              success: success,
+              error: error
+          });
+        },
+        onDeleteRow: function(datatable, rowdata, success, error) {
+          $.ajax({
+              url: "{{route('website.remove')}}",
+              type: 'POST',
+              data: rowdata,
+              success: success,
+              error: error
+          });
+        },
+        onEditRow: function(datatable, rowdata, success, error) {
+          $.ajax({
+              url: "{{route('website.update')}}",
+              type: 'POST',
+              data: rowdata,
+              success: success,
+              error: error
+          });
+        },
+      });
+
+      websiteTable.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
+        if ( buttonApi.text() == "Edit"){
+          var $the_form_id = $("[id^=altEditor-modal]").find("form").attr("id");
+          var $the_select_id = $("#" + $the_form_id).find("select").attr("id");
+          $selected = $("#DataTables_Table_1 tr.selected td").eq(2).find("input[type=hidden]").val();
+          $("#" + $the_select_id + " option").each(function(){
+            if ($(this).val() == $selected ){
+              $(this).prop("selected",true);
+            }
+          });
+        }
+      });
+  });
+
   </script>
 @endpush

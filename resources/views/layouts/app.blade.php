@@ -121,6 +121,8 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
+        <!-- datatable editor -->
+        <script src="{{ asset('js/dataTables.altEditor.free.js') }}"></script>
         @stack('js')
         <!-- Modal -->
         <div class="modal fade" id="wrms-modal" tabindex="-1" role="dialog" aria-labelledby="wrms-modal" aria-hidden="true">

@@ -61,3 +61,4 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
   font-family: 'FontAwesome';
   opacity: 0.8;
 }
+table.dataTable>tbody>tr.selected{background-color:#ff9800;}

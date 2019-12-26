@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Website;
+use App\Webspace;
+use Auth;
+use App\Http\Requests\WebsiteRequest;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -22,9 +25,22 @@ class WebsiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(WebsiteRequest $request, $id) {
+
+        $website = Website::create([
+            'url' => $request->input('url'),
+            'platform_id' => $request->input('platform'),
+            'webspace_id' => $id,
+            'status' => 1,
+        ]);
+
+        // add entry to history
+        $webspace = Webspace::findOrFail($id);
+        $history = $webspace->histories()->create(['description' => "Website " . $website->url . " added by " . auth()->user()->name, ]);
+
+        if ( $website->id )
+            return response()->json(['website_id' => $website->id,'url' => $website->url, 'platform' => $website->platform->name . " " . $website->platform->version], "200");
+
     }
 
     /**
@@ -67,9 +83,25 @@ class WebsiteController extends Controller
      * @param  \App\Website  $website
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Website $website)
-    {
-        //
+    public function update(WebsiteRequest $request){
+
+        $website = Website::findOrFail($request->input("website_id"));
+        $old_website_url = $website->url;
+        $old_website_platform = $website->platform->name;
+        $old_website_platform_version = $website->platform->version;
+        $website->url = $request->input("url");
+        $website->platform_id = $request->input("platform"); 
+        $website->update();
+        $website = $website->fresh();
+
+        $webspace = Webspace::findOrFail($website->webspace_id);
+        $history = $webspace->histories()->create(
+            ['description' => "Website URL:{$old_website_url}, platform:{$old_website_platform} {$old_website_platform_version}
+            updated to URL:{$website->url}, platform:{$website->platform->name} {$website->platform->version}
+            by " . auth()->user()->name, 
+        ]);
+
+        return response()->json(['website_id' => $website->id, 'url' => $website->url, 'platform' => $website->platform->name . " " . $website->platform->version], "200");
     }
 
     /**
@@ -81,5 +113,18 @@ class WebsiteController extends Controller
     public function destroy(Website $website)
     {
         //
+    }
+
+    public function remove(WebsiteRequest $request){
+        $website = Website::findOrFail($request->input("website_id"));
+        $webspace = Webspace::findOrFail($website->webspace_id);
+        $the_url = $website->url;
+        $website->status = 0;
+        $website->update();
+
+        
+        $history = $webspace->histories()->create(
+            ['description' => "Website {$the_url} removed by " . auth()->user()->name, ]
+        );
     }
 }

@@ -47,6 +47,7 @@ Route::group(['middleware' => ['role:super-admin|admin|editor']], function () {
 	Route::post('designation/update/{id}','DesignationController@update')->name('designation.update');
 	Route::post('owner/update/{id}','OwnerController@update')->name('owner.update');
 	Route::post('platform/update/{id}','PlatformController@update')->name('platform.update');
+	Route::post('website/update','WebsiteController@update')->name('website.update');
 
 	Route::get('department','DepartmentController@list')->name('department.list');
 	Route::get('designation','DesignationController@list')->name('designation.list');
@@ -91,12 +92,14 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
 	Route::post('designation/create','DesignationController@create')->name('designation.create');
 	Route::post('owner/create','OwnerController@create')->name('owner.create');
 	Route::post('platform/create','PlatformController@create')->name('platform.create');
+	Route::post('website/create/{id}','WebsiteController@create')->name('website.create');
 
 	Route::post('webspace/remove/{id}','WebspaceController@remove')->name('webspace.remove');
 	Route::post('department/remove/{id}','DepartmentController@remove')->name('department.remove');
 	Route::post('designation/remove/{id}','DesignationController@remove')->name('designation.remove');
 	Route::post('owner/remove/{id}','OwnerController@remove')->name('owner.remove');
 	Route::post('platform/remove/{id}','PlatformController@remove')->name('platform.remove');
+	Route::post('website/remove','WebsiteController@remove')->name('website.remove');
 });
 
 Route::group(['middleware' => ['role:super-admin']], function () {
