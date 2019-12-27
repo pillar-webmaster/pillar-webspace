@@ -4,12 +4,10 @@
       <div class="card-body">
         <h4 class="card-title font-weight-bold">{{$webspace->name}}</h4>
         <hr />
-        <p class="card-text"><strong>Version: </strong>{{$webspace->url}}</p>
         <p class="card-text"><strong>Status: </strong>{{ $mode }}</p>
         <p class="card-text"><strong>Support Level: </strong>{{ $support_level }}</p>
-        <p class="card-text"><strong>Platform: </strong>{{ $webspace->platform->name }} ({{ $webspace->platform->version }})</p>
         <p class="card-text"><strong>Owner/s: </strong>{{ $webspace->owners->pluck('name')->implode(', ') }}</p>
-        <p class="card-text"><strong>Description: </strong>{!! $webspace->description !!}</p>
+        <p class="card-text"><strong>Description: </strong>{!! $webspace->description_status->description !!}</p>
       </div>
     </div>
   </div>

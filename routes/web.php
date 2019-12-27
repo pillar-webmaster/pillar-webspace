@@ -24,7 +24,9 @@ Route::middleware('auth')->group(function (){
 	Route::get('created-webspace','HomeController@get_webspace_created')->name('dashboard.webspace-created');
 	Route::get('support-webspace','HomeController@get_webspace_support')->name('dashboard.support');
 	Route::get('administration/export-webspace','WebspaceController@export')->name('webspace.export');
-	Route::post('administration/export-to-csv','WebspaceController@export_to_csv')->name('webspace.export_to_csv');
+	Route::post('administration/export-to-csv-webspace','WebspaceController@export_to_csv_webspace')->name('webspace.export_to_csv_webspace');
+	Route::post('administration/export-to-csv-website','WebspaceController@export_to_csv_website')->name('webspace.export_to_csv_website');
+	Route::post('administration/export-to-xlsx','WebspaceController@export_to_xlsx')->name('webspace.export_to_xlsx');
 	Route::get('changelog','HomeController@changelog')->name('changelog');
 });
 

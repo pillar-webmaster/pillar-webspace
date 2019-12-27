@@ -123,7 +123,7 @@
         $('.modal-body').html('No details found');
         $.ajax({
           type:'POST',
-          url:'/platform-details',
+          url:'{{route("platform.details")}}',
           data:{id:id},
             success:function(data){
               $('.modal-body').html(data.html);

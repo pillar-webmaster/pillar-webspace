@@ -9,6 +9,8 @@ use App\WebspaceMode as Mode;
 use App\Platform as Platform;
 use App\WebspaceSupportLevel as SupportLevel;
 use App\Owner;
+use App\Auth;
+use App\Website;
 use App\ModelHasHistorie;
 use App\Http\Requests\WebspaceRequest;
 use App\Imports\WebspaceImport;
@@ -52,9 +54,10 @@ class WebspaceController extends Controller
         $owner_webspace = $webspace->owners()->attach($owners);
 
         // the historable
-        $history = $webspace->histories()->create(['description' => "Profile created by " . auth()->user()->name(), ]);
+        $history = $webspace->histories()->create(['description' => "Profile created by " . auth()->user()->name, ]);
 
         if ( $webspace->id )
+            // I prefer to edit it directly to input websites
             return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully added");
         else
             return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
@@ -124,7 +127,7 @@ class WebspaceController extends Controller
 
     public function details( Request $request, Mode $mode, SupportLevel $support ){
         $webspace = Webspace::findOrFail($request->input('id'));
-        $mode = $mode->get_webspace_mode($webspace->mode);
+        $mode = $mode->get_webspace_mode($webspace->description_status->mode);
         $support_level = $support->get_webspace_support_level($webspace->service);
         $view = view('webspace.details', compact('webspace','mode','support_level'))->render();
         return response()->json(array('html' => $view),200);
@@ -134,21 +137,21 @@ class WebspaceController extends Controller
         return view('webspace.export');
     }
 
-    public function export_to_csv(Mode $mode, SupportLevel $support){
+    public function export_to_csv_webspace(Mode $mode, SupportLevel $support){
         $headers = array(
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=webspace-".time().".csv",
+            "Content-Disposition" => "attachment; filename=webspaces-".time().".csv",
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
         );
 
         $webspaces = Webspace::active()
-            ->orderBy('created_at','DESC')
+            ->orderBy('name','ASC')
             ->get();
 
         $columns = [
-            'Name', 'Owner/s', 'URL', 'Platform', 'Status', 'Service', 'Created at'
+            'Webspace', 'Owner/s', 'URL', 'Platform', 'Status', 'Service', 'Created at'
         ];
 
         $callback = function() use ($webspaces, $columns, $mode, $support){
@@ -156,13 +159,18 @@ class WebspaceController extends Controller
             fputcsv($file, $columns);
 
             foreach($webspaces as $webspace) {
+                $platforms = [];
+                foreach ($webspace->websites as $website){
+                    $platforms[] = $website->platform->name . " " . $website->platform->version;
+                }
+                $the_platforms = implode(', ', $platforms);
                 fputcsv($file,
                 [
                     $webspace->name,
                     $webspace->owners->pluck('name')->implode(', '),
-                    $webspace->url,
-                    $webspace->platform->name . '(' . $webspace->platform->version . ')',
-                    $mode->get_webspace_mode($webspace->mode),
+                    $webspace->websites->pluck('url')->implode(', '),
+                    $the_platforms,
+                    $mode->get_webspace_mode($webspace->description_status->mode),
                     $support->get_webspace_support_level($webspace->service),
                     $webspace->created_at
                 ]);
@@ -203,5 +211,58 @@ class WebspaceController extends Controller
         }
 
         return redirect()->route('webspace.import')->with('success', 'Webspaces successfully imported');
+    }
+
+    public function export_to_csv_website(Mode $mode, SupportLevel $support){
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=websites-".time().".csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $websites = Website::active()
+            ->orderBy('created_at','DESC')
+            ->get();
+
+        //dd($websites->webspace()->active()->get());
+
+        $columns = [
+            'URL', 'Owner/s', 'Platform', 'Status', 'Service', 'Webspace', 'Created at'
+        ];
+        $active = [];
+        $active_webspace_websites = $websites->each(function($item, $key) use ($active){
+            // only list websites that has active webspace
+            //if ( $item->webspace ){
+                $active[] = $item->webspace->id;
+                echo ($item->webspace->owners . "\n");
+            //}
+            return $active;
+        });
+
+        dd($active_webspace_websites);
+        /*
+        $callback = function() use ($websites, $columns, $mode, $support){
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($websites as $website) {
+                $owner_list = $website->webspace['id']
+                fputcsv($file,
+                [
+                    $website->url,
+                    $webspace->owners->pluck('name')->implode(', '),
+                    $website->platform->name . " " .$website->platform->version,
+                    $mode->get_webspace_mode($webspace->description_status->mode),
+                    $support->get_webspace_support_level($webspace->service),
+                    $website->webspace->name,
+                    $webspace->created_at
+                ]);
+            }
+            fclose($file);
+        };
+        return Response::stream($callback, 200, $headers);
+        */
     }
 }

@@ -122,7 +122,7 @@
         $('.modal-body').html('No details found');
         $.ajax({
           type:'POST',
-          url:'/webspace-details',
+          url:'{{route("webspace.details")}}',
           data:{id:id},
             success:function(data){
               $('.modal-body').html(data.html);

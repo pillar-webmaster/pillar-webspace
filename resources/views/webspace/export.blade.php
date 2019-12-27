@@ -32,25 +32,41 @@
               </div>
             </div>
             <div class="row justify-content-center" style="text-align:center;">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <!-- add form here -->
-                <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-csv" id="export-to-csv">
+                <form method="POST" action="{{route('webspace.export_to_csv_webspace')}}" class="export-to-csv-webspace" id="export-to-csv-webspace">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
-                  <a rel="tooltip" title="Export to CSV file" class="export-csv" href="#">
+                  <a rel="tooltip" title="Export to webspaces CSV file" class="export-csv-webspace" href="#">
                     <div class="card text-center" style="width: 18rem;">
                       <i class="material-icons md-100">save_alt</i>
                       <div class="card-body">
-                        <h4 class="card-title">Export webspaces to CSV</h4>
+                        <h4 class="card-title">Export <strong>WEBSPACES</strong> to CSV</h4>
                         <p class="card-text">Clicking will allow you to download a CSV file with data from webspaces</p>
                       </div>
                     </div>
                   </a>
                 </form>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <!-- add form here -->
-                <form method="POST" action="{{route('webspace.export_to_csv')}}" class="export-to-xlsx" id="export-csv">
+                <form method="POST" action="{{route('webspace.export_to_csv_website')}}" class="export-to-csv-website" id="export-to-csv-website">
+                  @csrf
+                  <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
+                  <a rel="tooltip" title="Export websites to CSV file" class="export-csv-website" href="#">
+                    <div class="card text-center" style="width: 18rem;">
+                      <span class="text-center"><i class="material-icons md-100">save_alt</i></span>
+                      <div class="card-body">
+                        <h4 class="card-title">Export <strong>WEBSITES</strong> to CSV</h4>
+                        <p class="card-text">Clicking will allow you to download a CSV file with data from websites</p>
+                      </div>
+                    </div>
+                  </a>
+                </form>
+              </div>
+              <div class="col-sm-4">
+                <!-- add form here -->
+                <form method="POST" action="{{route('webspace.export_to_xlsx')}}" class="export-to-xlsx" id="export-xlsx">
                   @csrf
                   <!--<button type="submit" class="btn btn-primary">{{__('Export webspace to CSV file')}}</button>-->
                   <a rel="tooltip" title="Export to Excel file" class="export-xlsx" href="#">
@@ -76,9 +92,13 @@
   <script type="text/javascript">
     $(document).ready(function( $ ){
       var id = "";
-      $('a.export-csv').click(function(event){
+      $('a.export-csv-webspace').click(function(event){
         event.preventDefault();
-        $('#export-to-csv' ).submit();
+        $('#export-to-csv-webspace' ).submit();
+      });
+      $('a.export-csv-website').click(function(event){
+        event.preventDefault();
+        $('#export-to-csv-website' ).submit();
       });
       $('a.export-xlsx').click(function(event){
         event.preventDefault();
