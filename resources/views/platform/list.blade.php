@@ -42,41 +42,59 @@
                   </div>
                 </div>
                 @endhasanyrole
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Version</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      @if ($platforms->count())
-                        @foreach($platforms as $platform)
-                          <tr>
-                            <td>{{$i++}}</td>
-                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$platform->id}}">{{$platform->name}}</a></td>
-                            <td>{{$platform->version}}</td>
-                            <td>
-                              @hasanyrole("super-admin|admin|editor")
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">
-                                <i class="material-icons">edit</i>
-                              </a>
-                              @endhasanyrole
-                              @hasanyrole("super-admin|admin")
-                              <form method="POST" action="{{route('platform.remove', ['id' => $platform->id])}}" class="delete-form" id="delete-form-{{$platform->id}}">
-                                @csrf
-                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$platform->id}}">
-                                  <i class="material-icons">close</i>
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table platform">
+                      <thead class=" text-primary">
+                        <!--<th>ID</th>-->
+                        <th>Name</th>
+                        <th>Version</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        @if ($platforms->count())
+                          @foreach($platforms as $platform)
+                            <tr>
+                              <!--<td>{{$i++}}</td>-->
+                              <td>
+                                @hasanyrole("super-admin|admin|editor")
+                                  <a rel="tooltip" title="Edit" class="" href="{{route('platform.edit',['id' => $platform->id])}}">
+                                @endhasanyrole
+                                {{$platform->name}}
+                                @hasanyrole("super-admin|admin|editor")
+                                  </a>
+                                @endhasanyrole
+                              </td>
+                              <td>{{$platform->version}}</td>
+                              <td>
+                                <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$platform->id}}">
+                                  <i class="material-icons">remove_red_eye</i>
                                 </a>
-                              </form>
-                              @endhasanyrole
-                            </td>
-                          </tr>
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
+                                @hasanyrole("super-admin|admin|editor")
+                                <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('platform.edit',['id' => $platform->id])}}">
+                                  <i class="material-icons">edit</i>
+                                </a>
+                                @endhasanyrole
+                                @hasanyrole("super-admin|admin")
+                                <form method="POST" action="{{route('platform.remove', ['id' => $platform->id])}}" class="delete-form" id="delete-form-{{$platform->id}}">
+                                  @csrf
+                                  <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$platform->id}}">
+                                    <i class="material-icons">close</i>
+                                  </a>
+                                </form>
+                                @endhasanyrole
+                              </td>
+                            </tr>
+                          @endforeach
+                        @endif
+                      </tbody>
+                      <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -130,6 +148,18 @@
             }
         });
       });
+
+      $.extend( true, $.fn.dataTable.defaults, {
+        'lengthChange': false,
+        "pageLength": 20,
+      } );
+      $('.table').DataTable({
+        "columnDefs": [
+          { "orderable": false, "targets": [2] },
+          { "searchable": false, "targets": [2] }
+        ]
+      });
+
     });
   </script>
 @endpush
