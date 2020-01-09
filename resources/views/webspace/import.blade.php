@@ -61,7 +61,9 @@
             <div class="card-text">
               <ol>
                 <li>You can only import a <strong>CSV</strong> file</li>
-                <li>Each item should be separated by pipe symbol "|" (applicable only to department, designation, owner and owner email columns )</li>
+                <li>The CSV file delimeter is using "," a comma and string delimeter of " " ", double quotes</li>
+                <li>A cell with multiple data should be separated by pipe symbol "|" (applicable to URL, platform, platform version, department, designation, owner and owner email columns )</li>
+                <li>Platform should correspond with the number of URL, platform version should correspond with the number of platform.</li>
                 <li>The number of owner must correspond with the number of department, designation, owner and owner email</li>
                 <li>The data for department, designation and owner email should correspond in to the position of owner in the column</li>
                 <li>Status column only accepts values <strong>['Active','Disabled','Inactive','Deleted']</strong></li>

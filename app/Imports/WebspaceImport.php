@@ -9,6 +9,7 @@ use App\Owner;
 use App\Platform;
 use App\WebspaceMode as Mode;
 use App\WebspaceSupportLevel as SupportLevel;
+use App\Website;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -28,7 +29,7 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
         $validator = Validator::make($the_data,
         [
             'name' => ['required','string', 'max:255'],
-            'url' => ['required','regex:'.$url_regex, 'max:255'],
+            'url' => ['required','string'],
             'status' => ['required','string', 'max:15'],
             'support' => ['required','string', 'max:15'],
             'platform' => ['required','string', 'max:255'],
@@ -49,11 +50,15 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
         // make sure that each row  has correct index
         if ( count($the_data) == 11 ){
             // create designation
-            $designationObj = $departmentObj = $ownerObj = $ownerEmailObj = [];
+            $designationObj = $departmentObj = $ownerObj = $ownerEmailObj = $platformObj = [];
             $designations = explode("|", $the_data['designation']);
             $departments = explode("|", $the_data['department']);
             $owners = explode("|", $the_data['owner']);
             $ownerEmail = explode("|", $the_data['owner_email']);
+            $urls = explode("|", $the_data['url']);
+            $platforms = explode("|", $the_data['platform']);
+            $platform_versions = explode("|", $the_data['platform_version']);
+
             // check if designation, department and owner have equal quantity
             if ( ( count($designations) == count($departments) ) &&
                 (count($departments) == count($owners) )  &&
@@ -86,30 +91,54 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
                     $i++;
                 }
             }
-            // create platform
-            $platform = Platform::firstOrCreate([
-                'name' => $the_data['platform'],
-                'version' => $the_data['platform_version'],
-                'requirements' => '',
-                'status' => 1,
-            ]);
+
             // create webspace
             $mode = new Mode();
             $support = new SupportLevel();
 
             $webspace = Webspace::firstOrCreate([
                 'name' => $the_data['name'],
-                'url' => $the_data['url'],
-                'mode' => array_search($the_data['status'],$mode->all('mode')),
                 'service' => array_search($the_data['support'],$support->all('support_level')),
-                'platform_id' => $platform->id,
-                'description' => $the_data['description'],
                 'status' => 1,
             ]);
+
+            // create webspace statusable
+            $description_statusable = $webspace->description_status()->create([
+                "description" => $the_data['description'],
+                "mode" => array_search($the_data['status'],$mode->all('mode'))
+              ]);
 
             // link owners to webspace
             foreach ($ownerObj as $obj){
                 $owner_webspace = $webspace->owners()->syncWithoutDetaching($obj);
+            }
+
+            // create website
+            if ( ( count($urls) == count($platforms) ) &&
+                (count($platforms) == count($platform_versions)) ){
+                    // create the platform and the website
+                    $i = 0;
+                    foreach ( $platforms as $platform){
+                        $platformObj[] = Platform::firstOrCreate([
+                            'name' => $platform,
+                            'version' => $platform_versions[$i],
+                            'requirements' => '',
+                            'status' => 1,
+                        ]);
+                        $i++;
+                    }
+
+                    // create website
+                    $i = 0;
+                    foreach( $urls as $url ){
+                        $website = Website::firstOrCreate([
+                            'url' => $url,
+                            'platform_id' => $platformObj[$i]->id,
+                            'webspace_id' => $webspace->id,
+                            'status' => 1,
+                        ]);
+                        $i++;
+                    }
             }
 
             // create entry to history

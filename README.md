@@ -18,6 +18,8 @@ php artisan db:refactor --class=ClassNameOfRefactorClass
 
 4. Converted all table list to use DataTables, allowed sorting of columns and search
 
+5. Ability to export records based on webspace, or websites.
+
 <strong>Bug Fix</strong>
 
 1. When an edit page loads, the page is focused in center

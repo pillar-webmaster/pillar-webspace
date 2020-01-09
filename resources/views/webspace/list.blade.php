@@ -56,9 +56,20 @@
                             @foreach($webspaces as $webspace)
                               <tr>
                                 <td>{{$i++}}</td>
-                                <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">{{$webspace->name}}</a></td>
+                                <td>
+                                  @hasanyrole("super-admin|admin|editor")
+                                    <a rel="tooltip" title="Edit" class="" href="{{route('webspace.edit',['id' => $webspace->id])}}" >
+                                  @endhasanyrole
+                                  {{$webspace->name}}
+                                  @hasanyrole("super-admin|admin|editor")
+                                    </a>
+                                  @endhasanyrole
+                                </td>
                                 <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
                                 <td>
+                                  <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">
+                                    <i class="material-icons">remove_red_eye</i>
+                                  </a>
                                   @hasanyrole("super-admin|admin|editor")
                                   <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('webspace.edit',['id' => $webspace->id])}}">
                                     <i class="material-icons">edit</i>

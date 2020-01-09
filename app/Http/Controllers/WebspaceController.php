@@ -65,7 +65,7 @@ class WebspaceController extends Controller
 
     public function edit( $id, Mode $mode, SupportLevel $level ){
         $webspace = Webspace::findOrFail($id);
-        $owners = Owner::active()->get();
+        $owners = Owner::active()->orderBy('name','asc')->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
         // process platform data to json
@@ -213,6 +213,12 @@ class WebspaceController extends Controller
         return redirect()->route('webspace.import')->with('success', 'Webspaces successfully imported');
     }
 
+    /**
+     * TODO: create a callback function to execute a function based on the request (webspace|website)
+     *       this way, you do not have to reuse function calls for two common functionality with
+     *       export_to_csv_webspace
+     */
+
     public function export_to_csv_website(Mode $mode, SupportLevel $support){
         $headers = array(
             "Content-type" => "text/csv",
@@ -226,43 +232,32 @@ class WebspaceController extends Controller
             ->orderBy('created_at','DESC')
             ->get();
 
-        //dd($websites->webspace()->active()->get());
-
         $columns = [
-            'URL', 'Owner/s', 'Platform', 'Status', 'Service', 'Webspace', 'Created at'
+            'URL', 'Owner/s', 'Platform', 'Status', 'Support Level', 'Webspace', 'Created at'
         ];
-        $active = [];
-        $active_webspace_websites = $websites->each(function($item, $key) use ($active){
-            // only list websites that has active webspace
-            //if ( $item->webspace ){
-                $active[] = $item->webspace->id;
-                echo ($item->webspace->owners . "\n");
-            //}
-            return $active;
-        });
 
-        dd($active_webspace_websites);
-        /*
         $callback = function() use ($websites, $columns, $mode, $support){
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
             foreach($websites as $website) {
-                $owner_list = $website->webspace['id']
-                fputcsv($file,
-                [
-                    $website->url,
-                    $webspace->owners->pluck('name')->implode(', '),
-                    $website->platform->name . " " .$website->platform->version,
-                    $mode->get_webspace_mode($webspace->description_status->mode),
-                    $support->get_webspace_support_level($webspace->service),
-                    $website->webspace->name,
-                    $webspace->created_at
-                ]);
+                //$owner_list = $website->webspace['id']
+                if ( $website->webspace['status'] ){
+                    fputcsv($file,
+                    [
+                        $website->url,
+                        $website->webspace->owners->pluck('name')->implode(', '),
+                        $website->platform->name . " " .$website->platform->version,
+                        $mode->get_webspace_mode($website->webspace->description_status->mode),
+                        $support->get_webspace_support_level($website->webspace->service),
+                        $website->webspace->name,
+                        $website->created_at
+                    ]);
+                }
             }
             fclose($file);
         };
         return Response::stream($callback, 200, $headers);
-        */
+
     }
 }
