@@ -44,9 +44,8 @@
                 @endhasanyrole
                 <div class="row">
                   <div class="col-12">
-                    <table class="table history column-2">
+                    <table class="table webspace column-2">
                       <thead class=" text-primary">
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Owner/s</th>
                         <th></th>
@@ -55,7 +54,6 @@
                         @if ($webspaces->count())
                             @foreach($webspaces as $webspace)
                               <tr>
-                                <td>{{$i++}}</td>
                                 <td>
                                   @hasanyrole("super-admin|admin|editor")
                                     <a rel="tooltip" title="Edit" class="" href="{{route('webspace.edit',['id' => $webspace->id])}}" >
@@ -89,7 +87,6 @@
                           @endif
                       </tbody>
                       <tfoot>
-                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -145,10 +142,10 @@
         'lengthChange': false,
         "pageLength": 20,
       } );
-      $('.history').DataTable({
+      $('.table').DataTable({
         "columnDefs": [
-          { "orderable": false, "targets": [3] },
-          { "searchable": false, "targets": [0,3] }
+          { "orderable": false, "targets": [2] },
+          { "searchable": false, "targets": [2] }
         ]
       });
     });

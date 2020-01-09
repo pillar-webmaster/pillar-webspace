@@ -40,39 +40,54 @@
                     </a>
                   </div>
                 </div>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      @if ($departments->count())
-                        @foreach($departments as $department)
-                          <tr>
-                            <td>{{$i++}}</td>
-                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">{{$department->name}}</a></td>
-                            <td>
-                              @hasanyrole("super-admin|admin|editor")
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('department.edit',['id' => $department->id])}}">
-                                <i class="material-icons">edit</i>
-                              </a>
-                              @endhasanyrole
-                              @hasanyrole("super-admin|admin")
-                              <form method="POST" action="{{route('department.remove', ['id' => $department->id])}}" class="delete-form" id="delete-form-{{$department->id}}">
-                                @csrf
-                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">
-                                  <i class="material-icons">close</i>
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table department">
+                      <thead class=" text-primary">
+                        <th>Name</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        @if ($departments->count())
+                          @foreach($departments as $department)
+                            <tr>
+                              <td>
+                                @hasanyrole("super-admin|admin|editor")
+                                  <a rel="tooltip" title="Edit" class="" href="{{route('department.edit',['id' => $department->id])}}" >
+                                @endhasanyrole
+                                {{$department->name}}
+                                @hasanyrole("super-admin|admin|editor")
+                                  </a>
+                                @endhasanyrole
+                              </td>
+                              <td>
+                                <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">
+                                  <i class="material-icons">remove_red_eye</i>
                                 </a>
-                              </form>
-                              @endhasanyrole
-                            </td>
-                          </tr>
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
+                                @hasanyrole("super-admin|admin|editor")
+                                <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('department.edit',['id' => $department->id])}}">
+                                  <i class="material-icons">edit</i>
+                                </a>
+                                @endhasanyrole
+                                @hasanyrole("super-admin|admin")
+                                <form method="POST" action="{{route('department.remove', ['id' => $department->id])}}" class="delete-form" id="delete-form-{{$department->id}}">
+                                  @csrf
+                                  <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$department->id}}">
+                                    <i class="material-icons">close</i>
+                                  </a>
+                                </form>
+                                @endhasanyrole
+                              </td>
+                            </tr>
+                          @endforeach
+                        @endif
+                      </tbody>
+                      <tfoot>
+                        <th></th>
+                        <th></th>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,6 +144,18 @@
             }
         });
       });
+
+      $.extend( true, $.fn.dataTable.defaults, {
+        'lengthChange': false,
+        "pageLength": 20,
+      } );
+      $('.table').DataTable({
+        "columnDefs": [
+          { "orderable": false, "targets": [1] },
+          { "searchable": false, "targets": [1] }
+        ]
+      });
+
     });
   </script>
 @endpush
