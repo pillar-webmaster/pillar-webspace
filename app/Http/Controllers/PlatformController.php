@@ -12,10 +12,9 @@ class PlatformController extends Controller
     public function list(){
         $platforms = Platform::active()
             ->orderBy('name','ASC')
-            ->paginate(20);
-        $i = 1 + ($platforms->currentPage() -1 ) * 20;
+            ->get();
 
-        return view('platform.list', compact('platforms','i'));
+        return view('platform.list', compact('platforms'));
     }
 
     public function add(){
@@ -42,7 +41,7 @@ class PlatformController extends Controller
         return view('platform.edit', compact('platform'));
     }
 
-    public function update(PlatformRequest $request, $id){
+    public function update( PlatformRequest $request, $id){
         $platform = Platform::findOrFail($id);
         $platform->name = $request->input('name');
         $platform->version = $request->input('version');

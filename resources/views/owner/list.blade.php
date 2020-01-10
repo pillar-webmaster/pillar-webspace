@@ -46,7 +46,6 @@
                   <div class="col-12">
                     <table class="table owner">
                       <thead class=" text-primary">
-                        <!--<th>ID</th>-->
                         <th>Name</th>
                         <th>Email</th>
                         <th>Pillar/Department</th>
@@ -56,11 +55,21 @@
                         @if ($owners->count())
                           @foreach($owners as $owner)
                             <tr>
-                              <!--<td>{{$i++}}</td>-->
-                              <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$owner->id}}">{{$owner->name}}</a></td>
+                              <td>
+                                  @hasanyrole("super-admin|admin|editor")
+                                    <a rel="tooltip" title="Edit" class="" href="{{route('owner.edit',['id' => $owner->id])}}">
+                                  @endhasanyrole
+                                  {{$owner->name}}
+                                  @hasanyrole("super-admin|admin|editor")
+                                    </a>
+                                  @endhasanyrole
+                              </td>
                               <td>{{$owner->email}}</td>
                               <td>{{$owner->department->name}}</td>
                               <td>
+                                <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$owner->id}}">
+                                  <i class="material-icons">remove_red_eye</i>
+                                </a>
                                 @hasanyrole("super-admin|admin|editor")
                                 <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('owner.edit',['id' => $owner->id])}}">
                                   <i class="material-icons">edit</i>
@@ -80,11 +89,11 @@
                         @endif
                       </tbody>
                       <tfoot>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                        </tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

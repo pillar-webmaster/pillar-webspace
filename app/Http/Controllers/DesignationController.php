@@ -12,10 +12,9 @@ class DesignationController extends Controller
     public function list(){
         $designations = Designation::active()
             ->orderBy('name','ASC')
-            ->paginate(20);
-        $i = 1 + ($designations->currentPage() -1 ) * 20;
+            ->get();
 
-        return view('designation.list', compact('designations', 'i'));
+        return view('designation.list', compact('designations'));
     }
 
     public function add(){

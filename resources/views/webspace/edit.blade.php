@@ -24,7 +24,7 @@
                     <label for="name" class="text-primary">{{__('Name')}}</label>
                     <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="{{__('Enter name')}}" value="{{ $webspace->name }}" required>
                     @if ($errors->has('name'))
-                      <span id="designation_id-error" class="error text-danger" for="designation_id">{{ $errors->first('name') }}</span>
+                      <span id="name-error" class="error text-danger" for="name">{{ $errors->first('name') }}</span>
                     @endif
                     <small id="nameHelp" class="form-text text-muted">{{__('Input complete name of the owner')}}</small>
                   </div>

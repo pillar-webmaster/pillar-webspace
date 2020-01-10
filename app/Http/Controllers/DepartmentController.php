@@ -12,10 +12,9 @@ class DepartmentController extends Controller
     public function list(){
         $departments = Department::active()
             ->orderBy('name','ASC')
-            ->paginate(20);
-        $i = 1 + ($departments->currentPage() -1 ) * 20;
+            ->get();
 
-        return view('department.list', compact('departments','i'));
+        return view('department.list', compact('departments'));
     }
 
     public function add(){

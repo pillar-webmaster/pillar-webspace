@@ -42,49 +42,55 @@
                   </div>
                 </div>
                 @endhasanyrole
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      @if ($designations->count())
-                        @foreach($designations as $designation)
-                          <tr>
-                            <td>{{$i++}}</td>
-                            <td><a rel="tooltip" title="Click to view details" class="view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">{{$designation->name}}</a></td>
-                            <td>
-                              @hasanyrole("super-admin|admin|editor")
-                              <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('designation.edit',['id' => $designation->id])}}">
-                                <i class="material-icons">edit</i>
-                              </a>
-                              @endhasanyrole
-                              @hasanyrole("super-admin|admin")
-                              <form method="POST" action="{{route('designation.remove', ['id' => $designation->id])}}" class="delete-form" id="delete-form-{{$designation->id}}">
-                                @csrf
-                                <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">
-                                  <i class="material-icons">close</i>
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table designation">
+                      <thead class=" text-primary">
+                        <th>Name</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        @if ($designations->count())
+                          @foreach($designations as $designation)
+                            <tr>
+                              <td>
+                                @hasanyrole("super-admin|admin|editor")
+                                  <a rel="tooltip" title="Edit" class="" href="{{route('designation.edit',['id' => $designation->id])}}">
+                                @endhasanyrole
+                                {{$designation->name}}
+                                @hasanyrole("super-admin|admin|editor")
+                                  </a>
+                                @endhasanyrole
+                              </td>
+                              <td>
+                                <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">
+                                  <i class="material-icons">remove_red_eye</i>
                                 </a>
-                              </form>
-                              @endhasanyrole
-                            </td>
-                          </tr>
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="Designation pages">
-                  <div class="pull-right">
-                  {{ $designations->links() }}
+                                @hasanyrole("super-admin|admin|editor")
+                                <a rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm" href="{{route('designation.edit',['id' => $designation->id])}}">
+                                  <i class="material-icons">edit</i>
+                                </a>
+                                @endhasanyrole
+                                @hasanyrole("super-admin|admin")
+                                <form method="POST" action="{{route('designation.remove', ['id' => $designation->id])}}" class="delete-form" id="delete-form-{{$designation->id}}">
+                                  @csrf
+                                  <a rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm btn delete" data-toggle="modal" data-target="#wrms-modal" id="{{$designation->id}}">
+                                    <i class="material-icons">close</i>
+                                  </a>
+                                </form>
+                                @endhasanyrole
+                              </td>
+                            </tr>
+                          @endforeach
+                        @endif
+                      </tbody>
+                      <tfoot>
+                        <th></th>
+                        <th></th>
+                      </tfoot>
+                    </table>
                   </div>
-                </nav>
+                </div>
               </div>
             </div>
           </div>
@@ -129,6 +135,18 @@
             }
         });
       });
+
+      $.extend( true, $.fn.dataTable.defaults, {
+        'lengthChange': false,
+        "pageLength": 20,
+      } );
+      $('.table').DataTable({
+        "columnDefs": [
+          { "orderable": false, "targets": [1] },
+          { "searchable": false, "targets": [1] }
+        ]
+      });
+
     });
   </script>
 @endpush

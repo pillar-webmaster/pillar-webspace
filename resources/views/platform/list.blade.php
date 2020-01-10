@@ -46,7 +46,6 @@
                   <div class="col-12">
                     <table class="table platform">
                       <thead class=" text-primary">
-                        <!--<th>ID</th>-->
                         <th>Name</th>
                         <th>Version</th>
                         <th></th>
@@ -55,7 +54,6 @@
                         @if ($platforms->count())
                           @foreach($platforms as $platform)
                             <tr>
-                              <!--<td>{{$i++}}</td>-->
                               <td>
                                 @hasanyrole("super-admin|admin|editor")
                                   <a rel="tooltip" title="Edit" class="" href="{{route('platform.edit',['id' => $platform->id])}}">
@@ -96,15 +94,6 @@
                     </table>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="Designation pages">
-                  <div class="pull-right">
-                  {{ $platforms->links() }}
-                  </div>
-                </nav>
               </div>
             </div>
           </div>
