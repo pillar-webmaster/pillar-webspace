@@ -30,7 +30,7 @@
             <li class="nav-item{{ $activePage == 'webspace_list' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('webspace.list') }}">
                 <span class="sidebar-mini"> WL </span>
-                <span class="sidebar-normal">{{ __('List') }} </span>
+                <span class="sidebar-normal">{{ __('Webspace List') }} </span>
               </a>
             </li>
             @hasanyrole("super-admin|admin|editor")
@@ -57,7 +57,7 @@
             <li class="nav-item{{ $activePage == 'owner_list' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('owner.list') }}">
                 <span class="sidebar-mini"> OL </span>
-                <span class="sidebar-normal">{{ __('List') }} </span>
+                <span class="sidebar-normal">{{ __('Owner List') }} </span>
               </a>
             </li>
             <li class="nav-item{{ $activePage == 'department_list' ? ' active' : '' }}">
