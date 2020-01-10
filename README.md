@@ -6,8 +6,7 @@ Lists of webspaces hosted in pillar website, that contains its details and conta
 <strong>Features</strong>
 
 1. Allowed webspaces to include multiple websites
-2. Allowed selection of the main owner of the webspace
-3. Added custom artisan command
+2. Added custom artisan command
 <pre>
 php artisan db:refactor --class=ClassNameOfRefactorClass
 </pre>
@@ -16,10 +15,17 @@ php artisan db:refactor --class=ClassNameOfRefactorClass
 
 &emsp;Add data refactoring migration script inside database/refactors
 
-4. Converted all table list to use DataTables, allowed sorting of columns and search
+3. Converted all table list to use DataTables, allowed sorting of columns and search
 
-5. Ability to export records based on webspace, or websites.
+4. Ability to export records based on webspace, or websites.
+
+5. Ability to indicate the access mode provided for webspace. The default is web access only.
 
 <strong>Bug Fix</strong>
 
-1. When an edit page loads, the page is focused in center
+1. When an edit page loads, the page is focused in center.
+
+<strong>Update instructions</strong>
+
+1. composer dump-autoload
+2. php artisan migrate
