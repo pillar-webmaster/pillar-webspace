@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Response;
 use App\Webspace as Webspace;
 use App\WebspaceMode as Mode;
-use App\WebspaceAccess as Access;
 use App\Platform as Platform;
 use App\WebspaceSupportLevel as SupportLevel;
 use App\Owner;
@@ -28,14 +27,13 @@ class WebspaceController extends Controller
         return view('webspace.list', compact('webspaces','i'));
     }
 
-    public function add(Mode $mode, SupportLevel $level, Access $access){
+    public function add(Mode $mode, SupportLevel $level){
         //$platforms = Platform::active()->get();
         $owners = Owner::active()->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
-        $accesses = $access->all('access');
 
-        return view('webspace.add', compact( 'modes', 'services', 'owners', 'accesses' ) );
+        return view('webspace.add', compact( 'modes', 'services', 'owners' ) );
     }
 
     public function create(WebspaceRequest $request){
