@@ -13,6 +13,6 @@ class Access extends Model
     }
 
     public function webspaces(){
-        return $query->belongsToMany('App\Webspace')->active();
+        return $this->belongsToMany('App\Webspace')->active();
     }
 }

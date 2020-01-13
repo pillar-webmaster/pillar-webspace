@@ -37,11 +37,11 @@
 
             <!-- form for web access -->
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header card-header-warning">
-                    <h4>Webspaces access methods</h4>
-                    <p class="card-category">Below are lists of webspaces access methods</p>
+                    <h4>Webspace access methods</h4>
+                    <p class="card-category"></p>
                   </div>
                   <div class="card-body">
                     <div class="row">
@@ -97,9 +97,6 @@
               </div>
             </div>
             <!-- form for web access -->
-
-
-
           </div>
         </div>
       </div>

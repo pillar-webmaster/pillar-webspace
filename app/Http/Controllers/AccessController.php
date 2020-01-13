@@ -97,9 +97,15 @@ class AccessController extends Controller
      */
     public function remove(Request $request, Access $access){
         $accessObj = $access->findOrFail($request->input('access_id'));
-        $accessObj->status = 0;
-        $accessUpdated = $accessObj->update();
 
-        //return response()->json(['access_id' => $accessObj->id, 'name' => $accessObj->name], "200");
+        if ( !$accessObj->webspaces()->get()->count()){
+            $accessObj->status = 0;
+            $accessUpdated = $accessObj->update();
+        }
+        else{
+            return response()->json(['access_id' => $accessObj->id, 'name' => $accessObj->name], "500");
+        }
+
+        
     }
 }
