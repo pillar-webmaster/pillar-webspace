@@ -39,4 +39,8 @@ class Webspace extends Model
     public function websites(){
         return $this->hasMany('App\Website')->active();
     }
+
+    public function accesses(){
+        return $this->belongsToMany('App\Access')->active();
+    }
 }

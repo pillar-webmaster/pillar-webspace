@@ -62,3 +62,4 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
   opacity: 0.8;
 }
 table.dataTable>tbody>tr.selected{background-color:#ff9800;}
+.form-check, label {color: #495057;}

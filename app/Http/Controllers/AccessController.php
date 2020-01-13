@@ -22,9 +22,14 @@ class AccessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(Request $request){
+        $access = Access::firstOrCreate([
+            'name' => $request->input('name'),
+            'status' => 1,
+        ]);
+
+        if ( $access->id )
+            return response()->json(['access_id' => $access->id,'name' => $access->name], "200");
     }
 
     /**
@@ -67,9 +72,13 @@ class AccessController extends Controller
      * @param  \App\Access  $access
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Access $access)
-    {
+    public function update(Request $request, Access $access) {
         //
+        $accessObj = $access->findOrFail($request->input('access_id'));
+        $accessObj->name = $request->input('name');
+        $accessUpdated = $accessObj->update();
+
+        return response()->json(['access_id' => $accessObj->id, 'name' => $accessObj->name], "200");
     }
 
     /**
@@ -81,5 +90,16 @@ class AccessController extends Controller
     public function destroy(Access $access)
     {
         //
+    }
+
+    /**
+     * Soft Delete
+     */
+    public function remove(Request $request, Access $access){
+        $accessObj = $access->findOrFail($request->input('access_id'));
+        $accessObj->status = 0;
+        $accessUpdated = $accessObj->update();
+
+        //return response()->json(['access_id' => $accessObj->id, 'name' => $accessObj->name], "200");
     }
 }

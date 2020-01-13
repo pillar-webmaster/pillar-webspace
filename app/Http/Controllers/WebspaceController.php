@@ -12,6 +12,7 @@ use App\Owner;
 use App\Auth;
 use App\Website;
 use App\ModelHasHistorie;
+use App\Access;
 use App\Http\Requests\WebspaceRequest;
 use App\Imports\WebspaceImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -68,6 +69,7 @@ class WebspaceController extends Controller
         $owners = Owner::active()->orderBy('name','asc')->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
+        $accesses = Access::active()->orderBy('name','asc')->get();
         // process platform data to json
         $platforms = Platform::active()->get(['id','name', 'version']);
 
@@ -83,7 +85,7 @@ class WebspaceController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories'));
+        return view('webspace.edit', compact('platforms', 'modes', 'services', 'owners', 'webspace', 'histories', 'accesses'));
     }
 
     public function update(WebspaceRequest $request, $id){
@@ -93,6 +95,17 @@ class WebspaceController extends Controller
         $webspace->service = $request->input('service');
         $description = $request->input('description');
         $webspace->update();
+
+        // update access methods
+        // detach old values first
+        $accesses = Access::findOrFail($webspace->accesses()->get()->pluck('id')->toArray());
+        if ( $accesses->count() ){
+            $access_webspace = $webspace->accesses()->detach($accesses);
+        }
+        // re-attach new changes
+        $accesses = Access::find($request->input('access'));
+        $access_webspace = $webspace->accesses()->attach($accesses);
+        // access methods
 
         // detach old values first
         $owners = Owner::find($webspace->owners()->get()->pluck('id')->toArray());
@@ -118,9 +131,13 @@ class WebspaceController extends Controller
         // set status to deleted (soft delete)
         $webspace->status = 0;
         $webspace->update();
+        /**
+         * Update 13 January, 2020
+         * For record purposes, do not remove the link between the owner of the webspace
+         */
         // detach old values
-        $owners = Owner::find($webspace->owners()->get()->pluck('id')->toArray());
-        $owner_webspace = $webspace->owners()->detach($owners);
+        //$owners = Owner::find($webspace->owners()->get()->pluck('id')->toArray());
+        //$owner_webspace = $webspace->owners()->detach($owners);
 
         return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully deleted");
     }

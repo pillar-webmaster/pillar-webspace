@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Settings;
+use App\Access;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -58,7 +59,10 @@ class SettingsController extends Controller
     public function edit(Settings $settings)
     {
         //
-        return view('settings.edit');
+        $accesses = Access::active()
+            ->orderBy('name','ASC')->get();
+
+        return view('settings.edit', compact('accesses'));
     }
 
     /**
@@ -68,8 +72,7 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Settings $settings)
-    {
+    public function update(Request $request, Settings $settings){
         //
     }
 

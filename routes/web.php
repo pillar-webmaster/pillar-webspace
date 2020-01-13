@@ -110,6 +110,10 @@ Route::group(['middleware' => ['role:super-admin']], function () {
 	Route::post('administration/import-from-csv','WebspaceController@import_from_csv')->name('webspace.import_from_csv');
 	Route::get('administration/server','ServerController@index')->name('server.list');
 	Route::get('/webspace/media/download-misc/{filename}','MediaController@download_misc')->name('media.download_misc');
+	// settings
+	Route::post('access/create','AccessController@create')->name('access.create');
+	Route::post('access/update','AccessController@update')->name('access.update');
+	Route::post('access/remove','AccessController@remove')->name('access.remove');
 });
 
 /* Permission based routing

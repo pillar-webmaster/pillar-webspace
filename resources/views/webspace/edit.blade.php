@@ -31,7 +31,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="mode" class="text-primary">{{__('Status')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="mode" name="mode" aria-describedby="modeHelp" required>
@@ -48,7 +48,7 @@
                     <small id="modeHelp" class="form-text text-muted">{{__('Select from the list of statuses')}}</small>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="service" class="text-primary">{{__('Support Level')}}</label>
                     <select class="form-control" data-style="btn btn-link" id="service" name="service" aria-describedby="serviceHelp" required>
@@ -65,7 +65,27 @@
                     <small id="serviceHelp" class="form-text text-muted">{{__('Select from the list of support level')}}</small>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <!-- webspace access -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="access" class="text-primary">{{__('Access Method')}}</label>
+                    @if (count($accesses))
+                      @foreach ($accesses as $access )
+                      <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="{{$access->id}}" name="access[]" {{(in_array($access->id, $webspace->accesses()->get()->pluck('id')->toArray())) ? "checked": "" }}>
+                            {{$access->name}}
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                      </div>
+                      @endforeach
+                    @endif
+                  </div>
+                </div>
+                <!-- webspace access -->
+                <div class="col-md-3">
                   <div class="form-group">
                     <label for="owner" class="text-primary">{{__('Owner')}}</label>
                     <select multiple="multiple" class="form-control selectpicker hw-100" data-style="select-with-transition" data-live-search="true" id="owner" name="owner[]" data-size="7" required>
@@ -119,19 +139,19 @@
               </thead>
               <tbody>
                 @if ($webspace->websites->count())
-                    @foreach($webspace->websites as $website)
-                      <tr>
-                        <td>{{$website->id}}</td>
-                        <td>
-                          {{$website->url}}
-                        </td>
-                        <td>
-                          {{$website->platform->name}}&nbsp;{{$website->platform->version}}
-                          <input type="hidden" value="{{$website->platform->id}}" name="platform_id" />
-                        </td>
-                      </tr>
-                    @endforeach
-                  @endif
+                  @foreach($webspace->websites as $website)
+                    <tr>
+                      <td>{{$website->id}}</td>
+                      <td>
+                        {{$website->url}}
+                      </td>
+                      <td>
+                        {{$website->platform->name}}&nbsp;{{$website->platform->version}}
+                        <input type="hidden" value="{{$website->platform->id}}" name="platform_id" />
+                      </td>
+                    </tr>
+                  @endforeach
+                @endif
               </tbody>
               <tfoot>
                 <th></th>
