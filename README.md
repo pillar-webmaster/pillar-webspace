@@ -6,6 +6,7 @@ Lists of webspaces hosted in pillar website, that contains its details and conta
 <strong>Features</strong>
 
 1. Allowed webspaces to include multiple websites
+
 2. Added custom artisan command
 <pre>
 php artisan db:refactor --class=ClassNameOfRefactorClass
@@ -20,6 +21,8 @@ php artisan db:refactor --class=ClassNameOfRefactorClass
 4. Ability to export records based on webspace, or websites.
 
 5. Ability to indicate the access mode provided for webspace. The default is web access only.
+
+6. Improved history auto-generation.
 
 <strong>Bug Fix</strong>
 

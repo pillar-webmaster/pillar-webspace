@@ -105,7 +105,5 @@ class AccessController extends Controller
         else{
             return response()->json(['access_id' => $accessObj->id, 'name' => $accessObj->name], "500");
         }
-
-        
     }
 }
