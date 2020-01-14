@@ -36,7 +36,7 @@
                 @hasanyrole("super-admin|admin")
                 <div class="row">
                   <div class="col-12 text-right">
-                    <a href="{{ route('owner.add') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('owner.add') }}" class="btn btn-sm btn-warning">
                       <i class="material-icons">control_point</i>&nbsp;{{ __('Add owner') }}
                     </a>
                   </div>
