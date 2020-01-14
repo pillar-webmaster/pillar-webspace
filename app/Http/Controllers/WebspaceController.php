@@ -30,11 +30,12 @@ class WebspaceController extends Controller
 
     public function add(Mode $mode, SupportLevel $level){
         //$platforms = Platform::active()->get();
-        $owners = Owner::active()->get();
+        $owners = Owner::active()->orderBy('name','asc')->get();
         $modes = $mode->all('mode');
         $services = $level->all('support_level');
+        $accesses = Access::active()->orderBy('name','asc')->get();
 
-        return view('webspace.add', compact( 'modes', 'services', 'owners' ) );
+        return view('webspace.add', compact( 'modes', 'services', 'owners', 'accesses' ) );
     }
 
     public function create(WebspaceRequest $request){
@@ -50,6 +51,9 @@ class WebspaceController extends Controller
             "description" => $request->input('description'),
             "mode" => $request->input('mode')
           ]);
+
+        $accesses = Access::find($request->input('access'));
+        $access_webspace = $webspace->accesses()->attach($accesses);
 
         $owners = Owner::find($request->input('owner'));
         $owner_webspace = $webspace->owners()->attach($owners);
