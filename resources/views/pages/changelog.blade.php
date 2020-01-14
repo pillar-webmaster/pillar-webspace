@@ -57,14 +57,23 @@
                       </p>
                       <div class="content">
                         <h4>Changelog</h4>
-                        <strong>v-1.1.0 Minor updates</strong>
+                        <strong>v-1.1.0 Major updates</strong>
+                        <ul>
+                          <li>Allowed webspaces to include multiple websites</li>
+                          <li>Added custom artisan command for migrating current database schema to new schema.</li>
+                          <li>Converted all table list to use DataTables, allowed sorting of columns and search.</li>
+                          <li>Ability to export records based on webspace, or websites.</li>
+                          <li>Ability to indicate the access mode provided for webspace. The default is web access only.</li>
+                          <li>Improved history auto-generation.</li>
+                          <li>Minor fixes for sorting select items.</li>
+                        </ul>
+                        <strong>v-1.0.1 Minor updates</strong>
                         <ul>
                           <li>Fixed error in creation and import of webspaces having tilde(~) in URI</li>
                           <li>Updates the dashboard Platforms chart to display platform only without versions</li>
                         </ul>
-                        <strong>v-1.0.0</strong>
+                        <strong>v-1.0.0 Initial release</strong>
                         <ul>
-                          <li>Initial release</li>
                           <li>CRUD for Webspace, Owner, Designation, Department and Platform</li>
                           <li>Ability to add history, and media to an existing webspace</li>
                           <li>Dashboard widgets displaying statistics in details and in charts</li>
@@ -82,9 +91,9 @@
                           <li>Ability for admin and super administrator to publish announcement, and blogs</li>
                           <li>Ability for super administrator to define and manage user roles and groups</li>
                           <li>Revisions to add automatically in webspace history</li>
-                          <li>Search, filtering and reordering of list per object</li>
+                          <li><strike>Search, filtering and reordering of list per object</strike></li>
                           <li>Create, management of categorization and linking with webspaces [Pillar, Centers, People, Group, Department, Lab]</li>
-                          <li>Create a separate entity for websites that is linked to webspaces. A webspace can contain multiple websites.</li>
+                          <li><strike>Create a separate entity for websites that is linked to webspaces. A webspace can contain multiple websites.</strike></li>
                         </ul>
                       </div>
                     </div>
