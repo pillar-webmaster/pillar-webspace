@@ -99,15 +99,6 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <nav aria-label="Designation pages">
-                  <div class="pull-right">
-                  {{ $owners->links() }}
-                  </div>
-                </nav>
-              </div>
-            </div>
           </div>
         </div>
       </div>

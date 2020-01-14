@@ -15,16 +15,15 @@ class OwnerController extends Controller
 
         $owners = Owner::active()
             ->orderBy('name','ASC')
-            ->paginate(20);
-        $i = 1 + ($owners->currentPage() -1 ) * 20;
+            ->get();
 
-        return view('owner.list', compact('owners','i'));
+        return view('owner.list', compact('owners'));
     }
 
     public function add(){
 
-        $departments = Department::active()->get();
-        $designations = Designation::active()->get();
+        $departments = Department::active()->orderBy('name','ASC')->get();
+        $designations = Designation::active()->orderBy('name','ASC')->get();
         return view('owner.add', compact('departments', 'designations'));
     }
 
@@ -47,8 +46,8 @@ class OwnerController extends Controller
 
     public function edit( $id ){
         $owner = Owner::findOrFail($id);
-        $departments = Department::active()->get();
-        $designations = Designation::active()->get();
+        $departments = Department::active()->orderBy('name','ASC')->get();
+        $designations = Designation::active()->orderBy('name','ASC')->get();
         return view('owner.edit', compact('departments', 'designations', 'owner'));
     }
 
