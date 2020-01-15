@@ -103,7 +103,7 @@ class WebspaceImport implements OnEachRow, WithHeadingRow
             ]);
 
             // create webspace statusable
-            $description_statusable = $webspace->description_status()->create([
+            $description_statusable = $webspace->description_status()->firstOrCreate([
                 "description" => $the_data['description'],
                 "mode" => array_search($the_data['status'],$mode->all('mode'))
               ]);
