@@ -61,9 +61,9 @@ class OwnerController extends Controller
         $owner->update();
 
         if ( $owner->id )
-            return redirect()->route('owner.list')->with("success", "Owner '" . $owner->name . "' successfully updated");
+            return redirect()->back()->with("success", "Owner '" . $owner->name . "' successfully updated");
         else
-            return redirect()->route('owner.list')->with("error", "There was a problem processing your request");
+            return redirect()->back()->with("error", "There was a problem processing your request");
     }
 
     public function remove($id){

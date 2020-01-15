@@ -125,9 +125,9 @@ class WebspaceController extends Controller
           ]);
 
         if ( $webspace->id )
-            return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully updated");
+            return redirect()->back()->with("success", "Webspace '" . $webspace->name . "' successfully updated");
         else
-            return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
+            return redirect()->back()->with("error", "There was a problem processing your request");
     }
 
     public function remove($id){

@@ -16,6 +16,26 @@
                 <a href="{{ route('designation.list') }}" class="btn btn-sm btn-warning">{{ __('Back to list') }}</a>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12">
+                @if(session()->get('success'))
+                  <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Success - </b> {{ session()->get('success') }}</span>
+                </div>
+                @endif
+                @if(session()->get('error'))
+                  <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Error - </b> {{ session()->get('error') }}</span>
+                </div>
+                @endif
+              </div>
+            </div>
             <form method="POST" action="{{ route('designation.update', ['id' => $designation->id]) }}">
               @csrf
               <div class="row">

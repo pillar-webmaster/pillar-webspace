@@ -49,9 +49,9 @@ class PlatformController extends Controller
         $platform->update();
 
         if ( $platform->id )
-            return redirect()->route('platform.list')->with("success", "Platform '" . $platform->name . "' successfully updated");
+            return redirect()->back()->with("success", "Platform '" . $platform->name . "' successfully updated");
         else
-            return redirect()->route('platform.list')->with("error", "There was a problem processing your request");
+            return redirect()->back()->with("error", "There was a problem processing your request");
     }
 
     public function remove($id){

@@ -45,9 +45,9 @@ class DepartmentController extends Controller
         $department->update();
 
         if ( $department->id )
-            return redirect()->route('department.list')->with("success", "'" . $department->name . "' successfully updated");
+            return redirect()->back()->with("success", "'" . $department->name . "' successfully updated");
         else
-            return redirect()->route('department.list')->with("error", "There was a problem processing your request");
+            return redirect()->back()->with("error", "There was a problem processing your request");
     }
 
     public function remove($id){

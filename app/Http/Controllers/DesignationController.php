@@ -46,9 +46,9 @@ class DesignationController extends Controller
         $designation->update();
 
         if ( $designation->id )
-            return redirect()->route('designation.list')->with("success", "'" .  $designation->name . "' successfully updated");
+            return redirect()->back()->with("success", "'" .  $designation->name . "' successfully updated");
         else
-            return redirect()->route('designation.list')->with("error", "There was a problem processing your request");
+            return redirect()->back()->with("error", "There was a problem processing your request");
     }
 
     public function remove($id){
