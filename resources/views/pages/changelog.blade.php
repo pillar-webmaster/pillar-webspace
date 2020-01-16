@@ -84,16 +84,18 @@
                       <div class="content">
                         <h4>Development</h4>
                         <ul>
-                          <li>Ability add server details and to link webspaces to servers that hosted it</li>
+                          <li>Ability to add server details and to link webspaces to servers that hosted it</li>
                           <li>Ability to add CHROOT environment and link webspaces to it</li>
                           <li>Ability to export webspaces to Excel file</li>
                           <li>Ability for super-administrator to change settings of the site, eg, main login photo, system color, labels, etc</li>
                           <li>Ability for admin and super administrator to publish announcement, and blogs</li>
                           <li>Ability for super administrator to define and manage user roles and groups</li>
-                          <li>Revisions to add automatically in webspace history</li>
+                          <li><strong>PARTIAL</strong>Revisions to add automatically in webspace history</li>
                           <li><strike>Search, filtering and reordering of list per object</strike></li>
                           <li>Create, management of categorization and linking with webspaces [Pillar, Centers, People, Group, Department, Lab]</li>
                           <li><strike>Create a separate entity for websites that is linked to webspaces. A webspace can contain multiple websites.</strike></li>
+                          <li>Ability to set reminders for each webspace, and the system to send notification to the admin and owner via email</li>
+                          <li>Ability to auto-update the platform used by the websites in a webspace</a>
                         </ul>
                       </div>
                     </div>
