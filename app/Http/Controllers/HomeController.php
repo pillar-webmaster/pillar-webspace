@@ -34,16 +34,24 @@ class HomeController extends Controller
             ->orderBy('created_at','DESC')
             ->get();
 
-        $last_30_days_webspace = Webspace::active()
+        /*$last_30_days_webspace = Webspace::active()
             ->where('created_at', '>=', Carbon::now()->subDays(30))
-            ->get();
+            ->get();*/
 
         $active_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
             $query->active()->where('mode', 0);
         })->get();
 
+        $inactive_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
+            $query->active()->where('mode', 2);
+        })->get();
+
         $disabled_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
             $query->active()->where('mode', 1);
+        })->get();
+
+        $deleted_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
+            $query->active()->where('mode', 3);
         })->get();
 
         $platforms = Platform::active()
@@ -58,7 +66,7 @@ class HomeController extends Controller
         $users = User::all();
 
         return view('dashboard', compact(
-            'the_webspaces','last_30_days_webspace', 'active_webspaces',
+            'the_webspaces', 'active_webspaces', 'inactive_webspaces', 'deleted_webspaces',
             'disabled_webspaces','platforms','owners','departments','users'
         ));
     }

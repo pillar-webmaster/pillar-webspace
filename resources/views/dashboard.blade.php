@@ -17,33 +17,16 @@
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">cloud</i>
-              </div>
-              <p class="card-category">Total Webspace</p>
-              <h3 class="card-title">{{$the_webspaces->count()}}</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-info">view_headline</i>
-                <a href="{{route('webspace.list')}}">View Webspaces</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">store</i>
+                <i class="material-icons">cloud_queue</i>
               </div>
-              <p class="card-category">Created</p>
-              <h3 class="card-title">{{count($last_30_days_webspace)}}</h3>
+              <p class="card-category">Active</p>
+              <h3 class="card-title">{{count($active_webspaces)}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">date_range</i> Created last 30 days
+                <i class="material-icons text-info">local_offer</i> Online webspaces
               </div>
             </div>
           </div>
@@ -52,14 +35,14 @@
           <div class="card card-stats">
             <div class="card-header card-header-primary card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">info_outline</i>
+                <i class="material-icons">visibility_off</i>
               </div>
-              <p class="card-category">Active</p>
-              <h3 class="card-title">{{count($active_webspaces)}}</h3>
+              <p class="card-category">Inactive</p>
+              <h3 class="card-title">{{count($inactive_webspaces)}}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">local_offer</i> Online webspaces
+                <i class="material-icons text-info">date_range</i> Unmaintained webspaces
               </div>
             </div>
           </div>
@@ -75,7 +58,23 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">update</i> Abandoned or a Security Risk
+                <i class="material-icons text-info">update</i> Abandoned or a Security Risk
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">cloud_off</i>
+              </div>
+              <p class="card-category">Deleted</p>
+              <h3 class="card-title">{{count($deleted_webspaces)}}</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-info">view_headline</i> Discontinued webspaces
               </div>
             </div>
           </div>
@@ -325,7 +324,7 @@
           left: 0
         }
       }
-      
+
       var webspacePerMonthChart = new Chartist.Line('#webspacesPerMonth', dataWebspacesPerMonth, optionsWebspacePerMonthChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
