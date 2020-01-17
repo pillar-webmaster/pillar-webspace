@@ -226,6 +226,11 @@
                     </td>
                   </tr>
                   <tr>
+                    <td>Total Active Websites</td>
+                    <td>{{$websitesFromActiveWebspace->count()}}</td>
+                    <td></td>
+                  </tr>
+                  <tr>
                     <td>Total Owners</td>
                     <td>{{$owners->count()}}</td>
                     <td>
@@ -248,15 +253,6 @@
                     <td>{{$departments->count()}}</td>
                     <td>
                       <a href="{{route('department.list')}}">
-                        <i class="material-icons">visibility</i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Total Users</td>
-                    <td>{{$users->count()}}</td>
-                    <td>
-                      <a href="{{route('user.index')}}">
                         <i class="material-icons">visibility</i>
                       </a>
                     </td>

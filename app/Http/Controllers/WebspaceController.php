@@ -135,6 +135,13 @@ class WebspaceController extends Controller
         // set status to deleted (soft delete)
         $webspace->status = 0;
         $webspace->update();
+
+        // soft-delete the website associated
+        foreach( $webspace->websites()->get() as $websites ){
+            $websites->status = 0;
+            $websites->update();
+        }
+
         /**
          * Update 13 January, 2020
          * For record purposes, do not remove the link between the owner of the webspace

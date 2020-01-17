@@ -65,9 +65,11 @@ class HomeController extends Controller
 
         $users = User::all();
 
+        $websitesFromActiveWebspace = $this->getWebsitesFromActiveWebspace();
+
         return view('dashboard', compact(
             'the_webspaces', 'active_webspaces', 'inactive_webspaces', 'deleted_webspaces',
-            'disabled_webspaces','platforms','owners','departments','users'
+            'disabled_webspaces','platforms','owners','departments','users', 'websitesFromActiveWebspace'
         ));
     }
 
@@ -135,5 +137,25 @@ class HomeController extends Controller
 
     public function changelog(){
         return view('pages.changelog');
+    }
+
+    private function getWebsitesFromActiveWebspace(){
+
+        $active = collect();
+
+        // get all active webspace
+        $active_webspaces = ModelHasDescriptionStatus::whereHasMorph('model', [Webspace::class], function ($query) {
+            $query->active()->where([ 'mode' => 0 ]);
+        })->get();
+
+        // get the websites for each active webspaces
+        foreach ( $active_webspaces as $active_webspace ) {
+            $webspace = Webspace::findOrFail($active_webspace->model_id);
+            foreach($webspace->websites as $website){
+                $active->add($website);
+            }
+        }
+
+        return $active;
     }
 }
