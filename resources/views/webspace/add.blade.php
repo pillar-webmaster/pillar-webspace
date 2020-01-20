@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'webspace_add', 'titlePage' => __('Owner')])
+@extends('layouts.app', ['activePage' => 'webspace_add', 'titlePage' => __('New Webspace')])
 
 @section('content')
 <div class="content">

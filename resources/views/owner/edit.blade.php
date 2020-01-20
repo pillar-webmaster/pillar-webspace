@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'owner_list', 'titlePage' => __('Owner')])
+@extends('layouts.app', ['activePage' => 'owner_list', 'titlePage' => __('Edit Owner')])
 
 @section('content')
 <div class="content">
