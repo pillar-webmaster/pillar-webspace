@@ -39,7 +39,12 @@ class WebsiteController extends Controller
         $history = $webspace->histories()->create(['description' => "Website " . $website->url . " added by " . auth()->user()->name, ]);
 
         if ( $website->id )
-            return response()->json(['website_id' => $website->id,'url' => $website->url, 'platform' => $website->platform->name . " " . $website->platform->version], "200");
+            return response()->json([
+                'website_id' => $website->id,
+                'url' => $website->url,
+                'platform' => $website->platform->name . " " . $website->platform->version,
+                'platform_id' => $website->platform->id
+            ], "200");
 
     }
 
@@ -126,5 +131,16 @@ class WebsiteController extends Controller
         $history = $webspace->histories()->create(
             ['description' => "Website {$the_url} removed by " . auth()->user()->name, ]
         );
+    }
+
+    public function get_platform_id(Request $request){
+
+        $request->validate([
+            'website_id' => 'required|digits_between:1,10',
+        ]);
+
+        $platform_id = Website::find($request->input('website_id'));
+
+        return $platform_id->platform->id;
     }
 }

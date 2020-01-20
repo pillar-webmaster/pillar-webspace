@@ -167,7 +167,7 @@
                       </td>
                       <td>
                         {{$website->platform->name}}&nbsp;{{$website->platform->version}}
-                        <input type="hidden" value="{{$website->platform->id}}" name="platform_id" />
+                        <!--<input type="hidden" value="{{$website->platform->id}}" name="platform_id" />-->
                       </td>
                     </tr>
                   @endforeach
@@ -379,11 +379,20 @@
         if ( buttonApi.text() == "Edit"){
           var $the_form_id = $("[id^=altEditor-modal]").find("form").attr("id");
           var $the_select_id = $("#" + $the_form_id).find("select").attr("id");
-          $selected = $("#DataTables_Table_1 tr.selected td").eq(2).find("input[type=hidden]").val();
-          $("#" + $the_select_id + " option").each(function(){
-            if ($(this).val() == $selected ){
-              $(this).prop("selected",true);
-            }
+          //$selected = $("#DataTables_Table_1 tr.selected td").eq(2).find("input[type=hidden]").val();
+
+          $.ajax({
+              url: '{{route("website.get_platform_id")}}',
+              type: 'POST',
+              data: {'website_id':$("#DataTables_Table_1 tr.selected td").eq(0).html()},
+              success: function($data){
+                $("#" + $the_select_id + " option").each(function(){
+                  if ($(this).val() == $data ){
+                    $(this).prop("selected",true);
+                  }
+                });
+              },
+              error: function(data){}
           });
         }
       });

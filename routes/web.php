@@ -102,6 +102,7 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
 	Route::post('owner/remove/{id}','OwnerController@remove')->name('owner.remove');
 	Route::post('platform/remove/{id}','PlatformController@remove')->name('platform.remove');
 	Route::post('website/remove','WebsiteController@remove')->name('website.remove');
+	Route::post('website/get_platform_id','WebsiteController@get_platform_id')->name('website.get_platform_id');
 });
 
 Route::group(['middleware' => ['role:super-admin']], function () {
