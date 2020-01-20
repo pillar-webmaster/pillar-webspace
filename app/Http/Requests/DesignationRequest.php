@@ -26,7 +26,7 @@ class DesignationRequest extends FormRequest
         $this->sanitize();
 
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
             // and so on
         ];
     }

@@ -26,7 +26,7 @@ class OwnerRequest extends FormRequest
         $this->sanitize();
 
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
             'contact' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email'],
             'department_id' => ['required', 'integer'],

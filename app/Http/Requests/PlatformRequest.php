@@ -26,7 +26,7 @@ class PlatformRequest extends FormRequest
         $this->sanitize();
 
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
             'version' => ['required', 'string', 'max:255'],
             'requirements' => ['nullable','string', 'max:2000'],
         ];
