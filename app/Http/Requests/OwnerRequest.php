@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OwnerRequest extends FormRequest
 {
@@ -24,9 +25,15 @@ class OwnerRequest extends FormRequest
     public function rules()
     {
         $this->sanitize();
-
+        //dd($this->id);
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/',
+                Rule::unique('owners')->where(function($query){
+                    return $query->where('status',1)
+                        ->where('id', '<>', $this->id)
+                    ;
+                }),
+            ],
             'contact' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email'],
             'department_id' => ['required', 'integer'],

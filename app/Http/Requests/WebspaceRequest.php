@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class WebspaceRequest extends FormRequest
 {
@@ -29,7 +30,13 @@ class WebspaceRequest extends FormRequest
         $regex = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
 
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/',
+                Rule::unique('webspaces')->where(function($query){
+                    return $query->where('status',1)
+                        ->where('id', '<>', $this->id)
+                    ;
+                }),
+            ],
             //'url' => ['required', 'regex:'.$regex, 'max:255'],
             'mode' => ['required', 'integer'],
             'service' => ['required', 'integer'],

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DesignationRequest extends FormRequest
 {
@@ -26,7 +27,13 @@ class DesignationRequest extends FormRequest
         $this->sanitize();
 
         return [
-            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/'],
+            'name' => ['required', 'max:255', 'regex:/^[a-zA-Z0-9_\-,;\(\)\s]+$/',
+                Rule::unique('designations')->where(function($query){
+                    return $query->where('status',1)
+                        ->where('id', '<>', $this->id)
+                    ;
+                }),
+            ],
             // and so on
         ];
     }
