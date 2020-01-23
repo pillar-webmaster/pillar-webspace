@@ -62,8 +62,7 @@ class WebspaceController extends Controller
         $history = $webspace->histories()->create(['description' => "Profile created by " . auth()->user()->name, ]);
 
         if ( $webspace->id )
-            // I prefer to edit it directly to input websites
-            return redirect()->route('webspace.list')->with("success", "Webspace '" . $webspace->name . "' successfully added");
+            return redirect()->route('webspace.edit', [ 'id' => $webspace->id ])->with("success", "Webspace '" . $webspace->name . "' successfully added");
         else
             return redirect()->route('webspace.list')->with("error", "There was a problem processing your request");
     }

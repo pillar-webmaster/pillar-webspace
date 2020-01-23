@@ -26,7 +26,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons text-info">local_offer</i> Online webspaces
+                <i class="material-icons text-info">local_offer</i> Maintained webspaces
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">Platforms</h4>
-              <p class="card-category">Statistics per webspace</p>
+              <p class="card-category">Statistics for online websites</p>
             </div>
             <div class="card-footer">
               <div class="stats">
