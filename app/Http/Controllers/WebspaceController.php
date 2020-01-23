@@ -20,12 +20,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class WebspaceController extends Controller
 {
     //
-    public function list(){
+    public function list(Mode $mode){
         $webspaces = Webspace::active()
             ->orderBy('name','ASC')->get();
         $i = 1;
 
-        return view('webspace.list', compact('webspaces','i'));
+        return view('webspace.list', compact('webspaces', 'mode'));
     }
 
     public function add(Mode $mode, SupportLevel $level){

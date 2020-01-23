@@ -67,3 +67,6 @@ table.dataTable>tbody>tr.selected{background-color:#ff9800;}
 table.access tr td:first-child, table.access tr th:first-child { display: none; }
 .btn.btn-secondary {background-color: #DCDCDC};
 .btn.btn-secondary:hover {background-color: #A9A9A9 !important;}
+tr.inactive {background-color: #c9a0ff;}
+tr.disabled {background-color: #ed2939;}
+tr.deleted  {background-color: #ff8c00;}

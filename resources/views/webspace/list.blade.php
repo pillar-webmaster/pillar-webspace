@@ -47,13 +47,14 @@
                     <table class="table webspace column-2">
                       <thead class=" text-primary">
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Owner/s</th>
                         <th></th>
                       </thead>
                       <tbody>
                         @if ($webspaces->count())
                             @foreach($webspaces as $webspace)
-                              <tr>
+                              <tr class="{{strtolower($mode->get_webspace_mode($webspace->description_status->mode))}}">
                                 <td>
                                   @hasanyrole("super-admin|admin|editor")
                                     <a rel="tooltip" title="Edit" class="" href="{{route('webspace.edit',['id' => $webspace->id])}}" >
@@ -63,6 +64,7 @@
                                     </a>
                                   @endhasanyrole
                                 </td>
+                                <td>{{$mode->get_webspace_mode($webspace->description_status->mode)}}</td>
                                 <td>{{$webspace->owners->pluck('name')->implode(', ')}}</td>
                                 <td>
                                   <a rel="tooltip" title="Click to view details" class="btn btn-primary btn-link btn-sm view-details" href="" data-toggle="modal" data-target="#wrms-modal" id="{{$webspace->id}}">
@@ -87,6 +89,7 @@
                           @endif
                       </tbody>
                       <tfoot>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -144,8 +147,10 @@
       } );
       $('.table').DataTable({
         "columnDefs": [
-          { "orderable": false, "targets": [2] },
-          { "searchable": false, "targets": [2] }
+          { "orderable": false, "targets": [3] },
+          { "searchable": false, "targets": [3] },
+          { "width": "10%", "targets": [1] },
+          { "width": "25%", "targets": [0,2,3] },
         ]
       });
     });
