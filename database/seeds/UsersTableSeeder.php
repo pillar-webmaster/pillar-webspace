@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Aaron Angelo Vicuna',
             'email' => 'arjieangelsences@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('logan9c20'),
+            'password' => bcrypt('user123'),
             'created_at' => now(),
             'updated_at' => now()
         ]);
