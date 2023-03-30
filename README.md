@@ -1,4 +1,4 @@
-# pillar-webspace
+# pillar-webspace aka WARMS
 Lists of webspaces hosted in pillar website, that contains its details and contacts
 
 <h4>Version 1.1.0</h4>
